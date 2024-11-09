@@ -40,14 +40,8 @@ public class Skill {
     @NotBlank(message = "Tên kĩ năng không được để trống")
     private String name;
 
-    @Column(columnDefinition = "MEDIUMTEXT")
-    private String description;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
-    private Instant createdAt;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
-    private Instant updatedAt;
+    // @Column(columnDefinition = "MEDIUMTEXT")
+    // private String description;
 
     private boolean active;
 
@@ -60,16 +54,5 @@ public class Skill {
 
     @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)
     private List<Course> courses;
-
-    @PrePersist
-    public void handleBeforeCreate() {
-        // gán thời gian hiện tại
-        this.createdAt = Instant.now();
-    }
-
-    @PreUpdate
-    public void handleBeforeUpdate() {
-        this.updatedAt = Instant.now();
-    }
 
 }

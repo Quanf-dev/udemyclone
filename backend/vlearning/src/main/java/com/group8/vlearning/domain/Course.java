@@ -49,23 +49,28 @@ public class Course {
 
     private String image;
 
-    @ManyToOne
-    @JoinColumn(name = "field_id")
-    private Field field;
-
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "courses_skills", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
-    private List<Skill> skills;
-
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<Chapter> chapters;
-
     @ManyToOne()
     @JoinColumn(name = "own_by")
     private User ownBy;
 
     @Enumerated(EnumType.STRING)
     private CourseApproveEnum status;
+
+    @ManyToOne
+    @JoinColumn(name = "field_id")
+    private Field field;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Chapter> chapters;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "courses_skills", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    private List<Skill> skills;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
+    private boolean active;
 
     @ManyToMany(mappedBy = "purchasedCourses", fetch = FetchType.LAZY)
     // @JsonIgnoreProperties(value = { "skills", "purchasedUser" })
@@ -74,11 +79,6 @@ public class Course {
     @ManyToMany(mappedBy = "favoriteCourses", fetch = FetchType.LAZY)
     // @JsonIgnoreProperties(value = { "skills", "purchasedUser" })
     private List<User> favoriteUser;
-
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<Comment> comments;
-
-    private boolean active;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     private Instant createdAt;
