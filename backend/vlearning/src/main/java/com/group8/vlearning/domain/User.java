@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group8.vlearning.util.constant.RoleEnum;
 
 import jakarta.persistence.CascadeType;
@@ -18,7 +17,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
@@ -51,10 +49,6 @@ public class User {
     @NotBlank(message = "Role không được để trống")
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
-
-    private String avatar;
-
-    private String background;
 
     @OneToOne(cascade = CascadeType.ALL)
     // chỉ rõ rằng cột profile_id trong bảng User trỏ đến cột id của bảng Profile

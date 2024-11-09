@@ -33,6 +33,10 @@ public class UserProfile {
     @Column(columnDefinition = "MEDIUMTEXT")
     private String bio;
 
+    private String avatar;
+
+    private String background;
+
     private String address;
 
     private String phone;
