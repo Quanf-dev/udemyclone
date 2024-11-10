@@ -60,7 +60,7 @@ public class Comment {
     private List<CommentReaction> reactions;
 
     @ManyToOne
-    @JoinColumn(name = "parent_id")
+    @JoinColumn(name = "reply_to")
     private Comment parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
