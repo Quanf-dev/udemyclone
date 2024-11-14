@@ -6,6 +6,7 @@ import javax.crypto.spec.SecretKeySpec;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -83,12 +84,21 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http,
+            CustomAuthenticationEntryPoint customAuthenticationEntryPoint) throws Exception {
 
         http
                 .csrf(csrf -> csrf.disable())
 
-                .authorizeHttpRequests(authz -> authz.anyRequest().permitAll())
+                .authorizeHttpRequests(authz -> authz.anyRequest().authenticated())
+
+                // cấu hình jwt
+                .oauth2ResourceServer((oauth2) -> oauth2
+                        // tự động thêm BearerTokenAuthenticationFilter, nghĩa là khi truy cập api cần
+                        // jwt(trừ permitall)
+                        .jwt(Customizer.withDefaults())
+                        .authenticationEntryPoint(customAuthenticationEntryPoint)) // 401, không truyền, truyền sai lên
+                                                                                   // token
 
                 .formLogin(f -> f.disable())
 
