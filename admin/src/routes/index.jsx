@@ -5,11 +5,13 @@ import UserPage from "./../pages/UserPage/index";
 import PrizePage from "./../pages/PrizePage/index";
 import CoursePage from "./../pages/CoursePage/index";
 import MainLayout from "../layouts/MainLayout";
+import LoginPage from "../pages/LoginPage";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="login" element={<LoginPage />} />
         <Route path="/" element={<MainLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="user" element={<UserPage />} />
