@@ -3,6 +3,10 @@
 
 Thành viên:
 - Nguyễn Hữu Thắng 0856
+- Nguyễn Văn Hoàng 9007
+- Trần Duy Long 3627
+- Đỗ Xuân Anh 1525
+- Hoàng Bảo Quân
 Về dự án: 
 - Tên : Vlearning
 - Desc: Là một website học tập trực tuyến (e-learning platform) dựa trên udemy
