@@ -6,9 +6,16 @@ import { Outlet } from "react-router-dom";
 
 export default function MainLayout({ children }) {
   return (
-    <Flex gap={50} style={{ minHeight: "100vh" }}>
+    <Flex
+      gap={40}
+      style={{
+        minHeight: "100vh",
+        minWidth: "100vw",
+        paddingTop: "20px",
+      }}
+    >
       <SideMenu />
-      <Flex vertical>
+      <Flex vertical style={{ flex: 1 }}>
         <Header />
         <Outlet />
       </Flex>

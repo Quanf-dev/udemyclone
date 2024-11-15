@@ -45,9 +45,7 @@ const SideMenu = () => {
     <Flex
       vertical
       gap={30}
-      className="contain"
       style={{
-        paddingTop: "20px",
         width: "250px",
       }}
     >
