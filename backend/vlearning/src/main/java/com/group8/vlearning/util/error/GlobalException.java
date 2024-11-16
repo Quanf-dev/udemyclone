@@ -32,7 +32,18 @@ public class GlobalException {
         res.setMessage(errors.size() > 1 ? errors : errors.get(0));
 
         res.setStatus(HttpStatus.BAD_REQUEST.value());
-        res.setError("Validate exception!");
+        res.setError("Validate exception.");
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ResponseDTO<Object>> customExceptionHandler(CustomException ex) {
+        ResponseDTO<Object> res = new ResponseDTO<>();
+
+        res.setStatus(HttpStatus.BAD_REQUEST.value());
+        res.setError("{" + ex.getMessage() + "} " + "exception.");
+        res.setMessage(ex.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(res);
     }
