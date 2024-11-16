@@ -39,9 +39,9 @@ public class Field {
     private List<Course> courses;
 
     @OneToMany(mappedBy = "field", fetch = FetchType.LAZY)
-    @JsonIgnore
     private List<Skill> skills;
 
     @ManyToMany(mappedBy = "fields", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<User> users;
 }

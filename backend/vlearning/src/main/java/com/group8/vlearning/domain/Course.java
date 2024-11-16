@@ -4,6 +4,7 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group8.vlearning.util.constant.CourseApproveEnum;
 
@@ -51,33 +52,40 @@ public class Course {
 
     @ManyToOne()
     @JoinColumn(name = "own_by")
+    @JsonIgnoreProperties(value = { "password", "role", "fields", "skills", "ownCourses",
+            "purchasedCourses", "favoriteCourses", "voucherProgresses", "achievementProgresses", "comments",
+            "reactions", "userNotifications", "followings", "followers", "active", "protect", "createdAt",
+            "updatedAt" })
     private User ownBy;
 
     @Enumerated(EnumType.STRING)
     private CourseApproveEnum status;
 
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    private List<Chapter> chapters;
+
     @ManyToOne
     @JoinColumn(name = "field_id")
     private Field field;
-
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private List<Chapter> chapters;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "courses_skills", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
     private List<Skill> skills;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Comment> comments;
 
     private boolean active;
 
     @ManyToMany(mappedBy = "purchasedCourses", fetch = FetchType.LAZY)
     // @JsonIgnoreProperties(value = { "skills", "purchasedUser" })
+    @JsonIgnore
     private List<User> purchasedUser;
 
     @ManyToMany(mappedBy = "favoriteCourses", fetch = FetchType.LAZY)
     // @JsonIgnoreProperties(value = { "skills", "purchasedUser" })
+    @JsonIgnore
     private List<User> favoriteUser;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
