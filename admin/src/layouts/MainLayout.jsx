@@ -9,8 +9,8 @@ export default function MainLayout({ children }) {
     <Flex
       gap={40}
       style={{
-        minHeight: "100vh",
-        minWidth: "100vw",
+        Height: "100vh",
+        Width: "100vw",
         paddingTop: "20px",
       }}
     >
