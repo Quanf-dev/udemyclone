@@ -50,6 +50,7 @@ public class Skill {
     private Field field;
 
     @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<User> users;
 
     @ManyToMany(mappedBy = "skills", fetch = FetchType.LAZY)

@@ -90,7 +90,7 @@ public class SecurityConfiguration {
         http
                 .csrf(csrf -> csrf.disable())
 
-                .authorizeHttpRequests(authz -> authz.anyRequest().authenticated())
+                .authorizeHttpRequests(authz -> authz.anyRequest().permitAll())
 
                 // cấu hình jwt
                 .oauth2ResourceServer((oauth2) -> oauth2
