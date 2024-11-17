@@ -3,7 +3,9 @@ package com.group8.vlearning.domain;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -36,9 +38,11 @@ public class Field {
     private boolean active;
 
     @OneToMany(mappedBy = "field", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Course> courses;
 
-    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "field", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonIgnoreProperties(value = { "field", "users", "courses" })
     private List<Skill> skills;
 
     @ManyToMany(mappedBy = "fields", fetch = FetchType.LAZY)
