@@ -1,5 +1,4 @@
 import React from "react";
-import MainLayout from "../../layouts/MainLayout";
 import { Col, Flex, Row } from "antd";
 import DashboardCard from "./../../components/Card/DashboardCard";
 import {
@@ -9,6 +8,9 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import "./styles.less";
+import DashboardChart from "./DashboardChart";
+
+
 
 export default function DashboardPage() {
   const data1 = [
@@ -45,6 +47,7 @@ export default function DashboardPage() {
           {data1.map((item, index) => (
             <DashboardCard key={index} data={item} />
           ))}
+          <DashboardChart />
         </Flex>
       </Col>
     </Row>
