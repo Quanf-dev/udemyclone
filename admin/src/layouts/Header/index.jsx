@@ -1,6 +1,6 @@
-import React from "react";
-import { Badge, Col, Row, Space, Typography } from "antd";
-import { useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { Badge, Col, Drawer, Row, Space, Typography } from "antd";
+import { Link, useLocation } from "react-router-dom";
 import {
   BellOutlined,
   SearchOutlined,
@@ -20,8 +20,13 @@ import "./styles.less";
 
 const { Text, Title } = Typography;
 
+const { Search } = Input;
+
+
 export default function Header() {
   const location = useLocation();
+  const [NoficationOpen, setNoficationOpen] = useState(false);
+  const [SettingOpen, setSettingOpen] = useState(false);
 
   // Làm sạch đường dẫn bằng cách xóa tất cả các dấu gạch chéo
   const cleanedPathname = location.pathname.replace(/\//g, "");
@@ -52,23 +57,32 @@ export default function Header() {
         }}
       >
         {/* Trường tìm kiếm */}
-        <Input
+        <Search
           size="large"
           placeholder="Type Here"
-          prefix={<SearchOutlined />}
           style={{ width: "200px" }}
         />
         {/* Hồ sơ người dùng và liên kết đăng nhập */}
         <Space>
           <UserOutlined />
-          <Text>Sign in</Text>
+          <Link to="/login" style={{fontSize: "1rem", color:"black"}}>Sign in</Link>
         </Space>
         {/* Icon cài đặt */}
-        <SettingOutlined />
+        <SettingOutlined onClick={() => setSettingOpen(true)}/>
         {/* Icon thông báo với huy hiệu */}
         <Badge count={5}>
-          <BellOutlined style={{ fontSize: "18px" }} />
+          <BellOutlined style={{ fontSize: "18px" }} onClick={() => setNoficationOpen(true)} />
         </Badge>
+        <Drawer title="Nofication" onClose={() => setNoficationOpen(false)} open={NoficationOpen}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
+        <Drawer title="Setting" onClose={() => setSettingOpen(false)} open={SettingOpen}>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+        <p>Some contents...</p>
+      </Drawer>
       </Col>
     </Row>
   );
