@@ -1,5 +1,7 @@
 package com.group8.vlearning.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,5 +29,17 @@ public class SkillService {
         }
 
         return this.skillRepository.save(skill);
+    }
+
+    public Skill handleFetchSkill(Long id) {
+        return this.skillRepository.findById(id).isPresent() ? this.skillRepository.findById(id).get() : null;
+    }
+
+    public List<Skill> handleFetchSeveralSkills() {
+        return this.skillRepository.findAll();
+    }
+
+    public void handleDeleteSkill(long id) {
+        this.skillRepository.deleteById(id);
     }
 }
