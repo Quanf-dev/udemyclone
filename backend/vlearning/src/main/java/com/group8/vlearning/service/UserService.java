@@ -45,6 +45,9 @@ public class UserService {
     public void handleDeleteUser(long id) {
         this.userRepository.deleteById(id);
     }
+    public boolean handleUserExists(Long id) {
+        return this.userRepository.existsById(id);
+    }
 
     //  Cập nhật thông tin người dùng
     public User handleUpdateUser(Long id, User updatedUser) {
@@ -80,5 +83,6 @@ public class UserService {
         }
         return false; 
     }
+
     
 }
