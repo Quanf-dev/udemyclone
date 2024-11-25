@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.group8.vlearning.domain.User;
@@ -45,44 +44,5 @@ public class UserService {
     public void handleDeleteUser(long id) {
         this.userRepository.deleteById(id);
     }
-    public boolean handleUserExists(Long id) {
-        return this.userRepository.existsById(id);
-    }
 
-    //  Cập nhật thông tin người dùng
-    public User handleUpdateUser(Long id, User updatedUser) {
-        User existingUser = userRepository.findById(id).orElse(null);
-        if (existingUser != null) {
-            existingUser.setName(updatedUser.getName());
-            existingUser.setEmail(updatedUser.getEmail());
-            existingUser.setPassword(updatedUser.getPassword());
-            existingUser.setActive(updatedUser.isActive());
-            return userRepository.save(existingUser);
-        }
-        return null;
-    }
-     // Kích hoạt hoặc vô hiệu hóa tài khoản
-    public User handleActivateUser(Long id, boolean isActive) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user != null) {
-            user.setActive(isActive);
-            return userRepository.save(user);
-        }
-        return null;
-    }
-     // cập nhật mật khẩu người dùng 
-    public boolean handleChangePassword(Long id, String oldPassword, String newPassword) {
-        User user = userRepository.findById(id).orElse(null);
-        if (user != null) {
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-            if (encoder.matches(oldPassword, user.getPassword())) {
-                user.setPassword(encoder.encode(newPassword));
-                userRepository.save(user);
-                return true; 
-            }
-        }
-        return false; 
-    }
-
-    
 }
