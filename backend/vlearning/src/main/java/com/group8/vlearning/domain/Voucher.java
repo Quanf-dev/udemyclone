@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -51,9 +53,11 @@ public class Voucher {
 
     @ManyToOne
     @JoinColumn(name = "type_id")
+    @JsonIgnoreProperties(value = { "vouchers" })
     private VoucherType type;
 
     @OneToMany(mappedBy = "voucher", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<UserVoucherProgress> progresses;
 
 }
