@@ -1,0 +1,460 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ol {
+  list-style-type: none;
+}
+
+ul {
+  list-style-type: none;
+}
+/* input,
+button,
+textarea,
+select {
+  outline: none;
+  font: inherit;
+} */
+
+input,
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer; /*Hiển thị con chỉ chỉ vào*/
+}
+body {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  /* padding: 20px 24px; */
+  background-color: rgb(232, 243, 243);
+  font-size: 14px;
+  color: var(--gray3);
+  line-height: 1;
+}
+
+:root {
+  --primary-color: #3f85f7; /* màu chính*/
+  --black-color: #141414;
+  --gray6: #aacee4; /*màu đổ bóng*/
+  --gray3: #777e90;
+  --gray4: #b1b5c3;
+  --gray2: #e1e3ea;
+  --gray1: #f1f4f5; /* màu bảng*/
+  --gray5: #ece8ec;
+}
+.menu {
+  list-style-type: none;
+  flex-direction: column;
+  gap: 30px;
+}
+.container {
+  padding: 0;
+  display: flex;
+  /* flex-wrap: wrap; */
+  gap: 30px;
+  max-width: 100%; /* Đảm bảo không vượt quá chiều rộng cửa sổ */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  /* gap: 0 auto; */
+}
+.menu {
+  width: 12%;
+  height: 100%;
+}
+
+.dashboard {
+  margin-bottom: 20px;
+}
+.account {
+  margin-bottom: 50px;
+}
+.dashboard-item,
+.account-item {
+  background-color: var(--gray1);
+  padding: 2px;
+  display: flex;
+  justify-content: flex-start;
+  height: 26px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-shadow: var(--gray2);
+  box-shadow: 5px 3px 3px 3px var(--gray6);
+  font-size: 1rem;
+  overflow: hidden;
+}
+.dashboard-chucnang,
+.account-chucnang {
+  display: flex;
+  align-items: center;
+  /* margin-left: ; */
+}
+.dashboard-logo,
+.account-logo {
+  padding: 5px;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  margin-right: 10px;
+  margin-left: 10px;
+  /* margin: 0 auto; */
+}
+.logo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.account-item {
+  margin-top: 15px;
+}
+.Documentation {
+  background-color: var(--primary-color);
+  color: #ffffff;
+  padding: 10px;
+  border-radius: 10px;
+}
+.Documentation-img {
+  padding: auto;
+  height: 20px;
+  display: flex;
+  justify-content: right;
+  width: 20px;
+  background-color: white;
+  padding: 5px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+}
+.Documentation-content {
+  margin-bottom: 10px;
+}
+.Documentation-button {
+  background-color: white;
+  padding: 5px;
+  color: black;
+  border-radius: 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* layour thông tin  */
+.thongtin {
+  width: 100%;
+}
+.thongtin-gia {
+  display: flex;
+  gap: 10px;
+  font-size: 25px;
+  color: black;
+  margin-top: 10px;
+}
+.thongtin-phantram {
+  color: green;
+  font-size: 10px;
+}
+
+.thongtin-list {
+  display: flex;
+  justify-content: space-between;
+  background-color: var(--gray1);
+  box-shadow: var(--gray2);
+  box-shadow: 5px 3px 3px 3px var(--gray6);
+  border-radius: 5px;
+  padding: 11px;
+  height: 70px;
+  position: relative;
+}
+.thongtin-lists {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: 23.5% 23.5% 23.5% 23.5%;
+  max-width: 100%;
+  gap: 20px;
+  padding: 0px;
+
+  /* width: 100%; */
+}
+.thongtin-img {
+  padding: 10px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* width: 100%;
+  height: 100%; */
+  border-radius: 10px;
+  background-color: var(--primary-color);
+}
+.thongtin-image {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transform: translateY(12%);
+}
+/* .thongtin-title,.thonogtin-padding {
+  padding: 10px;
+} */
+@media screen and (max-width: 1023.98px) {
+  .thongtin-lists {
+    grid-template-columns: repeat(2, 1fr);
+    /* grid-template-columns: 210px 210px 210px; */
+  }
+  .thongtin-tables {
+    grid-template-columns: repeat(1, 1fr);
+  }
+  .thongtin {
+    width: 100%;
+  }
+}
+/* @media screen and (max-width: 567.98px) {
+  .thongtin {
+    width: 100%;
+  }
+  .thongtin-list {
+    grid-template-columns: repeat(1, 1fr);
+  } */
+/* } */
+.thongtin-tables {
+  margin-top: 30px;
+  height: 303px;
+  margin-bottom: 30px;
+}
+/* .table-left-center {
+}  */
+.thongtin-table {
+  padding: 10px;
+}
+
+/* .table-left-top-img {
+  border-radius: 10px;
+} */
+.table-img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+/* .table-left-top {
+  width: 450px;
+  height: 200px;
+} */
+.thongtin-table1 {
+  background-color: var(--gray1);
+  margin-right: 20px;
+  width: calc(45% - 20px);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: var(--gray2);
+  box-shadow: 5px 3px 3px 3px var(--gray6);
+}
+.thongtin-table2 {
+  background-color: var(--gray1);
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: var(--gray2);
+  box-shadow: 5px 3px 3px 3px var(--gray6);
+}
+.table-right-bottom-img {
+  width: 100%;
+  height: 200px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+/* table 1  */
+.thongtin-tables {
+  display: flex;
+}
+.table-left-center {
+  margin-top: 20px;
+}
+.table-left-center-active,
+.Active-users-time,
+.projects1-top-center {
+  display: flex;
+  margin-bottom: 10px;
+  margin-top: 5px;
+  font-size: 11px;
+  gap: 10px;
+}
+.table-phantram,
+.Active-users-phantram {
+  color: green;
+}
+.table-left-center-tittle {
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 11px;
+}
+.table-left-bottom {
+  display: flex;
+  gap: 60px;
+  color: black;
+  /* flex-wrap: wrap; */
+}
+.table-left-bottom-click-bottom,
+.table-left-bottom-user-bottom,
+.table-left-bottom-sales-bottom,
+.table-left-bottom-item-bottom {
+  font-size: 10px;
+  margin-top: 5px;
+}
+/* projects */
+.projects {
+}
+.projects-list {
+}
+/* footer */
+.footer {
+  background-color: white;
+  padding: 40px 0;
+}
+
+.footer-container {
+  max-width: 1130px;
+  margin: 0 auto;
+}
+
+.footer-heading {
+  font-size: 24;
+  line-height: 1.5;
+  color: var(--gray2);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  display: flex;
+  flex-direction: column; /* chia ra cột */
+  gap: 14px;
+}
+
+.footer-link {
+  display: block;
+  font-size: 16px;
+}
+
+.footer-columns {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-column:first-child {
+  max-width: 250px;
+}
+
+.footer-logo {
+  display: inline-block;
+  margin-bottom: 40px;
+}
+
+.footer-decs {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--gray2);
+  margin-bottom: 30px;
+}
+
+/* subcrible */
+.subscribe {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 100rem;
+  border: 2px solid var(--gray5); /*vòng tròn bo xung quanh*/
+  padding: 8px;
+}
+
+.subscribe-email {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--black-color);
+  width: 100%;
+  padding-inline: 18px;
+}
+
+.subscribe-email::-webkit-input-placeholder {
+  color: var(--gray4);
+}
+
+.subscribe-email::-moz-input-placeholder {
+  color: var(
+    --gray4
+  ); /*2 cài cái này app ngoài kh cần thiết , placehoder làm mất đi dòng chữ hiện có */
+}
+
+.subscribe-button {
+  width: 33px;
+  height: 33px;
+  border-radius: 100rem;
+  background-color: var(--primary-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.footer-item {
+  display: flex;
+  gap: 15px;
+}
+.footer-top {
+  padding: 70px;
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--gray2);
+}
+
+.footer-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.project-phantram {
+  color: var(--primary-color);
+}
+.projects {
+  margin-bottom: 70px;
+}
+.projects-list {
+  display: flex;
+  gap: 20px;
+}
+.projects1 {
+  width: calc(70% - 30px);
+  background-color: var(--gray1);
+  border-radius: 10px;
+  box-shadow: var(--gray2);
+  box-shadow: 5px 3px 3px 3px var(--gray6);
+  padding: 10px;
+}
+.orders-history {
+  padding: 10px;
+  width: 30%;
+  background-color: var(--gray1);
+  border-radius: 10px;
+  box-shadow: var(--gray2);
+  box-shadow: 5px 3px 3px 3px var(--gray6);
+}
