@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+
 import { Col, Flex, Row } from "antd";
 import DashboardCard from "./../../components/Card/DashboardCard";
 import {
@@ -9,18 +9,8 @@ import {
 } from "@ant-design/icons";
 import "./styles.less";
 import DashboardChart from "./DashboardChart";
-import { testApi } from "../../service/api.service";
 
 export default function DashboardPage() {
-
-  useEffect(() => {
-    test()
-  }, [])
-
-  const test = async () => {
-    const res = await testApi()
-    console.log(res)
-  }
 
   const data1 = [
     {

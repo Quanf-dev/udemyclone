@@ -1,9 +1,18 @@
 import axios from "./api.axios.customize"
 
-const testApi = () => {
-    const URL_BACKEND = '/v1/users'
 
-    return axios.get(URL_BACKEND)
+const createUser = (email, password, role) => {
+    const URL_BACKEND = '/v1/user'
+
+    const data = {
+        email: email,
+        password: password,
+        role: role
+    }
+
+    console.log(data)
+
+    return axios.post(URL_BACKEND, data)
 }
 
-export { testApi }
+export { createUser }
