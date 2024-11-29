@@ -1,6 +1,7 @@
 import { Avatar, Rate, Space, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getUser } from "../../api";
+import ModalUserRegister from "../../components/ModalUserRegister/ModalUserRegister";
 
 export default function UserPage() {
   const [loading, setLoading] = useState(false);
@@ -14,9 +15,12 @@ export default function UserPage() {
     });
   }, []);
 
+
+
   return (
     <Space size={20} direction="vertical">
       <Typography.Title level={4}>Quản lý User</Typography.Title>
+      <ModalUserRegister/>
       <Table
         loading={loading}
         columns={[
