@@ -42,4 +42,16 @@ public class VoucherService {
 
         return voucher;
     }
+
+    public Voucher handleFetchVoucher(Long id) {
+        return this.voucherRepository.findById(id).isPresent() ? this.voucherRepository.findById(id).get() : null;
+    }
+
+    public List<Voucher> handleFetchSeveralsVoucher() {
+        return this.voucherRepository.findAll();
+    }
+
+    public void handleDeleteVoucher(Long id) {
+        this.voucherRepository.deleteById(id);
+    }
 }
