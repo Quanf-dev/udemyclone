@@ -36,7 +36,7 @@ public class UserController {
         ResponseDTO<User> res = new ResponseDTO<>();
 
         res.setStatus(HttpStatus.CREATED.value());
-        res.setMessage("Completed create user!");
+        res.setMessage("Create user success!");
         res.setData(this.userService.handleCreateUser(user));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(res);

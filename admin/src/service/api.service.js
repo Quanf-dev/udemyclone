@@ -1,4 +1,4 @@
-import axios from "./api.axios.customize"
+import axios from "./axios.customize"
 
 
 const createUser = (email, password, role) => {
@@ -10,7 +10,7 @@ const createUser = (email, password, role) => {
         role: role
     }
 
-    console.log(data)
+    // console.log(data)
 
     return axios.post(URL_BACKEND, data)
 }

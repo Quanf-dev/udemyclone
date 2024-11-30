@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Button, Modal, notification, Select } from 'antd';
-import { LockOutlined, MailOutlined, UserOutlined } from "@ant-design/icons";
+import { LockOutlined, UserOutlined } from "@ant-design/icons";
 import { Form, Grid, Input, theme } from "antd";
-import Link from 'antd/es/typography/Link';
 import { createUser } from '../../service/api.service';
 
 const { useBreakpoint } = Grid;
@@ -14,10 +13,10 @@ const ModalUserRegister = () => {
 
   const [name, setName] = useState("")
   const [pass, setPass] = useState("")
-  const [role, setRole] = useState("Admin")
-
+  const [role, setRole] = useState("ADMIN")
   const { token } = useToken();
   const screens = useBreakpoint();
+
   const styles = {
     container: {
       margin: "0 auto",
@@ -50,28 +49,31 @@ const ModalUserRegister = () => {
       fontSize: screens.md ? token.fontSizeHeading2 : token.fontSizeHeading3
     }
   };
+
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
     console.log(">>>> open : " + name)
     setIsModalOpen(true);
   };
+
   const handleOk = async () => {
     const res = await createUser(name, pass, role)
-
     if (res.data) {
+      console.log(res)
       notification.success({
         message: "Success",
-        description: "Create user success!"
+        description: res.message
       })
+
+      handleCancel()
     } else {
       notification.error({
         message: "Failed",
-        description: "Create user failed!"
+        description:
+          typeof res === "object" ? JSON.stringify(res.message) : res
       })
     }
-
-    handleCancel()
   };
 
   const handleCancel = () => {
@@ -84,7 +86,7 @@ const ModalUserRegister = () => {
   return (
     <>
       <Button type="primary" onClick={() => showModal()}>
-        Admin Register
+        Create user
       </Button>
       <Modal title="Basic Modal"
         open={isModalOpen} onClose={() => handleCancel()}
@@ -126,13 +128,13 @@ const ModalUserRegister = () => {
             />
           </Form.Item>
           <Select
-            defaultValue="admin"
             style={{ width: "100%", marginBottom: "30px" }}
             options={[
               { value: 'ADMIN', label: 'Admin' },
               { value: 'ROOT', label: 'Root' },
               { value: 'STUDENT', label: 'User' },
             ]}
+            defaultValue={role}
             value={role}
             onSelect={(value) => setRole(value)}
           />
@@ -141,4 +143,5 @@ const ModalUserRegister = () => {
     </>
   );
 };
+
 export default ModalUserRegister;

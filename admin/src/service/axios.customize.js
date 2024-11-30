@@ -25,16 +25,25 @@ instance.interceptors.request.use(function (config) {
 // Add a response interceptor
 // cấu hình kết quả (data) trước khi phản hồi , trả về tới frontend
 instance.interceptors.response.use(function (response) {
-    // Any status code that lie within the range of 2xx cause this function to trigger
-    // Do something with response data
+
+    if (response.data && response.data.data) {
+        return response.data;
+    }
 
     return response
 }, function (error) {
-    // Any status codes that falls outside the range of 2xx cause this function to trigger
-    // Do something with response error
-    // debugger
 
-    return Promise.reject(error);
+    console.log(error)
+
+    if (error.code === 'ERR_NETWORK') {
+        return error.message
+    } else if (error.response && error.response.data) {
+        return error.response.data
+    } else {
+        return 'Something wrong!'
+    }
+
+    // return Promise.reject(error);
 });
 
 
