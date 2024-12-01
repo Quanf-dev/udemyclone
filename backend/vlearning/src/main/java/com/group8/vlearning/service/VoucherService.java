@@ -9,7 +9,7 @@ import com.group8.vlearning.domain.User;
 import com.group8.vlearning.domain.UserVoucherProgress;
 import com.group8.vlearning.domain.Voucher;
 import com.group8.vlearning.repository.UserRepository;
-import com.group8.vlearning.repository.voucher.UserVoucherProgressRepository;
+import com.group8.vlearning.repository.voucher.VoucherProgressRepository;
 import com.group8.vlearning.repository.voucher.VoucherRepository;
 import com.group8.vlearning.util.constant.ProgressEnum;
 
@@ -20,7 +20,7 @@ public class VoucherService {
     private VoucherRepository voucherRepository;
 
     @Autowired
-    private UserVoucherProgressRepository userVoucherProgressRepository;
+    private VoucherProgressRepository voucherProgressRepository;
 
     @Autowired
     private UserRepository userRepository;
@@ -37,7 +37,7 @@ public class VoucherService {
             pro.setProgress(0);
             pro.setStatus(ProgressEnum.INCOMPLETE);
 
-            this.userVoucherProgressRepository.save(pro);
+            this.voucherProgressRepository.save(pro);
         }
 
         return voucher;
@@ -47,7 +47,7 @@ public class VoucherService {
         return this.voucherRepository.findById(id).isPresent() ? this.voucherRepository.findById(id).get() : null;
     }
 
-    public List<Voucher> handleFetchSeveralsVoucher() {
+    public List<Voucher> handleFetchSeveralVouchers() {
         return this.voucherRepository.findAll();
     }
 

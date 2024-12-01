@@ -60,7 +60,7 @@ public class VoucherController {
 
         res.setStatus(HttpStatus.OK.value());
         res.setMessage("Fetch several vouchers success!");
-        res.setData(this.voucherService.handleFetchSeveralsVoucher());
+        res.setData(this.voucherService.handleFetchSeveralVouchers());
 
         return ResponseEntity.status(HttpStatus.OK).body(res);
     }

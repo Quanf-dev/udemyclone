@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.group8.vlearning.domain.UserVoucherProgress;
 
 @Repository
-public interface UserVoucherProgressRepository extends JpaRepository<UserVoucherProgress, Long> {
+public interface VoucherProgressRepository extends JpaRepository<UserVoucherProgress, Long> {
 
 }

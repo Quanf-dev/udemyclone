@@ -2,6 +2,7 @@ package com.group8.vlearning.domain;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.group8.vlearning.util.constant.AchievementTypeEnum;
 
 import jakarta.persistence.CascadeType;
@@ -42,6 +43,7 @@ public class Achievement {
     private boolean active;
 
     @OneToMany(mappedBy = "achievement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<UserAchievementProgress> progresses;
 
 }
