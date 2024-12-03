@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group8.vlearning.util.constant.CommentTypeEnum;
+import com.group8.vlearning.util.validator.Require;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,7 +24,9 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -46,6 +49,7 @@ public class Comment {
     private String content;
 
     @Enumerated(EnumType.STRING)
+    @Require(message = "Requires type not null")
     private CommentTypeEnum commentType;
 
     @ManyToOne
@@ -66,12 +70,14 @@ public class Comment {
             "purchasedCourses", "favoriteCourses", "voucherProgresses", "achievementProgresses", "comments",
             "reactions", "userNotifications", "followings", "followers", "active", "protect", "createdAt",
             "updatedAt" })
+    @Require(message = "Requires user not null")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
     @JsonIgnoreProperties(value = { "description", "image", "ownBy", "status", "chapters", "field", "skills",
             "comments", "active", "purchasedUser", "favoriteUser", "createdAt", "updatedAt" })
+    @Require(message = "Requires course not null")
     private Course course;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
