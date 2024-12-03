@@ -48,6 +48,16 @@ public class Comment {
     @Enumerated(EnumType.STRING)
     private CommentTypeEnum commentType;
 
+    @ManyToOne
+    @JoinColumn(name = "reply_to")
+    @JsonIgnoreProperties(value = { "commentType", "ratingScore", "user", "course", "reactions", "parent", "replies",
+            "createdAt", "updatedAt" })
+    private Comment parent;
+
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Comment> replies;
+
     private Integer ratingScore;
 
     @ManyToOne
@@ -67,16 +77,6 @@ public class Comment {
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private List<CommentReaction> reactions;
-
-    @ManyToOne
-    @JoinColumn(name = "reply_to")
-    @JsonIgnoreProperties(value = { "commentType", "ratingScore", "user", "course", "reactions", "parent", "replies",
-            "createdAt", "updatedAt" })
-    private Comment parent;
-
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Comment> replies;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     private Instant createdAt;
