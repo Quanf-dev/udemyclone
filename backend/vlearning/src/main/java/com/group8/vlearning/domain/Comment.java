@@ -4,6 +4,8 @@ import java.time.Instant;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group8.vlearning.util.constant.CommentTypeEnum;
 
 import jakarta.persistence.CascadeType;
@@ -50,20 +52,30 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "send_by")
+    @JsonIgnoreProperties(value = { "profile", "password", "role", "fields", "skills", "ownCourses",
+            "purchasedCourses", "favoriteCourses", "voucherProgresses", "achievementProgresses", "comments",
+            "reactions", "userNotifications", "followings", "followers", "active", "protect", "createdAt",
+            "updatedAt" })
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "course_id")
+    @JsonIgnoreProperties(value = { "description", "image", "ownBy", "status", "chapters", "field", "skills",
+            "comments", "active", "purchasedUser", "favoriteUser", "createdAt", "updatedAt" })
     private Course course;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<CommentReaction> reactions;
 
     @ManyToOne
     @JoinColumn(name = "reply_to")
+    @JsonIgnoreProperties(value = { "commentType", "ratingScore", "user", "course", "reactions", "parent", "replies",
+            "createdAt", "updatedAt" })
     private Comment parent;
 
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Comment> replies;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
