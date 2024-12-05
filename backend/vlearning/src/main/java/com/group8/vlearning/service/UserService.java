@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.group8.vlearning.domain.User;
 import com.group8.vlearning.domain.dto.response.ResultPagination;
 import com.group8.vlearning.repository.UserRepository;
+import com.group8.vlearning.util.error.CustomException;
 
 @Service
 public class UserService {
@@ -20,7 +21,12 @@ public class UserService {
         return this.userRepository.save(user);
     }
 
-    public User handleFetchUser(Long id) {
+    public User handleFetchUser(Long id) throws CustomException {
+
+        if (this.userRepository.findById(id).isPresent() == false) {
+            throw new CustomException("User not found!");
+        }
+
         return this.userRepository.findById(id).isPresent() ? this.userRepository.findById(id).get() : null;
     }
 

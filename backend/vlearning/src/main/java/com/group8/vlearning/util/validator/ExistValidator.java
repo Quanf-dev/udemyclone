@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.group8.vlearning.domain.User;
 import com.group8.vlearning.service.UserService;
+import com.group8.vlearning.util.error.CustomException;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
@@ -22,7 +23,12 @@ public class ExistValidator implements ConstraintValidator<Exist, Object> {
         }
 
         if (value instanceof User user) {
-            user = this.userService.handleFetchUser(user.getId());
+            try {
+                user = this.userService.handleFetchUser(user.getId());
+            } catch (CustomException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             if (user == null)
                 return false;
             else

@@ -10,6 +10,7 @@ import com.group8.vlearning.domain.Comment;
 import com.group8.vlearning.domain.User;
 import com.group8.vlearning.domain.dto.response.ResultPagination;
 import com.group8.vlearning.repository.comment.CommentRepository;
+import com.group8.vlearning.util.error.CustomException;
 
 @Service
 public class CommentService {
@@ -20,7 +21,7 @@ public class CommentService {
     @Autowired
     private UserService userService;
 
-    public Comment handleCreateComment(Comment comment) {
+    public Comment handleCreateComment(Comment comment) throws CustomException {
 
         // user
         if (this.userService.handleFetchUser(comment.getUser().getId()) != null) {
