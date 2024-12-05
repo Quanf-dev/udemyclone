@@ -24,9 +24,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -66,7 +64,7 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "send_by")
-    @JsonIgnoreProperties(value = { "profile", "password", "role", "fields", "skills", "ownCourses",
+    @JsonIgnoreProperties(value = { "email", "password", "role", "profile", "fields", "skills", "ownCourses",
             "purchasedCourses", "favoriteCourses", "voucherProgresses", "achievementProgresses", "comments",
             "reactions", "userNotifications", "followings", "followers", "active", "protect", "createdAt",
             "updatedAt" })
@@ -77,7 +75,7 @@ public class Comment {
     @JoinColumn(name = "course_id")
     @JsonIgnoreProperties(value = { "description", "image", "ownBy", "status", "chapters", "field", "skills",
             "comments", "active", "purchasedUser", "favoriteUser", "createdAt", "updatedAt" })
-    @Require(message = "Requires course not null")
+    // @Require(message = "Requires course not null")
     private Course course;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

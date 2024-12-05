@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.group8.vlearning.domain.Comment;
 import com.group8.vlearning.domain.User;
 import com.group8.vlearning.domain.dto.response.ResultPagination;
-import com.group8.vlearning.repository.CommentRepository;
+import com.group8.vlearning.repository.comment.CommentRepository;
 
 @Service
 public class CommentService {

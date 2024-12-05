@@ -38,18 +38,15 @@ public class CommentController {
     @PostMapping("/comment")
     public ResponseEntity<ResponseDTO<Comment>> createComment(@RequestBody @Valid Comment comment)
             throws CustomException {
-        // if (this.userService.handleFetchUser(comment.getUser().getId()) == null) {
-        // throw new CustomException("User not found!");
-        // }
+        if (this.userService.handleFetchUser(comment.getUser().getId()) == null) {
+            throw new CustomException("User not found!");
+        }
 
-        // if (comment.getCommentType() == null) {
-        // throw new CustomException("Require type!");
-        // } else if (comment.getCommentType() == CommentTypeEnum.REPLY) {
-        // if (this.commentService.handleFetchComment(comment.getParent().getId()) ==
-        // null) {
-        // throw new CustomException("Parent not found!");
-        // }
-        // }
+        if (comment.getCommentType() == CommentTypeEnum.REPLY) {
+            if (this.commentService.handleFetchComment(comment.getParent().getId()) == null) {
+                throw new CustomException("Parent not found!");
+            }
+        }
 
         ResponseDTO<Comment> res = new ResponseDTO<>();
 

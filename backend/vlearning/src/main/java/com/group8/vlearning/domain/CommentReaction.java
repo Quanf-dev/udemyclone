@@ -1,6 +1,8 @@
 package com.group8.vlearning.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group8.vlearning.util.constant.ReactionTypeEnum;
+import com.group8.vlearning.util.validator.Require;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -30,12 +32,20 @@ public class CommentReaction {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonIgnoreProperties(value = { "email", "password", "role", "profile", "fields", "skills", "ownCourses",
+            "purchasedCourses", "favoriteCourses", "voucherProgresses", "achievementProgresses", "comments",
+            "reactions", "userNotifications", "followings", "followers", "active", "protect", "createdAt",
+            "updatedAt" })
+    @Require(message = "Requires user")
     private User user;
 
     @ManyToOne
     @JoinColumn(name = "comment_id")
+    @JsonIgnoreProperties(value = { "commentType", "parent", "ratingScore", "createdAt", "updatedAt" })
+    @Require(message = "Requires comment")
     private Comment comment;
 
     @Enumerated(EnumType.STRING)
+    @Require(message = "Requires type")
     private ReactionTypeEnum reactionType;
 }

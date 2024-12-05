@@ -1,4 +1,4 @@
-package com.group8.vlearning.repository;
+package com.group8.vlearning.repository.comment;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
