@@ -40,4 +40,39 @@ public class Chapter {
 
     @OneToMany(mappedBy = "chapter", fetch = FetchType.LAZY)
     private List<Lecture> lectures;
+
+     // Hàm tính tổng số bài giảng trong chương
+     public int getLectureCount() {
+        return lectures == null ? 0 : lectures.size();
+    }
+
+    // Hàm kiểm tra trạng thái của chương học
+    public boolean isActive() {
+        return active;
+    }
+
+    // Hàm lấy danh sách tên bài giảng
+    public List<String> getLectureTitles() {
+        return lectures == null
+            ? List.of()
+            : lectures.stream()
+                      .map(Lecture::getTitle)
+                      .toList();
+    }
+
+    // Hàm tìm kiếm bài giảng theo từ khóa
+    public List<Lecture> searchLecturesByKeyword(String keyword) {
+        if (lectures == null || keyword == null || keyword.isEmpty()) {
+            return List.of();
+        }
+        String lowerKeyword = keyword.toLowerCase();
+        return lectures.stream()
+                       .filter(lecture -> lecture.getTitle() != null && lecture.getTitle().toLowerCase().contains(lowerKeyword))
+                       .toList();
+    }
+
+    // Hàm kích hoạt hoặc vô hiệu hóa chương học
+    public void toggleActive() {
+        this.active = !this.active;
+    }
 }
