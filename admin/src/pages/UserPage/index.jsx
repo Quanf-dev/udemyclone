@@ -19,7 +19,6 @@ export default function UserPage() {
 
   return (
     <Space size={20} direction="vertical">
-      <Typography.Title level={4}>Quản lý User</Typography.Title>
       <ModalUserRegister/>
       <Table
         loading={loading}

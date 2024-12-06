@@ -8,7 +8,8 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import "./styles.less";
-import DashboardChart from "./DashboardChart";
+import DashboardChart from "./component/DashboardChart";
+import LineChart from "./component/LineChart";
 
 export default function DashboardPage() {
 
@@ -46,7 +47,8 @@ export default function DashboardPage() {
           {data1.map((item, index) => (
             <DashboardCard key={index} data={item} />
           ))}
-          <DashboardChart />
+          <DashboardChart/>
+          <LineChart/>
         </Flex>
       </Col>
     </Row>

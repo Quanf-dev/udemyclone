@@ -1,12 +1,8 @@
 import { useState } from 'react';
 import { Button, Modal, notification, Select } from 'antd';
 import { LockOutlined, UserOutlined } from "@ant-design/icons";
-import { Form, Grid, Input, theme } from "antd";
+import { Form, Input} from "antd";
 import { createUser } from '../../service/api.service';
-
-const { useBreakpoint } = Grid;
-const { useToken } = theme;
-
 
 
 const ModalUserRegister = () => {
@@ -14,41 +10,6 @@ const ModalUserRegister = () => {
   const [name, setName] = useState("")
   const [pass, setPass] = useState("")
   const [role, setRole] = useState("ADMIN")
-  const { token } = useToken();
-  const screens = useBreakpoint();
-
-  const styles = {
-    container: {
-      margin: "0 auto",
-      padding: screens.md ? `${token.paddingXL}px` : `${token.paddingXL}px ${token.padding}px`,
-      width: "380px"
-    },
-    forgotPassword: {
-      float: "right"
-    },
-    header: {
-      marginBottom: token.marginXL,
-      textAlign: "center"
-    },
-    section: {
-      alignItems: "center",
-      backgroundColor: token.colorBgContainer,
-      display: "flex",
-      height: screens.sm ? "100vh" : "auto",
-      padding: screens.md ? `${token.sizeXXL}px 0px` : "0px"
-    },
-    signup: {
-      marginTop: token.marginLG,
-      textAlign: "center",
-      width: "100%"
-    },
-    text: {
-      color: token.colorTextSecondary
-    },
-    title: {
-      fontSize: screens.md ? token.fontSizeHeading2 : token.fontSizeHeading3
-    }
-  };
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 

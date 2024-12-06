@@ -52,7 +52,7 @@ export default function DashboardChart() {
           },
         ],
       };
-  return <Card style={{ width: 500, height: 250 }}>
+  return <Card >
   <Bar options={options} data={data} />
 </Card>;
 }

@@ -35,10 +35,7 @@ const items = [
   },
 ];
 const SideMenu = () => {
-  const [collapsed, setCollapsed] = useState(false);
-  const toggleCollapsed = () => {
-    setCollapsed(!collapsed);
-  };
+
   const navigate = useNavigate();
   const onClick = (e) => navigate(e.key);
   return (
@@ -61,19 +58,9 @@ const SideMenu = () => {
           Udemy Admin
         </Typography.Text>
       </Space>
-      <Button
-        type="primary"
-        onClick={toggleCollapsed}
-        style={{
-          marginBottom: 16,
-        }}
-      >
-        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-      </Button>
       <Menu
         onClick={onClick}
         defaultSelectedKeys={["/dashboard"]}
-        inlineCollapsed={collapsed}
         items={items}
       />
     </Flex>
