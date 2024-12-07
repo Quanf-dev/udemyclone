@@ -43,7 +43,7 @@ export default function UserPage() {
         description: "Xóa user thành công"
       })
 
-      await loadData()
+      await loadData(current, size)
     } else {
       notification.error({
         message: "Delete user",
@@ -55,12 +55,8 @@ export default function UserPage() {
 
   return (
     <Space size={20} direction="vertical">
-<<<<<<< HEAD
       <Typography.Title level={4}>Quản lý User</Typography.Title>
       <ModalUserRegister />
-=======
-      <ModalUserRegister/>
->>>>>>> 37851c724a71aa2b35d7a5174706c924da8b05e5
       <Table
         loading={loading}
         columns={[
