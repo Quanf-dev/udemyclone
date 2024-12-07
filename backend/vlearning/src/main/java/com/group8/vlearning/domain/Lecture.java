@@ -34,7 +34,7 @@ public class Lecture {
     @Column(columnDefinition = "MEDIUMTEXT")
     @NotBlank(message = "Tài liệu không được để trống")
     private String file;
-
+    
     private boolean active;
 
     @Column(nullable = false)
@@ -78,7 +78,7 @@ public class Lecture {
     @jakarta.persistence.PrePersist
     public void handleBeforeCreate() {
         this.createdAt = Instant.now();
-        this.active = true; // Bài giảng mặc định là hoạt động khi tạo mới
+        this.active = true; 
     }
 
     // Hàm xử lý trước khi cập nhật
