@@ -15,4 +15,16 @@ const createUser = (email, password, role) => {
     return axios.post(URL_BACKEND, data)
 }
 
-export { createUser }
+const fetchSeveralUsers = (current, size) => {
+    const URL_BACKEND = `/v1/users?page=${current}&size=${size}`
+
+    return axios.get(URL_BACKEND)
+}
+
+const deleteUser = (id) => {
+    const URL_BACKEND = `/v1/user/${id}`
+
+    return axios.delete(URL_BACKEND)
+}
+
+export { createUser, fetchSeveralUsers, deleteUser }
