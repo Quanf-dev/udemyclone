@@ -1,4 +1,3 @@
-
 import { Col, Flex, Row } from "antd";
 import DashboardCard from "./../../components/Card/DashboardCard";
 import {
@@ -12,7 +11,6 @@ import DashboardChart from "./component/DashboardChart";
 import LineChart from "./component/LineChart";
 
 export default function DashboardPage() {
-
   const data1 = [
     {
       title: "New Clients",
@@ -47,8 +45,8 @@ export default function DashboardPage() {
           {data1.map((item, index) => (
             <DashboardCard key={index} data={item} />
           ))}
-          <DashboardChart/>
-          <LineChart/>
+          <DashboardChart />
+          <LineChart />
         </Flex>
       </Col>
     </Row>
