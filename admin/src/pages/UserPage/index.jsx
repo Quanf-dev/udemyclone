@@ -7,7 +7,7 @@ import {
   Typography,
 } from "antd";
 import { useEffect, useState } from "react";
-import ModalUserRegister from "./components/ModalUserRegister/ModalUserRegister";
+import ModalUserRegister from "./components/ModalUserRegister";
 import { deleteUser, fetchSeveralUsers } from "../../service/api.service";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
@@ -59,82 +59,92 @@ export default function UserPage() {
   };
 
   return (
-    <Space size={20} direction="vertical">
-      <ModalUserRegister />
-      <Table
-        loading={loading}
-        columns={[
-          {
-            title: "ID",
-            dataIndex: "id",
-          },
-          {
-            title: "Avatar",
-            render: (_, record) => {
-              return (
-                <>
-                  {record.profile && record.profile.avatar && (
-                    <>{record.profile.avatar}</>
-                  )}
-                </>
-              );
-            },
-          },
-          {
-            title: "Email",
-            dataIndex: "email",
-          },
-          {
-            title: "Fullname",
-            render: (_, record) => {
-              return (
-                <>
-                  {record.profile && record.profile.fullName && (
-                    <>{record.profile.fullName}</>
-                  )}
-                </>
-              );
-            },
-          },
-          {
-            title: "Role",
-            dataIndex: "role",
-          },
-          {
-            title: "Active",
-            render: (_, record) => {
-              return <Switch checked={record.active} />;
-            },
-          },
-          {
-            title: "Action",
-            key: "action",
-            render: (_, record) => (
-              <div style={{ display: "flex", gap: "20px" }}>
-                <EditOutlined style={{ cursor: "pointer", color: "orange" }} />
-                <Popconfirm
-                  title="Delete user"
-                  description="Xóa người dùng này?"
-                  okText="Delete"
-                  cancelText="No"
-                  placement="rightBottom"
-                  onConfirm={() => handleDeleteUser(record.id)}
-                >
-                  <DeleteOutlined style={{ cursor: "pointer", color: "red" }} />
-                </Popconfirm>
-              </div>
-            ),
-          },
-        ]}
-        dataSource={dataSource}
-        pagination={{
-          current: current,
-          pageSize: size,
-          total: total,
-        }}
-        onChange={onChange}
-        rowKey={"id"}
-      ></Table>
-    </Space>
+    <>
+      {loading ? (
+        <Spin indicator={<LoadingOutlined spin />} size="large" />
+      ) : (
+        <Space size={20} direction="vertical">
+          <ModalUserRegister />
+          <Table
+            loading={loading}
+            columns={[
+              {
+                title: "ID",
+                dataIndex: "id",
+              },
+              {
+                title: "Avatar",
+                render: (_, record) => {
+                  return (
+                    <>
+                      {record.profile && record.profile.avatar && (
+                        <>{record.profile.avatar}</>
+                      )}
+                    </>
+                  );
+                },
+              },
+              {
+                title: "Email",
+                dataIndex: "email",
+              },
+              {
+                title: "Fullname",
+                render: (_, record) => {
+                  return (
+                    <>
+                      {record.profile && record.profile.fullName && (
+                        <>{record.profile.fullName}</>
+                      )}
+                    </>
+                  );
+                },
+              },
+              {
+                title: "Role",
+                dataIndex: "role",
+              },
+              {
+                title: "Active",
+                render: (_, record) => {
+                  return <Switch checked={record.active} />;
+                },
+              },
+              {
+                title: "Action",
+                key: "action",
+                render: (_, record) => (
+                  <div style={{ display: "flex", gap: "20px" }}>
+                    <EditOutlined
+                      style={{ cursor: "pointer", color: "orange" }}
+                    />
+                    <Popconfirm
+                      title="Delete user"
+                      description="Xóa người dùng này?"
+                      okText="Delete"
+                      cancelText="No"
+                      placement="rightBottom"
+                      onConfirm={() => handleDeleteUser(record.id)}
+                    >
+                      <DeleteOutlined
+                        style={{ cursor: "pointer", color: "red" }}
+                      />
+                    </Popconfirm>
+                  </div>
+                ),
+              },
+            ]}
+            dataSource={dataSource}
+            pagination={{
+              current: current,
+              pageSize: size,
+              total: total,
+            }}
+            onChange={onChange}
+            rowKey={"id"}
+          ></Table>
+        </Space>
+      )}
+    </>
   );
 }

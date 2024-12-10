@@ -7,10 +7,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Form, Input } from "antd";
-import { createUser } from "../../../../service/api.service";
-import AvatarUpload from "../../../../components/AvatarUpload/AvatarUpload";
+import { createUser } from "../../../service/api.service";
+import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
 
-const ModalUserRegister = () => {
+const ModalUserEdit = () => {
   const [name, setName] = useState("");
   const [fullName, setFullName] = useState("");
   const [pass, setPass] = useState("");
@@ -139,24 +139,6 @@ const ModalUserRegister = () => {
               }}
             />
           </Form.Item>
-          <Form.Item
-            name="password"
-            extra="Password needs to be at least 8 characters."
-            rules={[
-              {
-                required: true,
-                message: "Please input your Password!",
-              },
-            ]}
-          >
-            <Input.Password
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Password"
-              value={pass}
-              onChange={(event) => setPass(event.target.value)}
-            />
-          </Form.Item>
           <Select
             style={{ width: "100%", marginBottom: "30px" }}
             options={[
@@ -175,4 +157,4 @@ const ModalUserRegister = () => {
   );
 };
 
-export default ModalUserRegister;
+export default ModalUserEdit;

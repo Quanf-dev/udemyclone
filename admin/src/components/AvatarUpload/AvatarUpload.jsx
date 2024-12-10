@@ -3,7 +3,7 @@ import { Upload } from "antd";
 import ImgCrop from "antd-img-crop";
 import "./styles.less";
 
-const AvatarUpload = () => {
+const AvatarUpload = ({ text }) => {
   const [fileList, setFileList] = useState([]);
   const onChange = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -30,7 +30,7 @@ const AvatarUpload = () => {
         onChange={onChange}
         onPreview={onPreview}
       >
-        {fileList.length < 1 && "+ Upload Avatar"}
+        {fileList.length < 1 && `+ ${text}`}
       </Upload>
     </ImgCrop>
   );

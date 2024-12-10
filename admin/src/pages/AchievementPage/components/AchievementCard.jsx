@@ -4,6 +4,7 @@ const AchievementCard = ({ img, desc }) => (
   <Card
     style={{
       width: 200,
+      textAlign: "center",
     }}
     cover={<img src={img} />}
   >
