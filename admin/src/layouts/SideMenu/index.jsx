@@ -5,6 +5,7 @@ import {
   GoldOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
+  TrophyOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import logo from "@assets/logo/Udemy.png";
@@ -33,9 +34,13 @@ const items = [
     key: "/prize",
     icon: <GoldOutlined />,
   },
+  {
+    label: "Achievement Management",
+    key: "/Achievement",
+    icon: <TrophyOutlined />,
+  },
 ];
 const SideMenu = () => {
-
   const navigate = useNavigate();
   const onClick = (e) => navigate(e.key);
   return (

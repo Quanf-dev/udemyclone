@@ -22,7 +22,6 @@ const { Text, Title } = Typography;
 
 const { Search } = Input;
 
-
 export default function Header() {
   const location = useLocation();
   const [NoficationOpen, setNoficationOpen] = useState(false);
@@ -42,8 +41,8 @@ export default function Header() {
         <Text type="secondary">
           Pages / <Text style={{ margin: "0 5px" }}>{cleanedPathname}</Text>
         </Text>
-        <Title level={4} style={{ margin: 0 }}>
-          Dashboard
+        <Title level={4} style={{ margin: 0, textTransform: "capitalize" }}>
+          {cleanedPathname}
         </Title>
       </Col>
       <Col
@@ -65,24 +64,37 @@ export default function Header() {
         {/* Hồ sơ người dùng và liên kết đăng nhập */}
         <Space>
           <UserOutlined />
-          <Link to="/login" style={{fontSize: "1rem", color:"black"}}>Sign in</Link>
+          <Link to="/login" style={{ fontSize: "1rem", color: "black" }}>
+            Sign in
+          </Link>
         </Space>
         {/* Icon cài đặt */}
-        <SettingOutlined onClick={() => setSettingOpen(true)}/>
+        <SettingOutlined onClick={() => setSettingOpen(true)} />
         {/* Icon thông báo với huy hiệu */}
         <Badge count={5}>
-          <BellOutlined style={{ fontSize: "18px" }} onClick={() => setNoficationOpen(true)} />
+          <BellOutlined
+            style={{ fontSize: "18px" }}
+            onClick={() => setNoficationOpen(true)}
+          />
         </Badge>
-        <Drawer title="Nofication" onClose={() => setNoficationOpen(false)} open={NoficationOpen}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
-        <Drawer title="Setting" onClose={() => setSettingOpen(false)} open={SettingOpen}>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-        <p>Some contents...</p>
-      </Drawer>
+        <Drawer
+          title="Nofication"
+          onClose={() => setNoficationOpen(false)}
+          open={NoficationOpen}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Drawer>
+        <Drawer
+          title="Setting"
+          onClose={() => setSettingOpen(false)}
+          open={SettingOpen}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Drawer>
       </Col>
     </Row>
   );

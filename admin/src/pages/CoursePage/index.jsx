@@ -16,7 +16,6 @@ export default function CoursePage() {
 
   return (
     <Space size={20} direction="vertical">
-      <Typography.Title level={4}></Typography.Title>
       <Table
         loading={loading}
         columns={[

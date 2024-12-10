@@ -1,5 +1,3 @@
 import React from "react";
 
-export default function PrizePage() {
-  return <div>PrizePage</div>;
-}
+export default function PrizePage() {}
