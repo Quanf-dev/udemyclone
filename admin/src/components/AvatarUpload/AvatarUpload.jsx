@@ -29,6 +29,7 @@ const AvatarUpload = ({ text }) => {
         listType="picture-card"
         onChange={onChange}
         onPreview={onPreview}
+        style={{ width: "1000px", display: "flex", justifyContent: "left" }}
       >
         {fileList.length < 1 && `+ ${text}`}
       </Upload>

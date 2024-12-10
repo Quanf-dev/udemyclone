@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import ModalUserRegister from "./components/ModalUserRegister";
 import { deleteUser, fetchSeveralUsers } from "../../service/api.service";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import ModalUserEdit from "./components/ModalUserEdit";
 
 export default function UserPage() {
   const [current, setCurrent] = useState(1);
@@ -65,6 +66,7 @@ export default function UserPage() {
       ) : (
         <Space size={20} direction="vertical">
           <ModalUserRegister />
+          <ModalUserEdit />
           <Table
             loading={loading}
             columns={[

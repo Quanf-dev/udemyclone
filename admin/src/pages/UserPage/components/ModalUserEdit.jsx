@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Modal, notification, Select } from "antd";
+import { Button, Flex, Modal, notification, Select } from "antd";
 import {
   AimOutlined,
   LockOutlined,
@@ -54,15 +54,21 @@ const ModalUserEdit = () => {
   return (
     <>
       <Button type="primary" onClick={() => showModal()}>
-        Create user
+        Detail user
       </Button>
       <Modal
-        title="Register User"
+        title="Detail user"
         open={isModalOpen}
         onClose={() => handleCancel()}
         onOk={() => handleOk()}
         onCancel={() => handleCancel()}
         okText={"Create"}
+        footer={(_, { OkBtn, CancelBtn }) => (
+          <>
+            <CancelBtn />
+            <Button color="primary">Update</Button>
+          </>
+        )}
       >
         <Form name="normal_signup" layout="vertical" requiredMark="optional">
           <Form.Item
@@ -78,6 +84,7 @@ const ModalUserEdit = () => {
               prefix={<UserOutlined />}
               value={name}
               placeholder="Login Name"
+              disabled="true"
               onChange={(event) => {
                 setName(event.target.value);
               }}
