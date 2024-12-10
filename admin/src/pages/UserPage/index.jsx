@@ -22,11 +22,11 @@ export default function UserPage() {
 
   useEffect(() => {
     setLoading(true);
-    loadData(current, size);
+    loadData();
     setLoading(false);
   }, [current, total, size]);
 
-  const loadData = async (current, size) => {
+  const loadData = async () => {
     const res = await fetchSeveralUsers(current, size);
 
     if (res.data) {
@@ -50,7 +50,7 @@ export default function UserPage() {
         description: "Xóa user thành công",
       });
 
-      await loadData(current, size);
+      await loadData();
     } else {
       notification.error({
         message: "Delete user",

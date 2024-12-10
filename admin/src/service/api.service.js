@@ -1,6 +1,6 @@
 import axios from "./axios.customize"
 
-
+// user
 const createUser = (email, password, role) => {
     const URL_BACKEND = '/v1/user'
 
@@ -27,4 +27,11 @@ const deleteUser = (id) => {
     return axios.delete(URL_BACKEND)
 }
 
-export { createUser, fetchSeveralUsers, deleteUser }
+//achievement
+const fetchASeveralAchievements = () => {
+    const URL_BACKEND = `/v1/achievements`
+
+    return axios.get(URL_BACKEND)
+}
+
+export { createUser, fetchSeveralUsers, deleteUser, fetchASeveralAchievements }
