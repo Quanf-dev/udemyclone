@@ -1,4 +1,5 @@
 import {
+  Image,
   notification,
   Popconfirm,
   Space,
@@ -80,7 +81,10 @@ export default function UserPage() {
                   return (
                     <>
                       {record.profile && record.profile.avatar && (
-                        <>{record.profile.avatar}</>
+                        <Image
+                          width={100}
+                          src={`${import.meta.env.VITE_BACKEND_URL}/storage/user/${record.id}/${record.profile.avatar}`}
+                        />
                       )}
                     </>
                   );

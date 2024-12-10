@@ -23,6 +23,8 @@ public class FileService {
         try {
             Path storagePath = Paths.get(defaultPath);
 
+            String test = storagePath.toAbsolutePath().toString();
+
             File folder = new File(storagePath.toAbsolutePath().toString() + "/" + directFolder + "/" + id);
 
             // check folder tồn tại

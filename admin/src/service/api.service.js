@@ -1,14 +1,8 @@
 import axios from "./axios.customize"
 
 // user
-const createUser = (email, password, role) => {
+const createUser = (data) => {
     const URL_BACKEND = '/v1/user'
-
-    const data = {
-        email: email,
-        password: password,
-        role: role
-    }
 
     // console.log(data)
 
@@ -34,4 +28,25 @@ const fetchASeveralAchievements = () => {
     return axios.get(URL_BACKEND)
 }
 
-export { createUser, fetchSeveralUsers, deleteUser, fetchASeveralAchievements }
+//file
+const uploadFile = (file, folder, id) => {
+    const URL_BACKEND = "/v1/file"
+
+    // can thiệp vào request header
+    let config = {
+        headers: {
+            "Content-type": "multipart/form-data"
+        }
+    }
+
+    const bodyFormData = new FormData()
+
+    // truyền vào key và value
+    bodyFormData.append("folder", folder)
+    bodyFormData.append("file", file)
+    bodyFormData.append("id", id)
+
+    return axios.post(URL_BACKEND, bodyFormData, config)
+}
+
+export { createUser, fetchSeveralUsers, deleteUser, fetchASeveralAchievements, uploadFile }

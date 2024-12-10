@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Modal, notification, Select } from "antd";
+import { Button, Modal, notification, Select, Upload } from "antd";
 import {
   AimOutlined,
   LockOutlined,
@@ -7,10 +7,33 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Form, Input } from "antd";
-import { createUser } from "../../../service/api.service";
-import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
+import { createUser, uploadFile } from "../../../service/api.service";
+import ImgCrop from "antd-img-crop";
 
 const ModalUserRegister = () => {
+
+  const [fileList, setFileList] = useState([]);
+
+  const onChange = ({ fileList }) => {
+    setFileList(fileList);
+    console.log(fileList)
+  };
+
+  const onPreview = async (file) => {
+    let src = file.url;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj);
+        reader.onload = () => resolve(reader.result);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
+
   const [name, setName] = useState("");
   const [fullName, setFullName] = useState("");
   const [pass, setPass] = useState("");
@@ -21,18 +44,41 @@ const ModalUserRegister = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const showModal = () => {
-    console.log(">>>> open : " + name);
     setIsModalOpen(true);
   };
 
   const handleOk = async () => {
-    const res = await createUser(name, pass, role);
+
+    const profile = {
+      fullName: fullName,
+      avatar: "default-ava.jpg",
+      address: address,
+      phone: phone
+    }
+
+    if (fileList.length > 0) {
+      profile.avatar = fileList[0].name
+    }
+
+    const user = {
+      email: name,
+      password: pass,
+      role: role,
+      profile: profile
+    }
+
+    const res = await createUser(user);
+
     if (res.data) {
       console.log(res);
       notification.success({
         message: "Success",
         description: res.message,
       });
+
+      if (fileList.length > 0) {
+        await uploadFile(fileList[0].originFileObj, "user", res.data.id)
+      }
 
       handleCancel();
     } else {
@@ -77,7 +123,7 @@ const ModalUserRegister = () => {
             <Input
               prefix={<UserOutlined />}
               value={name}
-              placeholder="Login Name"
+              placeholder="Login name (Email require for user)"
               onChange={(event) => {
                 setName(event.target.value);
               }}
@@ -168,8 +214,20 @@ const ModalUserRegister = () => {
             value={role}
             onSelect={(value) => setRole(value)}
           />
+          <ImgCrop rotationSlider>
+            <Upload
+              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+              listType="picture-card"
+              fileList={fileList}
+              onChange={onChange}
+              onPreview={onPreview}
+              beforeUpload={() => false}
+            >
+              {fileList.length < 1 && '+ Upload'}
+            </Upload>
+          </ImgCrop>
         </Form>
-        <AvatarUpload />
+
       </Modal>
     </>
   );
