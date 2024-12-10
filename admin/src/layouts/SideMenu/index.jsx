@@ -30,8 +30,8 @@ const items = [
     icon: <BulbOutlined />,
   },
   {
-    label: "Prize Management",
-    key: "/prize",
+    label: "Voucher Management",
+    key: "/voucher",
     icon: <GoldOutlined />,
   },
   {

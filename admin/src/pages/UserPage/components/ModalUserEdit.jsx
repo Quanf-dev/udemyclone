@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Modal, notification, Select } from "antd";
+import { Button, Flex, Modal, notification, Select } from "antd";
 import {
   AimOutlined,
   LockOutlined,
@@ -7,10 +7,10 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Form, Input } from "antd";
-import { createUser } from "../../../../service/api.service";
-import AvatarUpload from "../../../../components/AvatarUpload/AvatarUpload";
+import { createUser } from "../../../service/api.service";
+import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
 
-const ModalUserRegister = () => {
+const ModalUserEdit = () => {
   const [name, setName] = useState("");
   const [fullName, setFullName] = useState("");
   const [pass, setPass] = useState("");
@@ -54,15 +54,21 @@ const ModalUserRegister = () => {
   return (
     <>
       <Button type="primary" onClick={() => showModal()}>
-        Create user
+        Detail user
       </Button>
       <Modal
-        title="Register User"
+        title="Detail user"
         open={isModalOpen}
         onClose={() => handleCancel()}
         onOk={() => handleOk()}
         onCancel={() => handleCancel()}
         okText={"Create"}
+        footer={(_, { OkBtn, CancelBtn }) => (
+          <>
+            <CancelBtn />
+            <Button color="primary">Update</Button>
+          </>
+        )}
       >
         <Form name="normal_signup" layout="vertical" requiredMark="optional">
           <Form.Item
@@ -78,6 +84,7 @@ const ModalUserRegister = () => {
               prefix={<UserOutlined />}
               value={name}
               placeholder="Login Name"
+              disabled="true"
               onChange={(event) => {
                 setName(event.target.value);
               }}
@@ -139,24 +146,6 @@ const ModalUserRegister = () => {
               }}
             />
           </Form.Item>
-          <Form.Item
-            name="password"
-            extra="Password needs to be at least 8 characters."
-            rules={[
-              {
-                required: true,
-                message: "Please input your Password!",
-              },
-            ]}
-          >
-            <Input.Password
-              prefix={<LockOutlined />}
-              type="password"
-              placeholder="Password"
-              value={pass}
-              onChange={(event) => setPass(event.target.value)}
-            />
-          </Form.Item>
           <Select
             style={{ width: "100%", marginBottom: "30px" }}
             options={[
@@ -175,4 +164,4 @@ const ModalUserRegister = () => {
   );
 };
 
-export default ModalUserRegister;
+export default ModalUserEdit;
