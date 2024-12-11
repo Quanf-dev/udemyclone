@@ -6,6 +6,8 @@ target/
 
 application.properties
 
+storage/
+
 ### STS ###
 .apt_generated
 .classpath
