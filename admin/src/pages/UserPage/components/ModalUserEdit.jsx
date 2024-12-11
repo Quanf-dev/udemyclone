@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Flex, Modal, notification, Select } from "antd";
 import {
   AimOutlined,
@@ -7,7 +7,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Form, Input } from "antd";
-import { createUser, uploadFile } from "../../../service/api.service";
+import { fetchUser, updateUser, uploadFile } from "../../../service/api.service";
 import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
 
 const ModalUserEdit = (props) => {
@@ -15,22 +15,82 @@ const ModalUserEdit = (props) => {
 
   const [name, setName] = useState("");
   const [fullName, setFullName] = useState("");
-  const [pass, setPass] = useState("");
   const [role, setRole] = useState("ADMIN");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
-  const { isModalUpdateOpen, setIsModalUpdateOpen } = props
+  const { isModalUpdateOpen, setIsModalUpdateOpen, userDetail, setUserDetail, loadData } = props
+
+  useEffect(() => {
+    if (userDetail) {
+      loadUser()
+    }
+  }, [userDetail]);
+
+  const loadUser = async () => {
+    const res = await fetchUser(userDetail)
+
+    if (res.data) {
+      setRole(res.data.role)
+
+      setName(res.data.email)
+      setFullName(res.data.profile.fullName)
+      setAddress(res.data.profile.address)
+      setPhone(res.data.profile.phone)
+
+      if (res.data.profile.avatar) {
+        setFileList([{
+          uid: '-1',
+          name: res.data.profile.avatar,
+          status: 'done',
+          url: `${import.meta.env.VITE_BACKEND_URL}/storage/user/${res.data.id}/${res.data.profile.avatar}`
+        }])
+      }
+    }
+  }
 
   const handleOk = async () => {
-    await uploadFile(fileList[0].originFileObj, "user", 666)
+
+    const profile = {
+      fullName: fullName,
+      avatar: fileList.length > 0 ? `ava-${fileList[0].name}` : "default-ava.jpg",
+      address: address,
+      phone: phone
+    }
+
+    const user = {
+      id: userDetail,
+      role: role,
+      profile: profile
+    }
+
+    const res = await updateUser(user)
+
+    if (res.data) {
+      console.log(res);
+      notification.success({
+        message: "Success",
+        description: res.message,
+      });
+
+      if (fileList.length > 0) {
+        await uploadFile(fileList[0].originFileObj, "user", res.data.id)
+      }
+
+      await loadData()
+      handleCancel();
+    } else {
+      notification.error({
+        message: "Failed",
+        description:
+          typeof res === "object" ? JSON.stringify(res.message) : res,
+      });
+    }
   };
 
   const handleCancel = () => {
     setIsModalUpdateOpen(false);
-    setName("");
-    setPass("");
-    setRole("ADMIN");
+    setUserDetail(null)
   };
 
   return (
@@ -53,11 +113,12 @@ const ModalUserEdit = (props) => {
               },
             ]}
           >
+            {" "}
             <Input
               prefix={<UserOutlined />}
               value={name}
               placeholder="Login Name"
-              disabled="true"
+              disabled={true}
               onChange={(event) => {
                 setName(event.target.value);
               }}
@@ -72,6 +133,7 @@ const ModalUserEdit = (props) => {
               },
             ]}
           >
+            {" "}
             <Input
               prefix={<UserOutlined />}
               value={fullName}

@@ -10,7 +10,9 @@ import { Form, Input } from "antd";
 import { createUser, uploadFile } from "../../../service/api.service";
 import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
 
-const ModalUserRegister = () => {
+const ModalUserRegister = (props) => {
+
+  const { loadData } = props
 
   const [fileList, setFileList] = useState([]);
 
@@ -31,7 +33,7 @@ const ModalUserRegister = () => {
 
     const profile = {
       fullName: fullName,
-      avatar: fileList.length > 0 ? fileList[0].name : "default-ava.jpg",
+      avatar: fileList.length > 0 ? `ava-${fileList[0].name}` : "default-ava.jpg",
       address: address,
       phone: phone
     }
@@ -56,6 +58,7 @@ const ModalUserRegister = () => {
         await uploadFile(fileList[0].originFileObj, "user", res.data.id)
       }
 
+      await loadData()
       handleCancel();
     } else {
       notification.error({

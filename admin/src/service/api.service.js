@@ -4,9 +4,13 @@ import axios from "./axios.customize"
 const createUser = (data) => {
     const URL_BACKEND = '/v1/user'
 
-    // console.log(data)
-
     return axios.post(URL_BACKEND, data)
+}
+
+const fetchUser = (id) => {
+    const URL_BACKEND = `/v1/user/${id}`
+
+    return axios.get(URL_BACKEND)
 }
 
 const fetchSeveralUsers = (current, size) => {
@@ -19,6 +23,12 @@ const deleteUser = (id) => {
     const URL_BACKEND = `/v1/user/${id}`
 
     return axios.delete(URL_BACKEND)
+}
+
+const updateUser = (data) => {
+    const URL_BACKEND = `/v1/user`
+
+    return axios.put(URL_BACKEND, data)
 }
 
 //achievement
@@ -49,4 +59,4 @@ const uploadFile = (file, folder, id) => {
     return axios.post(URL_BACKEND, bodyFormData, config)
 }
 
-export { createUser, fetchSeveralUsers, deleteUser, fetchASeveralAchievements, uploadFile }
+export { createUser, fetchUser, fetchSeveralUsers, deleteUser, updateUser, fetchASeveralAchievements, uploadFile }

@@ -26,6 +26,8 @@ export default function UserPage() {
 
   const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
+  const [userDetail, setUserDetail] = useState(null);
+
   useEffect(() => {
     setLoading(true);
     loadData();
@@ -71,8 +73,9 @@ export default function UserPage() {
         <Spin indicator={<LoadingOutlined spin />} size="large" />
       ) : (
         <Space size={20} direction="vertical">
-          <ModalUserRegister />
-          <ModalUserEdit isModalUpdateOpen={isModalUpdateOpen} setIsModalUpdateOpen={setIsModalUpdateOpen} />
+          <ModalUserRegister loadData={loadData} />
+          <ModalUserEdit isModalUpdateOpen={isModalUpdateOpen} setIsModalUpdateOpen={setIsModalUpdateOpen}
+            userDetail={userDetail} setUserDetail={setUserDetail} loadData={loadData} />
           <Table
             loading={loading}
             columns={[
@@ -128,7 +131,7 @@ export default function UserPage() {
                   <div style={{ display: "flex", gap: "20px" }}>
                     <EditOutlined
                       style={{ cursor: "pointer", color: "orange" }}
-                      onClick={() => { setIsModalUpdateOpen(true) }}
+                      onClick={() => { setIsModalUpdateOpen(true); setUserDetail(record.id) }}
                     />
                     <Popconfirm
                       title="Delete user"
