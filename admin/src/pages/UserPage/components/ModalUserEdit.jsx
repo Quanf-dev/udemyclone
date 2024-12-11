@@ -74,7 +74,7 @@ const ModalUserEdit = (props) => {
       });
 
       if (fileList.length > 0) {
-        await uploadFile(fileList[0].originFileObj, "user", res.data.id)
+        await uploadFile(fileList[0].originFileObj, "user", res.data.id, "ava-")
       }
 
       await loadData()
