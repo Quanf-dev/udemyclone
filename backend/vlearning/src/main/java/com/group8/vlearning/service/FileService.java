@@ -1,7 +1,6 @@
 package com.group8.vlearning.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
@@ -11,6 +10,7 @@ import java.nio.file.StandardCopyOption;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.util.FileSystemUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.group8.vlearning.util.error.CustomException;
@@ -70,5 +70,12 @@ public class FileService {
         } catch (Exception e) {
             throw new CustomException("Delete files failed");
         }
+    }
+
+    public void deleteFolder(String folderPath) {
+        Path path = Paths.get(folderPath);
+
+        // Xóa tệp hoặc thư mục
+        FileSystemUtils.deleteRecursively(path.toFile());
     }
 }

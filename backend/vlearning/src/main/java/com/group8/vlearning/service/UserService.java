@@ -1,6 +1,7 @@
 package com.group8.vlearning.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -21,6 +22,12 @@ public class UserService {
 
     @Autowired
     private ProfileRepository profileRepository;
+
+    @Autowired
+    private FileService fileService;
+
+    @Value("${storage-default-path}")
+    private String defaultPath;
 
     public User handleCreateUser(User user) {
         return this.userRepository.save(user);
@@ -53,6 +60,7 @@ public class UserService {
     }
 
     public void handleDeleteUser(long id) {
+        this.fileService.deleteFolder(defaultPath + "/user/" + id);
         this.userRepository.deleteById(id);
     }
 
@@ -99,6 +107,12 @@ public class UserService {
         this.profileRepository.save(profileDB);
 
         return this.userRepository.save(userDB);
+    }
+
+    public void handleActiveUser(long id, boolean isActive) throws CustomException {
+        User user = this.handleFetchUser(id);
+        user.setActive(isActive);
+        this.userRepository.save(user);
     }
 
 }

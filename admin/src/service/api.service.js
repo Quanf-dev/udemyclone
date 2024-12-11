@@ -31,6 +31,12 @@ const updateUser = (data) => {
     return axios.put(URL_BACKEND, data)
 }
 
+const activeUser = (id, isActive) => {
+    const URL_BACKEND = `/v1/user/${id}`
+
+    return axios.patch(URL_BACKEND, { active: isActive })
+}
+
 //achievement
 const fetchASeveralAchievements = () => {
     const URL_BACKEND = `/v1/achievements`
@@ -60,4 +66,4 @@ const uploadFile = (file, folder, id, pp) => {
     return axios.post(URL_BACKEND, bodyFormData, config)
 }
 
-export { createUser, fetchUser, fetchSeveralUsers, deleteUser, updateUser, fetchASeveralAchievements, uploadFile }
+export { createUser, fetchUser, fetchSeveralUsers, deleteUser, updateUser, activeUser, fetchASeveralAchievements, uploadFile }

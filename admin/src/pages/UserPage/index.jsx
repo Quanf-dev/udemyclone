@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { useEffect, useState } from "react";
 import ModalUserRegister from "./components/ModalUserRegister";
-import { deleteUser, fetchSeveralUsers } from "../../service/api.service";
+import { activeUser, deleteUser, fetchSeveralUsers } from "../../service/api.service";
 import { DeleteOutlined, EditOutlined, LoadingOutlined } from "@ant-design/icons";
 import ModalUserEdit from "./components/ModalUserEdit";
 
@@ -42,12 +42,17 @@ export default function UserPage() {
       setCurrent(res.data.meta.page);
       setTotal(res.data.meta.totalElement);
     }
-    console.log({ current, total });
   };
 
   const onChange = (pagination, filters, sorter, extra) => {
     setCurrent(pagination.current);
   };
+
+  const handleActiveUser = async (id, value) => {
+    console.log(value)
+    await activeUser(id, value)
+    await loadData()
+  }
 
   const handleDeleteUser = async (id) => {
     const res = await deleteUser(id);
@@ -66,6 +71,8 @@ export default function UserPage() {
       });
     }
   };
+
+
 
   return (
     <>
@@ -121,7 +128,7 @@ export default function UserPage() {
               {
                 title: "Active",
                 render: (_, record) => {
-                  return <Switch checked={record.active} />;
+                  return <Switch checked={record.active} onChange={(value) => handleActiveUser(record.id, value)} />;
                 },
               },
               {

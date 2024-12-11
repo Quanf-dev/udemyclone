@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-VlearningApplication<vlearning>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.group8.vlearning.VlearningApplication",
+            "projectName": "vlearning",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
