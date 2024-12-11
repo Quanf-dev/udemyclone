@@ -125,6 +125,8 @@ public class User {
     public void handleBeforeCreate() {
         // gán thời gian hiện tại
         this.createdAt = Instant.now();
+        this.setProtect(false);
+        this.setActive(true);
     }
 
     @PreUpdate
