@@ -23,8 +23,6 @@ public class FileService {
         try {
             Path storagePath = Paths.get(defaultPath);
 
-            String test = storagePath.toAbsolutePath().toString();
-
             File folder = new File(storagePath.toAbsolutePath().toString() + "/" + directFolder + "/" + id);
 
             // check folder tồn tại
@@ -41,7 +39,7 @@ public class FileService {
 
     public String storeFile(MultipartFile file, String storePath) throws CustomException {
         try {
-            String newFilePath = storePath + "/" + file.getOriginalFilename();
+            String newFilePath = storePath + "/ava-" + file.getOriginalFilename();
 
             Path path = Paths.get(newFilePath);
 

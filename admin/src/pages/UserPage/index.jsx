@@ -1,8 +1,10 @@
 import {
+  Alert,
   Image,
   notification,
   Popconfirm,
   Space,
+  Spin,
   Switch,
   Table,
   Typography,
@@ -10,16 +12,19 @@ import {
 import { useEffect, useState } from "react";
 import ModalUserRegister from "./components/ModalUserRegister";
 import { deleteUser, fetchSeveralUsers } from "../../service/api.service";
-import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, LoadingOutlined } from "@ant-design/icons";
 import ModalUserEdit from "./components/ModalUserEdit";
 
 export default function UserPage() {
+  const [dataSource, setDataSource] = useState([]);
+
   const [current, setCurrent] = useState(1);
   const [size, setSize] = useState(10);
   const [total, setTotal] = useState(0);
 
   const [loading, setLoading] = useState(false);
-  const [dataSource, setDataSource] = useState([]);
+
+  const [isModalUpdateOpen, setIsModalUpdateOpen] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -67,7 +72,7 @@ export default function UserPage() {
       ) : (
         <Space size={20} direction="vertical">
           <ModalUserRegister />
-          <ModalUserEdit />
+          <ModalUserEdit isModalUpdateOpen={isModalUpdateOpen} setIsModalUpdateOpen={setIsModalUpdateOpen} />
           <Table
             loading={loading}
             columns={[
@@ -123,6 +128,7 @@ export default function UserPage() {
                   <div style={{ display: "flex", gap: "20px" }}>
                     <EditOutlined
                       style={{ cursor: "pointer", color: "orange" }}
+                      onClick={() => { setIsModalUpdateOpen(true) }}
                     />
                     <Popconfirm
                       title="Delete user"

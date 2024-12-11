@@ -7,10 +7,12 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Form, Input } from "antd";
-import { createUser } from "../../../service/api.service";
+import { createUser, uploadFile } from "../../../service/api.service";
 import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
 
-const ModalUserEdit = () => {
+const ModalUserEdit = (props) => {
+  const [fileList, setFileList] = useState([]);
+
   const [name, setName] = useState("");
   const [fullName, setFullName] = useState("");
   const [pass, setPass] = useState("");
@@ -18,34 +20,14 @@ const ModalUserEdit = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const showModal = () => {
-    console.log(">>>> open : " + name);
-    setIsModalOpen(true);
-  };
+  const { isModalUpdateOpen, setIsModalUpdateOpen } = props
 
   const handleOk = async () => {
-    const res = await createUser(name, pass, role);
-    if (res.data) {
-      console.log(res);
-      notification.success({
-        message: "Success",
-        description: res.message,
-      });
-
-      handleCancel();
-    } else {
-      notification.error({
-        message: "Failed",
-        description:
-          typeof res === "object" ? JSON.stringify(res.message) : res,
-      });
-    }
+    await uploadFile(fileList[0].originFileObj, "user", 666)
   };
 
   const handleCancel = () => {
-    setIsModalOpen(false);
+    setIsModalUpdateOpen(false);
     setName("");
     setPass("");
     setRole("ADMIN");
@@ -53,22 +35,13 @@ const ModalUserEdit = () => {
 
   return (
     <>
-      <Button type="primary" onClick={() => showModal()}>
-        Detail user
-      </Button>
       <Modal
         title="Detail user"
-        open={isModalOpen}
-        onClose={() => handleCancel()}
-        onOk={() => handleOk()}
+        open={isModalUpdateOpen}
+        onClose={handleCancel}
         onCancel={() => handleCancel()}
-        okText={"Create"}
-        footer={(_, { OkBtn, CancelBtn }) => (
-          <>
-            <CancelBtn />
-            <Button color="primary">Update</Button>
-          </>
-        )}
+        onOk={() => handleOk()}
+        okText={"Update"}
       >
         <Form name="normal_signup" layout="vertical" requiredMark="optional">
           <Form.Item
@@ -158,7 +131,7 @@ const ModalUserEdit = () => {
             onSelect={(value) => setRole(value)}
           />
         </Form>
-        <AvatarUpload />
+        <AvatarUpload fileList={fileList} setFileList={setFileList} />
       </Modal>
     </>
   );

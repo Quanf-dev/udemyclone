@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, Modal, notification, Select, Upload } from "antd";
+import { Button, Modal, notification, Select } from "antd";
 import {
   AimOutlined,
   LockOutlined,
@@ -8,31 +8,11 @@ import {
 } from "@ant-design/icons";
 import { Form, Input } from "antd";
 import { createUser, uploadFile } from "../../../service/api.service";
-import ImgCrop from "antd-img-crop";
+import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
 
 const ModalUserRegister = () => {
 
   const [fileList, setFileList] = useState([]);
-
-  const onChange = ({ fileList }) => {
-    setFileList(fileList);
-    console.log(fileList)
-  };
-
-  const onPreview = async (file) => {
-    let src = file.url;
-    if (!src) {
-      src = await new Promise((resolve) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file.originFileObj);
-        reader.onload = () => resolve(reader.result);
-      });
-    }
-    const image = new Image();
-    image.src = src;
-    const imgWindow = window.open(src);
-    imgWindow?.document.write(image.outerHTML);
-  };
 
   const [name, setName] = useState("");
   const [fullName, setFullName] = useState("");
@@ -51,13 +31,9 @@ const ModalUserRegister = () => {
 
     const profile = {
       fullName: fullName,
-      avatar: "default-ava.jpg",
+      avatar: fileList.length > 0 ? fileList[0].name : "default-ava.jpg",
       address: address,
       phone: phone
-    }
-
-    if (fileList.length > 0) {
-      profile.avatar = fileList[0].name
     }
 
     const user = {
@@ -106,8 +82,8 @@ const ModalUserRegister = () => {
         title="Register User"
         open={isModalOpen}
         onClose={() => handleCancel()}
-        onOk={() => handleOk()}
         onCancel={() => handleCancel()}
+        onOk={() => handleOk()}
         okText={"Create"}
       >
         <Form name="normal_signup" layout="vertical" requiredMark="optional">
@@ -214,20 +190,8 @@ const ModalUserRegister = () => {
             value={role}
             onSelect={(value) => setRole(value)}
           />
-          <ImgCrop rotationSlider>
-            <Upload
-              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-              listType="picture-card"
-              fileList={fileList}
-              onChange={onChange}
-              onPreview={onPreview}
-              beforeUpload={() => false}
-            >
-              {fileList.length < 1 && '+ Upload'}
-            </Upload>
-          </ImgCrop>
+          <AvatarUpload fileList={fileList} setFileList={setFileList} />
         </Form>
-
       </Modal>
     </>
   );
