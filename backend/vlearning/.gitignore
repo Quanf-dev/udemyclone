@@ -6,7 +6,7 @@ target/
 
 application.properties
 
-vlearning/src/main/storage/
+/vlearning/src/main/storage/
 
 ### STS ###
 .apt_generated
