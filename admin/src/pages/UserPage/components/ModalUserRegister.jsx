@@ -1,64 +1,69 @@
 import { useState } from "react";
-import { Button, Modal, notification, Select } from "antd";
+import { Button, Modal, Form, Input, Select, notification } from "antd";
 import {
-  AimOutlined,
-  LockOutlined,
-  PhoneOutlined,
   UserOutlined,
+  AimOutlined,
+  PhoneOutlined,
+  LockOutlined,
 } from "@ant-design/icons";
-import { Form, Input } from "antd";
-import { createUser, uploadFile } from "../../../service/api.service";
 import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
+import { createUser, uploadFile } from "../../../service/api.service";
 
-const ModalUserRegister = (props) => {
-
-  const { loadData } = props
-
+const ModalUserRegister = ({ loadData }) => {
   const [fileList, setFileList] = useState([]);
-
   const [name, setName] = useState("");
   const [fullName, setFullName] = useState("");
-  const [pass, setPass] = useState("");
-  const [role, setRole] = useState("ADMIN");
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
-
+  const [pass, setPass] = useState("");
+  const [role, setRole] = useState("ADMIN");
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [form] = Form.useForm(); // Khởi tạo form từ Ant Design
 
   const showModal = () => {
     setIsModalOpen(true);
+    // Đặt giá trị cho các trường khi mở modal
+    form.setFieldsValue({
+      name,
+      fullName,
+      address,
+      phone,
+      pass,
+      role,
+    });
   };
 
   const handleOk = async () => {
-
+    const values = form.getFieldsValue();
     const profile = {
-      fullName: fullName,
-      avatar: fileList.length > 0 ? `ava-${fileList[0].name}` : "default-ava.jpg",
-      address: address,
-      phone: phone
-    }
+      fullName: values.fullName,
+      avatar:
+        fileList.length > 0 ? `ava-${fileList[0].name}` : "default-ava.jpg",
+      address: values.address,
+      phone: values.phone,
+    };
 
     const user = {
-      email: name,
-      password: pass,
-      role: role,
-      profile: profile
-    }
+      email: values.name,
+      password: values.password,
+      role: values.role,
+      profile: profile,
+    };
 
     const res = await createUser(user);
 
     if (res.data) {
-      console.log(res);
-      notification.success({
-        message: "Success",
-        description: res.message,
-      });
-
+      notification.success({ message: "Success", description: res.message });
       if (fileList.length > 0) {
-        await uploadFile(fileList[0].originFileObj, "user", res.data.id, "ava-")
+        await uploadFile(
+          fileList[0].originFileObj,
+          "user",
+          res.data.id,
+          "ava-"
+        );
       }
-
-      await loadData()
+      await loadData();
       handleCancel();
     } else {
       notification.error({
@@ -71,51 +76,60 @@ const ModalUserRegister = (props) => {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+    form.resetFields(); // Đặt lại tất cả các trường trong form
+    setFileList([]); // Xóa danh sách file
+
+    // Cập nhật các giá trị state tương ứng
     setName("");
+    setFullName("");
+    setAddress("");
+    setPhone("");
     setPass("");
     setRole("ADMIN");
   };
 
+  console.log(name);
   return (
     <>
-      <Button type="primary" onClick={() => showModal()}>
+      <Button type="primary" onClick={showModal}>
         Create user
       </Button>
       <Modal
         title="Register User"
         open={isModalOpen}
-        onClose={() => handleCancel()}
-        onCancel={() => handleCancel()}
-        onOk={() => handleOk()}
-        okText={"Create"}
+        onCancel={handleCancel}
+        onOk={handleOk}
+        okText="Create"
       >
-        <Form name="normal_signup" layout="vertical" requiredMark="optional">
+        <Form
+          form={form}
+          name="normal_signup"
+          layout="vertical"
+          requiredMark="optional"
+          initialValues={{
+            role: "ADMIN",
+          }}
+        >
           <Form.Item
             name="name"
             rules={[
-              {
-                required: true,
-                message: "Please input login name!",
-              },
+              { type: "email", message: "The input is not valid E-mail!" },
+              { required: true, message: "Please input your E-mail!" },
             ]}
           >
             <Input
-              prefix={<UserOutlined />}
               value={name}
-              placeholder="Login name (Email require for user)"
+              prefix={<UserOutlined />}
+              placeholder="Login name (Email required for user)"
               onChange={(event) => {
                 setName(event.target.value);
+                form.setFieldsValue({ name: event.target.value });
               }}
             />
           </Form.Item>
           <Form.Item
             name="fullName"
-            rules={[
-              {
-                required: true,
-                message: "Please input login name!",
-              },
-            ]}
+            rules={[{ required: true, message: "Please input full name!" }]}
           >
             <Input
               prefix={<UserOutlined />}
@@ -123,76 +137,72 @@ const ModalUserRegister = (props) => {
               placeholder="Full Name"
               onChange={(event) => {
                 setFullName(event.target.value);
+                form.setFieldsValue({ fullName: event.target.value });
               }}
             />
           </Form.Item>
           <Form.Item
             name="address"
-            rules={[
-              {
-                required: true,
-                message: "Please input your address!",
-              },
-            ]}
+            rules={[{ required: true, message: "Please input your address!" }]}
           >
-            {" "}
             <Input
               prefix={<AimOutlined />}
-              placeholder="Your Address"
               value={address}
+              placeholder="Your Address"
               onChange={(event) => {
                 setAddress(event.target.value);
+                form.setFieldsValue({ address: event.target.value });
               }}
             />
           </Form.Item>
           <Form.Item
             name="phone"
-            rules={[
-              {
-                required: true,
-                message: "Please input your phone!",
-              },
-            ]}
+            rules={[{ required: true, message: "Please input your phone!" }]}
           >
-            {" "}
             <Input
               prefix={<PhoneOutlined />}
-              placeholder="Your Phone"
               value={phone}
+              placeholder="Your Phone"
               onChange={(event) => {
                 setPhone(event.target.value);
+                form.setFieldsValue({ phone: event.target.value });
               }}
             />
           </Form.Item>
           <Form.Item
             name="password"
             extra="Password needs to be at least 8 characters."
-            rules={[
-              {
-                required: true,
-                message: "Please input your Password!",
-              },
-            ]}
+            rules={[{ required: true, message: "Please input your Password!" }]}
           >
             <Input.Password
               prefix={<LockOutlined />}
-              type="password"
-              placeholder="Password"
               value={pass}
-              onChange={(event) => setPass(event.target.value)}
+              placeholder="Password"
+              onChange={(event) => {
+                setPass(event.target.value);
+                form.setFieldsValue({ password: event.target.value });
+              }}
             />
           </Form.Item>
-          <Select
-            style={{ width: "100%", marginBottom: "30px" }}
-            options={[
-              { value: "ADMIN", label: "Admin" },
-              { value: "ROOT", label: "Root" },
-              { value: "STUDENT", label: "User" },
-            ]}
-            defaultValue={role}
-            value={role}
-            onSelect={(value) => setRole(value)}
-          />
+          <Form.Item
+            name="role"
+            label="Role"
+            rules={[{ required: true, message: "Please select a role!" }]}
+          >
+            <Select
+              style={{ width: "100%" }}
+              options={[
+                { value: "ADMIN", label: "Admin" },
+                { value: "ROOT", label: "Root" },
+                { value: "STUDENT", label: "User" },
+              ]}
+              value={role}
+              onChange={(value) => {
+                setRole(value);
+                form.setFieldsValue({ role: value });
+              }}
+            />
+          </Form.Item>
           <AvatarUpload fileList={fileList} setFileList={setFileList} />
         </Form>
       </Modal>
