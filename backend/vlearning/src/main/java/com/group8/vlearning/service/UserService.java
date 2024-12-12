@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.group8.vlearning.domain.User;
@@ -26,11 +27,24 @@ public class UserService {
     @Autowired
     private FileService fileService;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @Value("${storage-default-path}")
     private String defaultPath;
 
     public User handleCreateUser(User user) {
+        String passwordEncoded = encoder.encode(user.getPassword());
+        user.setPassword(passwordEncoded);
         return this.userRepository.save(user);
+    }
+
+    public User handleFetchUserByLoginName(String loginName) throws CustomException {
+        if (!this.userRepository.findTop1ByEmail(loginName).isPresent()) {
+            throw new CustomException("User not found!");
+        }
+
+        return this.userRepository.findTop1ByEmail(loginName).get();
     }
 
     public User handleFetchUser(Long id) throws CustomException {

@@ -3,14 +3,18 @@ import React, { useState } from "react";
 import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
 
 const ModalAchievement = () => {
+  const [fileList, setFileList] = useState([]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [name, setName] = useState("kekekeke");
 
   return (
     <>
       <Button type="primary" onClick={() => setIsModalOpen(true)}>
         Create Achievement
       </Button>
-      <Modal title="Add Achievement" open={isModalOpen} okText={"Create"}>
+      <Modal title="Add Achievement" open={isModalOpen} okText={"Create"} onCancel={() => setIsModalOpen(false)}>
         <Form name="normal_signup" layout="vertical" requiredMark="optional">
           <Form.Item
             name="achievementName"
@@ -21,8 +25,17 @@ const ModalAchievement = () => {
               },
             ]}
           >
-            <Input placeholder="AchievementName" />
+            <Input placeholder="AchievementName" value={name} />
           </Form.Item>
+          <Select
+            style={{ width: "100%", marginBottom: "30px" }}
+            options={[
+              { value: "MIN_PURCHASED_COURSES", label: "MIN_PURCHASED_COURSES" },
+              { value: "MIN_OWN_COURSES", label: "MIN_OWN_COURSES" },
+              { value: "MIN_COMMENTS", label: "MIN_COMMENTS" },
+              { value: "MIN_RATING", label: "MIN_RATING" }
+            ]}
+          />
           <Form.Item
             name="value"
             rules={[
@@ -45,16 +58,7 @@ const ModalAchievement = () => {
           >
             <Input placeholder="description" />
           </Form.Item>
-
-          <Select
-            style={{ width: "100%", marginBottom: "30px" }}
-            options={[
-              { value: "ADMIN", label: "Admin" },
-              { value: "ROOT", label: "Root" },
-              { value: "STUDENT", label: "User" },
-            ]}
-          />
-          <AvatarUpload text={"upload "} />
+          <AvatarUpload fileList={fileList} setFileList={setFileList} />
         </Form>
       </Modal>
     </>

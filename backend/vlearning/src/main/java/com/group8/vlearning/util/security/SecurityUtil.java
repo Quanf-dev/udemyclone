@@ -2,6 +2,8 @@ package com.group8.vlearning.util.security;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
 
+import com.group8.vlearning.domain.dto.response.UserAuth;
+
 @Service
 public class SecurityUtil {
 
@@ -32,19 +36,28 @@ public class SecurityUtil {
     @Autowired
     private JwtEncoder jwtEncoder;
 
-    public String createAccessToken(Authentication authentication) {
-        Instant curentTime = Instant.now();
-        Instant validity = curentTime.plus(this.accessTokenExpiration, ChronoUnit.SECONDS);
+    public String createAccessToken(UserAuth user) {
+        Instant currentTime = Instant.now();
+        Instant validity = currentTime.plus(this.accessTokenExpiration, ChronoUnit.SECONDS);
+
+        // hardcode permission
+        List<String> listAuthority = new ArrayList<String>();
+        listAuthority.add("ROOT");
+        listAuthority.add("ADMIN");
+        listAuthority.add("INSTRUCTOR");
+        listAuthority.add("STUDENT");
 
         // header
         JwsHeader jwsHeader = JwsHeader.with(JWT_ALGORITHM).build();
 
         // payload
         JwtClaimsSet claims = JwtClaimsSet.builder()
-                .issuedAt(curentTime)
+                .issuedAt(currentTime)
                 .expiresAt(validity)
-                .subject(authentication.getName())
-                .claim("user", authentication.getPrincipal())
+                .subject(user.getEmail())
+                .claim("user", user)
+                // thêm 1 claim có tên permisson
+                .claim("permission", listAuthority)
                 .build();
 
         return this.jwtEncoder.encode(JwtEncoderParameters.from(jwsHeader, claims)).getTokenValue();
