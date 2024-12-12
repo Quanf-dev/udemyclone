@@ -24,7 +24,7 @@ const Card = ({ course }) => {
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate(`/Udemy-Clone-ReactJS/courses/${course.id}`);
+    navigate(`/courses/${course.id}`);
   };
 
   return (

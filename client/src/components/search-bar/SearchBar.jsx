@@ -13,7 +13,7 @@ function SearchBar() {
 
   const searchPressed = (barValue) => {
     navigate({
-      pathname: "/Udemy-Clone-ReactJS/",
+      pathname: "/",
       search: barValue ? `filter=${barValue}` : "",
     });
   };

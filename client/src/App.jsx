@@ -2,6 +2,8 @@ import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/home/HomePage";
+import SingleCoursePage from "./pages/single-course-page/SingleCoursePage";
+import PageNotFound from "./components/page-not-found/PageNotFound";
 
 export const Data = createContext();
 export const FetchState = createContext();
@@ -32,6 +34,11 @@ function App() {
           <Routes>
             {" "}
             <Route path="/" element={<HomePage />} />{" "}
+            <Route
+              path="/courses/:courseId"
+              element={<SingleCoursePage />}
+            ></Route>
+            <Route path="*" element={<PageNotFound />}></Route>
           </Routes>{" "}
         </Router>
       </FetchState.Provider>
