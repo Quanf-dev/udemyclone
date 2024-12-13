@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Badge, Col, Drawer, Row, Space, Typography } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import {
   BellOutlined,
+  LoginOutlined,
   SearchOutlined,
   SettingOutlined,
   UserOutlined,
 } from "@ant-design/icons";
 import Input from "antd/es/input/Input";
 import "./styles.less";
+import { UserContext } from "../../context/UserContext";
 
 /**
  * Thành phần Header
@@ -23,6 +25,8 @@ const { Text, Title } = Typography;
 const { Search } = Input;
 
 export default function Header() {
+  const {user} = useContext(UserContext) ;
+  console.log(user);  
   const location = useLocation();
   const [NoficationOpen, setNoficationOpen] = useState(false);
   const [SettingOpen, setSettingOpen] = useState(false);
@@ -63,10 +67,22 @@ export default function Header() {
         />
         {/* Hồ sơ người dùng và liên kết đăng nhập */}
         <Space>
-          <UserOutlined />
-          <Link to="/login" style={{ fontSize: "1rem", color: "black" }}>
-            Sign in
-          </Link>
+        {user ? (
+ <>
+ <LoginOutlined />
+ <Link to="/login" style={{ fontSize: "1rem", color: "black" }}>
+   Sign in
+ </Link>
+</>
+) : (
+  <>
+    <UserOutlined />
+    <Link to="/login" style={{ fontSize: "1rem", color: "black" }}>
+      Sign in
+    </Link>
+  </>
+)}
+          
         </Space>
         {/* Icon cài đặt */}
         <SettingOutlined onClick={() => setSettingOpen(true)} />

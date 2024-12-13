@@ -36,7 +36,12 @@ const items = [
   },
   {
     label: "Achievement Management",
-    key: "/Achievement",
+    key: "/achievement",
+    icon: <TrophyOutlined />,
+  },
+  {
+    label: "Study Management",
+    key: "/study",
     icon: <TrophyOutlined />,
   },
 ];
