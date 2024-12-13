@@ -7,6 +7,7 @@ import MainLayout from "../layouts/MainLayout";
 import LoginPage from "../pages/LoginPage";
 import AchievementPage from "../pages/AchievementPage";
 import VoucherPage from "../pages/VoucherPage";
+import StudyPage from "../pages/StudyPage";
 
 export default function AppRoutes() {
   return (
@@ -19,6 +20,7 @@ export default function AppRoutes() {
           <Route path="voucher" element={<VoucherPage />} />
           <Route path="course" element={<CoursePage />} />
           <Route path="achievement" element={<AchievementPage />} />
+          <Route path="study" element={<StudyPage />} />
           <Route path="*" element={<div>error</div>} />
         </Route>
         <Route index element={<Navigate to="/dashboard" />} />

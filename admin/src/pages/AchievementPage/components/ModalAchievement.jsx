@@ -7,7 +7,7 @@ const ModalAchievement = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [name, setName] = useState("kekekeke");
+  const [name, setName] = useState("");
 
   return (
     <>

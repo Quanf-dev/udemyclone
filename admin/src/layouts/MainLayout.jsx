@@ -1,5 +1,5 @@
 import React from "react";
-import SideMenu from "./SideMenu";
+import SideMenu from "../components/SideMenu";
 import { Flex, Layout } from "antd";
 import Header from "./Header";
 import { Outlet } from "react-router-dom";
