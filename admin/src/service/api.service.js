@@ -66,4 +66,10 @@ const uploadFile = (file, folder, id, pp) => {
     return axios.post(URL_BACKEND, bodyFormData, config)
 }
 
-export { createUser, fetchUser, fetchSeveralUsers, deleteUser, updateUser, activeUser, fetchASeveralAchievements, uploadFile }
+//auth
+const login = (data) => {
+    const URL_BACKEND = "/v1/login"
+
+    return axios.post(URL_BACKEND, data)
+}
+export { createUser, fetchUser, fetchSeveralUsers, deleteUser, updateUser, activeUser, fetchASeveralAchievements, uploadFile, login }

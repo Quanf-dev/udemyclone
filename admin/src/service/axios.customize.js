@@ -12,11 +12,14 @@ instance.interceptors.request.use(
       typeof window !== "undefined" &&
       window &&
       window.localStorage &&
-      window.localStorage.getItem("access_token")
+      window.localStorage.getItem("user")
     ) {
+      const user = window.localStorage.getItem("user")
+
+      console.log(user.accessToken)
       // gán vào header
       config.headers.Authorization =
-        "Bearer " + window.localStorage.getItem("access_token");
+        "Bearer " + user.accessToken;
     }
     // Do something before request is sent
     return config;

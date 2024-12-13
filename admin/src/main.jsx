@@ -7,7 +7,7 @@ import { UserProvider } from "./context/UserContext";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <UserProvider>
-    <AppRoutes />
+      <AppRoutes />
     </UserProvider>
   </StrictMode>
 );
