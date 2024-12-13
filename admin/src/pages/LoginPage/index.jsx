@@ -2,14 +2,12 @@ import React, { useContext, useState } from "react";
 import { Form, Input, Button, Checkbox, Flex, Typography, Space, message, notification } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { login } from "../../service/api.service";
-import { UserContext } from "../../context/UserContext";
 import { Navigate, useNavigate } from "react-router-dom";
 
 
 export default function LoginPage() {
   const [name, setName] = useState();
   const [password, setPassword] = useState();
-  const { user, setUser } = useContext(UserContext);
 
   // dùng để chuyển trang
   const navigate = useNavigate()
@@ -26,11 +24,7 @@ export default function LoginPage() {
       message.success("Đăng nhập thành công")
 
       // luu vao local storage
-      localStorage.setItem("user", res.data)
-
-      console.log(res.data)
-
-      setUser(res.data)
+      localStorage.setItem("token", res.data.accessToken)
 
       // redirect
       navigate("/dashboard")

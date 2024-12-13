@@ -88,7 +88,6 @@ const ModalUserRegister = ({ loadData }) => {
     setRole("ADMIN");
   };
 
-  console.log(name);
   return (
     <>
       <Button type="primary" onClick={showModal}>
