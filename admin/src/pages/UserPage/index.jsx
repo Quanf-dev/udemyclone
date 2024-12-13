@@ -95,12 +95,17 @@ export default function UserPage() {
                 render: (_, record) => {
                   return (
                     <>
-                      {record.profile && record.profile.avatar && (
+                      {record.profile && record.profile.avatar && record.profile.avatar !== "default-ava.jpg" ?
                         <Image
                           width={100}
                           src={`${import.meta.env.VITE_BACKEND_URL}/storage/user/${record.id}/${record.profile.avatar}`}
                         />
-                      )}
+                        :
+                        <Image
+                          width={100}
+                          src={`${import.meta.env.VITE_BACKEND_URL}/storage/user/${record.profile.avatar}`}
+                        />
+                      }
                     </>
                   );
                 },
