@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Login Page</title>
+</head>
+<body>
+  <div class="container">
+    <div class="illustration">
+      <img src="https://cdn.pixabay.com/photo/2015/01/12/10/45/man-597178_640.jpg" alt="Illustration">
+    </div>
+    <div class="login-form">
+      <h2>Log in to continue your learning journey</h2>
+      <form id="loginForm">
+        <input type="email" id="email" placeholder="Email" required>
+        <div class="password-container">
+          <input type="password" id="password" placeholder="Password" required>
+          <span class="toggle-password">Show</span>
+        </div>
+        <div id="passwordStrength" class="password-strength"></div>
+        <div class="forgot-password">
+          <a href="#">Forgot your password?</a>
+        </div>
+        <button type="submit">Continue with email</button>
+      </form>
+      <div class="signup">
+        <p>Don't have an account? <a href="#">Sign up</a></p>
+        <p><a href="#">Log in with your organization</a></p>
+      </div>
+    </div>
+  </div>
+  <script src="main.js"></script>
+</body>
+</html>

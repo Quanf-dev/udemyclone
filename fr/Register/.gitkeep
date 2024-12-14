@@ -1,0 +1,47 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  object-fit: cover;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ol {
+  list-style-type: none;
+}
+
+ul {
+  list-style-type: none;
+}
+/* input,
+button,
+textarea,
+select {
+  outline: none;
+  font: inherit;
+} */
+
+input,
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer; /*Hiển thị con chỉ chỉ vào*/
+}
+body {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
+  /* padding: 20px 24px; */
+  background-color: rgb(232, 243, 243);
+  font-size: 14px;
+  color: var(--gray3);
+  line-height: 1;
+}
