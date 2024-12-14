@@ -5,7 +5,7 @@ import IconNumber1 from "../../assets/logo/number1Icon.png";
 import GoalIcon from "../../assets/logo/goalIcon.png";
 import { Flex } from "antd";
 import ModalAchievement from "./components/ModalAchievement";
-import { fetchASeveralAchievements } from "../../service/api.service";
+import { fetchSeveralAchievements } from "../../service/api.service";
 
 const AchievementPage = () => {
 
@@ -16,7 +16,7 @@ const AchievementPage = () => {
   }, [])
 
   const loadAchivements = async () => {
-    const res = await fetchASeveralAchievements()
+    const res = await fetchSeveralAchievements()
     if (res.data) {
       setDataCard(res.data)
     }

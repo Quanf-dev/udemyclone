@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Badge, Col, Drawer, Row, Space, Typography } from "antd";
+import React, { useContext, useEffect, useState } from "react";
+import { Badge, Col, Drawer, message, Row, Space, Typography } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import {
   BellOutlined,
@@ -10,7 +10,6 @@ import {
 } from "@ant-design/icons";
 import Input from "antd/es/input/Input";
 import "./styles.less";
-import { UserContext } from "../../context/UserContext";
 
 /**
  * Thành phần Header
@@ -25,11 +24,28 @@ const { Text, Title } = Typography;
 const { Search } = Input;
 
 export default function Header() {
-  const {user} = useContext(UserContext) ;
-  console.log(user);  
+
   const location = useLocation();
   const [NoficationOpen, setNoficationOpen] = useState(false);
   const [SettingOpen, setSettingOpen] = useState(false);
+
+  const [id] = useState(localStorage.getItem("id"))
+
+  console.log(id)
+
+  useEffect(() => { }, [id])
+
+  const handleLogout = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("email")
+    localStorage.removeItem("fullName")
+    localStorage.removeItem("avatar")
+    localStorage.removeItem("role")
+    localStorage.removeItem("active")
+    localStorage.removeItem("token")
+
+    message.success("Đăng xuất thành công")
+  }
 
   // Làm sạch đường dẫn bằng cách xóa tất cả các dấu gạch chéo
   const cleanedPathname = location.pathname.replace(/\//g, "");
@@ -67,22 +83,22 @@ export default function Header() {
         />
         {/* Hồ sơ người dùng và liên kết đăng nhập */}
         <Space>
-        {user ? (
- <>
- <LoginOutlined />
- <Link to="/login" style={{ fontSize: "1rem", color: "black" }}>
-   Sign in
- </Link>
-</>
-) : (
-  <>
-    <UserOutlined />
-    <Link to="/login" style={{ fontSize: "1rem", color: "black" }}>
-      Sign in
-    </Link>
-  </>
-)}
-          
+          {id ? (
+            <>
+              <LoginOutlined />
+              <Link to="/login" style={{ fontSize: "1rem", color: "black" }} onClick={() => handleLogout()}>
+                Logout
+              </Link>
+            </>
+          ) : (
+            <>
+              <UserOutlined />
+              <Link to="/login" style={{ fontSize: "1rem", color: "black" }}>
+                Login
+              </Link>
+            </>
+          )}
+
         </Space>
         {/* Icon cài đặt */}
         <SettingOutlined onClick={() => setSettingOpen(true)} />

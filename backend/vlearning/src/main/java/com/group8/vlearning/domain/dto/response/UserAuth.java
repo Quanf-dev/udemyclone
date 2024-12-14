@@ -21,5 +21,7 @@ public class UserAuth {
 
     private String role;
 
+    private boolean active;
+
     private String accessToken;
 }

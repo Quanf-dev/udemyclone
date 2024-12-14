@@ -1,47 +1,65 @@
 import React, { useEffect, useState } from "react";
-import { Tabs, Avatar, Rate, Space, Spin, Table } from "antd";
-import { LoadingOutlined } from "@ant-design/icons";
+import { Tabs, Avatar, Rate, Space, Spin, Table, Switch, Popconfirm } from "antd";
+import { DeleteOutlined, EditOutlined, LoadingOutlined } from "@ant-design/icons";
 import { getUser } from "../../api";
+import { fetchSeveralAchievements, fetchSeveralFields, fetchSeveralSkills } from "../../service/api.service";
 
 const onChange = (key) => {
   console.log(key);
 };
 
-const TableContent = ({ loading, dataSource }) => (
+const TableContent = ({ object, loading, dataSource }) => (
   <Table
     loading={loading}
     columns={[
       {
-        title: "Thumbnail",
-        dataIndex: "thumbnail",
-        render: (link) => <Avatar src={link} />,
+        title: "ID",
+        dataIndex: "id"
       },
       {
-        title: "Title",
-        dataIndex: "title",
+        title: "Name",
+        dataIndex: "name",
+      },
+      ...(dataSource.some(record => record.object === "skill") ? [{
+        title: "Field name",
+        render: (_, record) => {
+          return (
+            <>
+              {record.field && record.field.name && (
+                <>{record.field.name}</>
+              )}
+            </>
+          );
+        },
+      }] : []),
+      {
+        title: "Active",
+        render: (_, record) => {
+          return <Switch checked={record.active} />;
+        },
       },
       {
-        title: "Price",
-        dataIndex: "price",
-        render: (value) => <span>${value}</span>,
-      },
-      {
-        title: "Rating",
-        dataIndex: "rating",
-        render: (rating) => <Rate value={rating} allowHalf disabled />,
-      },
-      {
-        title: "Stock",
-        dataIndex: "stock",
-      },
-      {
-        title: "Brand",
-        dataIndex: "brand",
-      },
-      {
-        title: "Category",
-        dataIndex: "category",
-      },
+        title: "Action",
+        key: "action",
+        render: (_, record) => (
+          <div style={{ display: "flex", gap: "20px" }}>
+            <EditOutlined
+              style={{ cursor: "pointer", color: "orange" }}
+            />
+            <Popconfirm
+              title={`Delete ${object}`}
+              description={`Xóa ${object} này?`}
+              okText="Delete"
+              cancelText="No"
+              placement="rightBottom"
+            >
+              <DeleteOutlined
+                style={{ cursor: "pointer", color: "red" }}
+              />
+            </Popconfirm>
+          </div>
+        ),
+      }
     ]}
     dataSource={dataSource}
     pagination={{
@@ -50,30 +68,40 @@ const TableContent = ({ loading, dataSource }) => (
   />
 );
 
-const TabContent = () => {
+const TabContent = (props) => {
+  const { object } = props
+
   const [loading, setLoading] = useState(false);
   const [dataSource, setDataSource] = useState([]);
 
   useEffect(() => {
-    setLoading(true);
-    getUser()
-      .then((res) => {
-        setDataSource(res.products || []); // Kiểm tra res.products tồn tại
-      })
-      .catch((err) => {
-        console.error("Error fetching data:", err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    setLoading(true)
+    loadData()
   }, []);
+
+  const loadData = async () => {
+    let res = null
+
+    console.log(object)
+
+    if (object == "skill") {
+      res = await fetchSeveralSkills()
+    } else if (object == "field") {
+      res = await fetchSeveralFields()
+    }
+
+    if (res.data) {
+      setDataSource(res.data)
+      setLoading(false)
+    }
+  }
 
   return (
     <Space size={20} direction="vertical">
       {loading ? (
         <Spin indicator={<LoadingOutlined spin />} />
       ) : (
-        <TableContent loading={loading} dataSource={dataSource} />
+        <TableContent object={object} loading={loading} dataSource={dataSource} />
       )}
     </Space>
   );
@@ -84,9 +112,8 @@ const StudyPage = () => (
     defaultActiveKey="1"
     onChange={onChange}
     items={[
-      { key: "1", label: "Tab 1", children: <TabContent /> },
-      { key: "2", label: "Tab 2", children: <TabContent /> },
-      { key: "3", label: "Tab 3", children: "Content of Tab Pane 3" },
+      { key: "1", label: "Skills", children: <TabContent object={"skill"} /> },
+      { key: "2", label: "Fields", children: <TabContent object={"field"} /> },
     ]}
   />
 );

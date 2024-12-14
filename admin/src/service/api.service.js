@@ -13,8 +13,14 @@ const fetchUser = (id) => {
     return axios.get(URL_BACKEND)
 }
 
-const fetchSeveralUsers = (current, size) => {
+const fetchSeveralUsersForRoot = (current, size) => {
     const URL_BACKEND = `/v1/users?page=${current}&size=${size}`
+
+    return axios.get(URL_BACKEND)
+}
+
+const fetchSeveralUsersForAdmin = (current, size) => {
+    const URL_BACKEND = `/v1/users?page=${current}&size=${size}&filter=role!'ROOT'`
 
     return axios.get(URL_BACKEND)
 }
@@ -37,15 +43,29 @@ const activeUser = (id, isActive) => {
     return axios.patch(URL_BACKEND, { active: isActive })
 }
 
+// field
+const fetchSeveralFields = () => {
+    const URL_BACKEND = `/v1/fields`
+
+    return axios.get(URL_BACKEND)
+}
+
+// skill
+const fetchSeveralSkills = () => {
+    const URL_BACKEND = `/v1/skills`
+
+    return axios.get(URL_BACKEND)
+}
+
 //achievement
-const fetchASeveralAchievements = () => {
+const fetchSeveralAchievements = () => {
     const URL_BACKEND = `/v1/achievements`
 
     return axios.get(URL_BACKEND)
 }
 
 //file
-const uploadFile = (file, folder, id, pp) => {
+const uploadFile = (file, folder, id) => {
     const URL_BACKEND = "/v1/file"
 
     // can thiệp vào request header
@@ -61,7 +81,6 @@ const uploadFile = (file, folder, id, pp) => {
     bodyFormData.append("folder", folder)
     bodyFormData.append("file", file)
     bodyFormData.append("id", id)
-    bodyFormData.append("purpose", pp)
 
     return axios.post(URL_BACKEND, bodyFormData, config)
 }
@@ -72,4 +91,11 @@ const login = (data) => {
 
     return axios.post(URL_BACKEND, data)
 }
-export { createUser, fetchUser, fetchSeveralUsers, deleteUser, updateUser, activeUser, fetchASeveralAchievements, uploadFile, login }
+export {
+    createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser,
+    fetchSeveralFields,
+    fetchSeveralSkills,
+    fetchSeveralAchievements,
+    uploadFile,
+    login
+}
