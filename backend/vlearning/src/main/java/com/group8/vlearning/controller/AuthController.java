@@ -25,51 +25,55 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/v1")
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManagerBuilder authenticationManagerBuilder;
+        @Autowired
+        private AuthenticationManagerBuilder authenticationManagerBuilder;
 
-    @Autowired
-    private SecurityUtil securityUtil;
+        @Autowired
+        private SecurityUtil securityUtil;
 
-    @Autowired
-    private UserService userService;
+        @Autowired
+        private UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<ResponseDTO<UserAuth>> postMethodName(@RequestBody LoginReq userLogin)
-            throws CustomException {
+        @PostMapping("/login")
+        public ResponseEntity<ResponseDTO<UserAuth>> postMethodName(@RequestBody LoginReq userLogin)
+                        throws CustomException {
 
-        // Nạp input gồm username/password vào Security
-        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                userLogin.getLoginName(), userLogin.getPassword());
+                // Nạp input gồm username/password vào Security
+                UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                                userLogin.getLoginName(), userLogin.getPassword());
 
-        // xác thực người dùng
-        Authentication authentication = authenticationManagerBuilder.getObject()
-                .authenticate(authenticationToken);
+                // xác thực người dùng
+                Authentication authentication = authenticationManagerBuilder.getObject()
+                                .authenticate(authenticationToken);
 
-        // lưu thông tin vào context
-        SecurityContextHolder.getContext().setAuthentication(authentication);
+                // lưu thông tin vào context
+                SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        // response custom
-        User user = this.userService.handleFetchUserByLoginName(userLogin.getLoginName());
+                // response custom
+                User user = this.userService.handleFetchUserByLoginName(userLogin.getLoginName());
 
-        UserAuth userAuth = new UserAuth(
-                user.getId(),
-                user.getEmail(),
-                user.getProfile().getFullName(),
-                user.getProfile().getAvatar(),
-                user.getRole().getRoleValue(),
-                null);
+                UserAuth userAuth = new UserAuth(
+                                user.getId(),
+                                user.getEmail(),
+                                user.getProfile() != null ? (user.getProfile().getFullName() != null
+                                                ? user.getProfile().getFullName()
+                                                : "") : "",
+                                user.getProfile() != null ? (user.getProfile().getAvatar() != null
+                                                ? user.getProfile().getAvatar()
+                                                : "") : "",
+                                user.getRole().getRoleValue(),
+                                null);
 
-        ResponseDTO<UserAuth> res = new ResponseDTO<>();
-        res.setStatus(HttpStatus.OK.value());
-        res.setMessage("Login success");
-        res.setData(userAuth);
+                ResponseDTO<UserAuth> res = new ResponseDTO<>();
+                res.setStatus(HttpStatus.OK.value());
+                res.setMessage("Login success");
 
-        // create token
-        String accessToken = this.securityUtil.createAccessToken(userAuth);
-        userAuth.setAccessToken(accessToken);
+                // create token
+                String accessToken = this.securityUtil.createAccessToken(userAuth);
+                userAuth.setAccessToken(accessToken);
+                res.setData(userAuth);
 
-        return ResponseEntity.ok(res);
-    }
+                return ResponseEntity.ok(res);
+        }
 
 }
