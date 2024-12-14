@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Badge, Col, Drawer, Row, Space, Typography } from "antd";
+import { Badge, Col, Drawer, message, Row, Space, Typography } from "antd";
 import { Link, useLocation } from "react-router-dom";
 import {
   BellOutlined,
@@ -41,7 +41,10 @@ export default function Header() {
     localStorage.removeItem("fullName")
     localStorage.removeItem("avatar")
     localStorage.removeItem("role")
+    localStorage.removeItem("active")
     localStorage.removeItem("token")
+
+    message.success("Đăng xuất thành công")
   }
 
   // Làm sạch đường dẫn bằng cách xóa tất cả các dấu gạch chéo

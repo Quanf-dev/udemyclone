@@ -8,13 +8,14 @@ import LoginPage from "../pages/LoginPage";
 import AchievementPage from "../pages/AchievementPage";
 import VoucherPage from "../pages/VoucherPage";
 import StudyPage from "../pages/StudyPage";
+import PrivateRoute from "./private.route";
 
 export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="login" element={<LoginPage />} />
-        <Route path="/" element={<MainLayout />}>
+        <Route path="/" element={<PrivateRoute><MainLayout /></PrivateRoute>}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="user" element={<UserPage />} />
           <Route path="voucher" element={<VoucherPage />} />

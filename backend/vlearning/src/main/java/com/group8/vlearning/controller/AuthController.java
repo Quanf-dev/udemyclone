@@ -62,6 +62,7 @@ public class AuthController {
                                                 ? user.getProfile().getAvatar()
                                                 : "") : "",
                                 user.getRole().getRoleValue(),
+                                user.isActive(),
                                 null);
 
                 ResponseDTO<UserAuth> res = new ResponseDTO<>();

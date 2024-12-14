@@ -29,6 +29,7 @@ export default function LoginPage() {
       localStorage.setItem("fullName", res.data.fullName)
       localStorage.setItem("avatar", res.data.avatar)
       localStorage.setItem("role", res.data.role)
+      localStorage.setItem("active", res.data.active)
       localStorage.setItem("token", res.data.accessToken)
 
       // redirect

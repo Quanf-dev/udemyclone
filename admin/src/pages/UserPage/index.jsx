@@ -11,7 +11,7 @@ import {
 } from "antd";
 import { useEffect, useState } from "react";
 import ModalUserRegister from "./components/ModalUserRegister";
-import { activeUser, deleteUser, fetchSeveralUsers } from "../../service/api.service";
+import { activeUser, deleteUser, fetchSeveralUsersForAdmin, fetchSeveralUsersForRoot } from "../../service/api.service";
 import { DeleteOutlined, EditOutlined, LoadingOutlined } from "@ant-design/icons";
 import ModalUserEdit from "./components/ModalUserEdit";
 
@@ -28,6 +28,8 @@ export default function UserPage() {
 
   const [userDetail, setUserDetail] = useState(null);
 
+  const [userRole, setUserRole] = useState(localStorage.getItem("role"));
+
   useEffect(() => {
     setLoading(true);
     loadData();
@@ -35,7 +37,16 @@ export default function UserPage() {
   }, [current, total, size]);
 
   const loadData = async () => {
-    const res = await fetchSeveralUsers(current, size);
+    let res = null
+
+    if (userRole == "ADMIN") {
+      // eslint-disable-next-line no-const-assign
+      res = await fetchSeveralUsersForAdmin(current, size);
+    } else if (userRole == "ROOT") {
+      // eslint-disable-next-line no-const-assign
+      res = await fetchSeveralUsersForRoot(current, size);
+    }
+
 
     if (res.data) {
       setDataSource(res.data.result);

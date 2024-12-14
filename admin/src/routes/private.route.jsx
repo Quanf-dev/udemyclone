@@ -1,14 +1,21 @@
 import { Button, Result } from "antd"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 
 const PrivateRoute = (props) => {
-    const [id] = useState(localStorage.getItem("id"))
-    const [role] = useState(localStorage.getItem("role"))
+    const [id, setId] = useState(localStorage.getItem("id"));
+    const [active, setActive] = useState(localStorage.getItem("active"));
+    const [role, setRole] = useState(localStorage.getItem("role"));
+
+    useEffect(() => {
+        setId(localStorage.getItem("id"));
+        setActive(localStorage.getItem("active"));
+        setRole(localStorage.getItem("role"));
+    }, [localStorage.getItem("id"), localStorage.getItem("role"), localStorage.getItem("active")]);
 
     // nếu người dùng tồn tại, thì render giao diện như bình thường
     if (id) {
-        if (role === "ROOT" || role === "ADMIN") {
+        if (role === "ROOT" || role === "ADMIN" && active == "true") {
             return (
                 <>
                     {props.children}

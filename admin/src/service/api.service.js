@@ -13,8 +13,14 @@ const fetchUser = (id) => {
     return axios.get(URL_BACKEND)
 }
 
-const fetchSeveralUsers = (current, size) => {
+const fetchSeveralUsersForRoot = (current, size) => {
     const URL_BACKEND = `/v1/users?page=${current}&size=${size}`
+
+    return axios.get(URL_BACKEND)
+}
+
+const fetchSeveralUsersForAdmin = (current, size) => {
+    const URL_BACKEND = `/v1/users?page=${current}&size=${size}&filter=role!'ROOT'`
 
     return axios.get(URL_BACKEND)
 }
@@ -72,4 +78,4 @@ const login = (data) => {
 
     return axios.post(URL_BACKEND, data)
 }
-export { createUser, fetchUser, fetchSeveralUsers, deleteUser, updateUser, activeUser, fetchASeveralAchievements, uploadFile, login }
+export { createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser, fetchASeveralAchievements, uploadFile, login }

@@ -38,13 +38,15 @@ const ModalUserEdit = (props) => {
       setAddress(res.data.profile.address)
       setPhone(res.data.profile.phone)
 
-      if (res.data.profile.avatar) {
+      if (res.data.profile.avatar != "default-ava.jpg") {
         setFileList([{
           uid: '-1',
           name: res.data.profile.avatar,
           status: 'done',
           url: `${import.meta.env.VITE_BACKEND_URL}/storage/user/${res.data.id}/${res.data.profile.avatar}`
         }])
+      } else {
+        setFileList([])
       }
     }
   }
