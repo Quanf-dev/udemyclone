@@ -43,8 +43,22 @@ const activeUser = (id, isActive) => {
     return axios.patch(URL_BACKEND, { active: isActive })
 }
 
+// field
+const fetchSeveralFields = () => {
+    const URL_BACKEND = `/v1/fields`
+
+    return axios.get(URL_BACKEND)
+}
+
+// skill
+const fetchSeveralSkills = () => {
+    const URL_BACKEND = `/v1/skills`
+
+    return axios.get(URL_BACKEND)
+}
+
 //achievement
-const fetchASeveralAchievements = () => {
+const fetchSeveralAchievements = () => {
     const URL_BACKEND = `/v1/achievements`
 
     return axios.get(URL_BACKEND)
@@ -77,4 +91,11 @@ const login = (data) => {
 
     return axios.post(URL_BACKEND, data)
 }
-export { createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser, fetchASeveralAchievements, uploadFile, login }
+export {
+    createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser,
+    fetchSeveralFields,
+    fetchSeveralSkills,
+    fetchSeveralAchievements,
+    uploadFile,
+    login
+}
