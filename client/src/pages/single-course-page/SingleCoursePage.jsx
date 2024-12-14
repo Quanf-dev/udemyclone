@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Data, FetchState } from "../../App";
-import htmlValues from "../../htmlValues";
+import htmlValues from "../../components/tabs/htmlValues";
 import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
 import CourseDetailsPage from "../../components/course-details-page/CourseDetailsPage";
 import styles from "./SingleCoursePage.module.css";

@@ -1,9 +1,11 @@
 import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
+import HomePage from "./pages/home-page/HomePage";
 import SingleCoursePage from "./pages/single-course-page/SingleCoursePage";
 import PageNotFound from "./components/page-not-found/PageNotFound";
+import SignupPage from "./pages/auth-page/SignupPage";
+import PersonalizeFieldPage from "./pages/personalize-field-page/PersonalizeFieldPage";
 
 export const Data = createContext();
 export const FetchState = createContext();
@@ -39,6 +41,8 @@ function App() {
               element={<SingleCoursePage />}
             ></Route>
             <Route path="*" element={<PageNotFound />}></Route>
+            <Route path="field" element={<PersonalizeFieldPage />}></Route>
+            <Route path="signup" element={<SignupPage />}></Route>
           </Routes>{" "}
         </Router>
       </FetchState.Provider>

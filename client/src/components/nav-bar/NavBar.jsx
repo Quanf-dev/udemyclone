@@ -14,7 +14,7 @@ function NavBar() {
             </button>
           </li>
           <li className={styles.logo}>
-            <Link to="/Udemy-Clone-ReactJS/">
+            <Link to="/">
               <img
                 src="https://www.udemy.com/staticx/udemy/images/v7/logo-udemy.svg"
                 alt="udemy-logo"

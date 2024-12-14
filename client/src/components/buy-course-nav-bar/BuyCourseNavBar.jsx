@@ -13,7 +13,7 @@ function BuyCourseNavBar({ details }) {
       toggleHidden(true);
     }
   };
-
+  /* editMargin Only display on mobile screens  */
   const editMargin = () => {
     const footer = document.querySelector("#page-footer");
     if (window.innerWidth >= 1080) {
@@ -43,6 +43,7 @@ function BuyCourseNavBar({ details }) {
             </span>
           </span>
         </div>
+        {/* barRightContent Only display on mobile screens  */}{" "}
         <div className={styles.barRightContent}>
           <div className={styles.price}>
             <span className={styles.newPrice}>$199.99</span>

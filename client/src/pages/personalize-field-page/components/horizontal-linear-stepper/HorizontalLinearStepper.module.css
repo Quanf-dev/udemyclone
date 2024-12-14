@@ -1,0 +1,11 @@
+.nav {
+  height: 3.2rem;
+  padding: 1rem;
+  z-index: 9999;
+}
+.MobileStepper {
+  padding: 0px !important;
+}
+.MobileStepper span {
+  width: 100%;
+}
