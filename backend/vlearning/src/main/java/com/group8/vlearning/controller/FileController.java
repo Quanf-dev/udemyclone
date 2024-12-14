@@ -42,6 +42,7 @@ public class FileController {
     public String updateFile(@RequestParam("file") MultipartFile file, @RequestParam("folder") String folder,
             @RequestParam("id") long id, @RequestParam("purpose") String pp) throws CustomException {
 
+        // xóa tất cả các file có ava- ở đầu
         this.fileService.deleteFiles("ava-", fileService.createFolder(folder, id));
 
         return "";

@@ -1,0 +1,69 @@
+package com.group8.vlearning.service;
+
+import java.nio.charset.StandardCharsets;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+
+import jakarta.mail.internet.MimeMessage;
+
+@Service
+public class EmailService {
+
+    @Autowired
+    private JavaMailSender javaMailSender;
+
+    @Autowired
+    private SpringTemplateEngine springTemplateEngine;
+
+    @Value("${domain-name}")
+    private String domainName;
+
+    @Value("${storage-default-path}")
+    private String defaultPath;
+
+    // gửi email đồng bộ (Synchronize)
+    public void sendEmailSync(String to, String subject, String content, boolean isMultipart, boolean isHtml) {
+
+        // Prepare message using a Spring helper
+        MimeMessage mimeMessage = this.javaMailSender.createMimeMessage();
+
+        // isMultipart: gửi kèm hình ảnh, file,... hay không
+        try {
+            MimeMessageHelper message = new MimeMessageHelper(mimeMessage, isMultipart, StandardCharsets.UTF_8.name());
+            // người nhận
+            message.setTo(to);
+
+            // nội dung
+            message.setSubject(subject);
+
+            // nội dung mail: nếu isHtml == true thì nội dung sẽ là dưới dạng html
+            message.setText(content, isHtml);
+
+            this.javaMailSender.send(mimeMessage);
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+    }
+
+    @Async
+    public void sendEmailFromTemplateSync(String to, String subject, String templateName, String username) {
+        Context context = new Context();
+
+        context.setVariable("name", username);
+        context.setVariable("domainName", domainName);
+        context.setVariable("defaultPath", defaultPath);
+
+        // TemplateEngine convert từ file html -> text , cần thiết tên của file html và
+        // context
+        String content = this.springTemplateEngine.process(templateName, context);
+
+        this.sendEmailSync(to, subject, content, false, true);
+    }
+}
