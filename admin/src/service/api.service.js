@@ -51,7 +51,7 @@ const fetchASeveralAchievements = () => {
 }
 
 //file
-const uploadFile = (file, folder, id, pp) => {
+const uploadFile = (file, folder, id) => {
     const URL_BACKEND = "/v1/file"
 
     // can thiệp vào request header
@@ -67,7 +67,6 @@ const uploadFile = (file, folder, id, pp) => {
     bodyFormData.append("folder", folder)
     bodyFormData.append("file", file)
     bodyFormData.append("id", id)
-    bodyFormData.append("purpose", pp)
 
     return axios.post(URL_BACKEND, bodyFormData, config)
 }

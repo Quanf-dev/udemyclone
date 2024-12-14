@@ -39,7 +39,7 @@ const ModalUserRegister = ({ loadData }) => {
     const profile = {
       fullName: values.fullName,
       avatar:
-        fileList.length > 0 ? `ava-${fileList[0].name}` : "default-ava.jpg",
+        fileList.length > 0 ? `${fileList[0].name}` : "default-ava.jpg",
       address: values.address,
       phone: values.phone,
     };
@@ -56,12 +56,7 @@ const ModalUserRegister = ({ loadData }) => {
     if (res.data) {
       notification.success({ message: "Success", description: res.message });
       if (fileList.length > 0) {
-        await uploadFile(
-          fileList[0].originFileObj,
-          "user",
-          res.data.id,
-          "ava-"
-        );
+        await uploadFile(fileList[0].originFileObj, "user", res.data.id);
       }
       await loadData();
       handleCancel();

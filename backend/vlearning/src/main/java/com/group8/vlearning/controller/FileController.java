@@ -26,26 +26,27 @@ public class FileController {
     public ResponseEntity<ResponseDTO<String>> uploadFile(
             @RequestParam("file") MultipartFile file,
             @RequestParam("folder") String folder,
-            @RequestParam("id") long id,
-            @RequestParam("purpose") String pp)
+            @RequestParam("id") long id)
             throws CustomException {
 
         ResponseDTO<String> res = new ResponseDTO<>();
         res.setStatus(HttpStatus.CREATED.value());
         res.setMessage("Upload success");
-        res.setData(this.fileService.storeFile(file, fileService.createFolder(folder, id), pp));
+        res.setData(this.fileService.storeFile(file, fileService.createFolder(folder, id)));
 
         return ResponseEntity.status(HttpStatus.CREATED).body(res);
     }
 
-    @DeleteMapping("/file")
-    public String updateFile(@RequestParam("file") MultipartFile file, @RequestParam("folder") String folder,
-            @RequestParam("id") long id, @RequestParam("purpose") String pp) throws CustomException {
+    // @DeleteMapping("/file")
+    // public String updateFile(@RequestParam("file") MultipartFile file,
+    // @RequestParam("folder") String folder,
+    // @RequestParam("id") long id, @RequestParam("purpose") String pp) throws
+    // CustomException {
 
-        // xóa tất cả các file có ava- ở đầu
-        this.fileService.deleteFiles("ava-", fileService.createFolder(folder, id));
+    // // xóa tất cả các file có ava- ở đầu
+    // this.fileService.deleteFiles("ava-", fileService.createFolder(folder, id));
 
-        return "";
-    }
+    // return "";
+    // }
 
 }

@@ -40,14 +40,15 @@ public class FileService {
 
     }
 
-    public String storeFile(MultipartFile file, String storePath, String purposeOfFile) throws CustomException {
+    public String storeFile(MultipartFile file, String storePath) throws CustomException {
         try {
-            String newFilePath = storePath + "/" + purposeOfFile + file.getOriginalFilename();
+            String newFilePath = storePath + "/" + file.getOriginalFilename();
 
             Path path = Paths.get(newFilePath);
 
             InputStream inputStream = file.getInputStream();
-            this.deleteFiles(storePath, purposeOfFile); // xóa các file cùng mục đích sử dụng
+            // this.deleteFiles(storePath, purposeOfFile); // xóa các file cùng mục đích sử
+            // dụng
             Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
 
             return path.getFileName().toString();
@@ -56,21 +57,23 @@ public class FileService {
         }
     }
 
-    public void deleteFiles(String storePath, String purposeOfFile) throws CustomException {
-        try {
-            Path folderPath = Paths.get(storePath);
+    // public void deleteFiles(String storePath, String purposeOfFile) throws
+    // CustomException {
+    // try {
+    // Path folderPath = Paths.get(storePath);
 
-            DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath, purposeOfFile + "*"); // Mẫu "ava-*"
-            for (Path path : stream) {
-                if (Files.isRegularFile(path)) { // Kiểm tra nếu là tệp
-                    Files.delete(path);
-                }
-            }
+    // DirectoryStream<Path> stream = Files.newDirectoryStream(folderPath,
+    // purposeOfFile + "*"); // Mẫu "ava-*"
+    // for (Path path : stream) {
+    // if (Files.isRegularFile(path)) { // Kiểm tra nếu là tệp
+    // Files.delete(path);
+    // }
+    // }
 
-        } catch (Exception e) {
-            throw new CustomException("Delete files failed");
-        }
-    }
+    // } catch (Exception e) {
+    // throw new CustomException("Delete files failed");
+    // }
+    // }
 
     public void deleteFolder(String folderPath) {
         Path path = Paths.get(folderPath);

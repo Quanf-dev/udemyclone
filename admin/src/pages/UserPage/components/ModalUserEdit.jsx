@@ -55,10 +55,12 @@ const ModalUserEdit = (props) => {
 
     const profile = {
       fullName: fullName,
-      avatar: fileList.length > 0 ? `ava-${fileList[0].name}` : "default-ava.jpg",
+      avatar: fileList.length > 0 ? `${fileList[0].name}` : "default-ava.jpg",
       address: address,
       phone: phone
     }
+
+    console.log(profile.avatar)
 
     const user = {
       id: userDetail,
