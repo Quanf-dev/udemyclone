@@ -31,7 +31,7 @@ public class EmailController {
     private Long codeExpireTime;
 
     @PostMapping("/email/register")
-    public ResponseEntity<ResponseDTO<String>> sendEmailRegister(@RequestBody LoginReq userRegister) {
+    public ResponseEntity<ResponseDTO<Object>> sendEmailRegister(@RequestBody LoginReq userRegister) {
 
         String encoded = this.emailService.sendEmailFromTemplateSync(userRegister.getLoginName(),
                 "Xác thực đăng ký để bắt đầu sử dụng VLearning", "register", userRegister.getLoginName());
@@ -43,10 +43,9 @@ public class EmailController {
                 .maxAge(codeExpireTime)
                 .build();
 
-        ResponseDTO<String> res = new ResponseDTO<>();
+        ResponseDTO<Object> res = new ResponseDTO<>();
         res.setStatus(HttpStatus.OK.value());
-        res.setMessage("Send email success");
-        res.setData(encoded);
+        res.setMessage("Send email verify success");
 
         return ResponseEntity.ok().header(HttpHeaders.SET_COOKIE, responseCookie.toString()).body(res);
     }

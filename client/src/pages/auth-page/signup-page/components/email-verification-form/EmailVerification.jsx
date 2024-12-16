@@ -1,25 +1,58 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
 import { Box, Typography, Button, Container, Link } from "@mui/material";
 import OTPInput from "../../../../../components/otp-ui/OTP-input";
+import Cookies from 'js-cookie';
+import bcrypt from 'bcryptjs';
+import { createUser, sendEmailVerification } from "../../../../../service/api.service";
+import { useNavigate } from "react-router-dom";
 
-const EmailVerification = ({ email }) => {
+const EmailVerification = ({ email, fullName, password }) => {
   const [otp, setOtp] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); // chặn hành vi mặc định
     // Handle OTP verification logic here
-    console.log("Submitted OTP:", otp);
+    const code = Cookies.get('code');
+    console.log(code)
+    if (code) { // Cookie không tồn tại hoặc đã hết hạn
+      const isMatch = await bcrypt.compare(otp, code);
+      if (isMatch === true) {
+        const data = {
+          email,
+          password,
+          role: "STUDENT",
+          profile: {
+            fullName,
+            avatar: "default-ava.jpg"
+          },
+          active: true,
+          protect: false
+        }
+        const res = await createUser(data)
+        // neu dang ky thanh cong
+        if (res.data) {
+          Cookies.remove('code');
+          navigate("/")
+        } else {
+          alert("dang ky that bai")
+        }
+      } else {
+        alert("Ma sai hoac het han")
+      }
+    }
   };
 
   const handleResendCode = () => {
-    // Logic to resend the OTP
-    console.log("Resend code clicked");
+    sendEmailVerification(email)
   };
 
   return (
     <Container>
       <Box sx={{ textAlign: "center", mt: 4 }}>
-        <Typography variant="h5">Udemy.com</Typography>
+        <Typography variant="h5">VLearning</Typography>
         <Typography variant="h6" sx={{ mt: 2 }}>
           Help us protect your account
         </Typography>

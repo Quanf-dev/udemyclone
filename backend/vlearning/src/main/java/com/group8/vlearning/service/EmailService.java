@@ -57,8 +57,11 @@ public class EmailService {
         Random rand = new Random();
 
         context.setVariable("name", username);
-        // tạo code ngẫu nhiên 6 chữ số
-        int code = rand.nextInt(1000000);
+        // tạo code ngẫu nhiên 5 chữ số
+        int code = rand.nextInt(100000);
+        while (code <= 9999) {
+            code = rand.nextInt(100000);
+        }
         context.setVariable("code", code);
 
         // TemplateEngine convert từ file html -> text , cần thiết tên của file html và

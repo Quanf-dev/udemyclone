@@ -54,7 +54,7 @@ function NavBar() {
           </li>
           <li className={styles.signupButton}>
             <button type="button" name="singup-button">
-              Sign up
+              <Link to="/signup" >Sign up</Link>
             </button>
           </li>
           <li className={styles.langButton}>

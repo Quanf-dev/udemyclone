@@ -10,6 +10,7 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import EmailVerification from "./components/email-verification-form/EmailVerification";
+import { sendEmailVerification } from "../../../service/api.service";
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);
@@ -24,9 +25,13 @@ const SignupPage = () => {
     setFormData({ ...formData, [id]: value });
   };
 
-  const handleSignUpSubmit = (e) => {
+  const handleSignUpSubmit = async (e) => {
     e.preventDefault();
     console.log("Sign-up data:", formData);
+
+    // call api
+    await sendEmailVerification(formData.email)
+    // redirect
     setStep(2);
   };
 
@@ -120,7 +125,7 @@ const SignupPage = () => {
           </Grid>
         </Grid>
       ) : (
-        <EmailVerification email={formData.email} />
+        <EmailVerification email={formData.email} fullName={formData.fullname} password={formData.password} />
       )}
     </Container>
   );
