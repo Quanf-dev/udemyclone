@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.group8.vlearning.domain.Field;
 import com.group8.vlearning.domain.Skill;
 import com.group8.vlearning.repository.SkillRepository;
+import com.group8.vlearning.util.error.CustomException;
 
 @Service
 public class SkillService {
@@ -18,7 +19,7 @@ public class SkillService {
     @Autowired
     private FieldService fieldService;
 
-    public Skill handleCreateSkill(Skill skill) {
+    public Skill handleCreateSkill(Skill skill) throws CustomException {
 
         Field field = this.fieldService.handleFetchField(skill.getField().getId());
 
@@ -31,7 +32,11 @@ public class SkillService {
         return this.skillRepository.save(skill);
     }
 
-    public Skill handleFetchSkill(Long id) {
+    public Skill handleFetchSkill(Long id) throws CustomException {
+        if (!this.skillRepository.findById(id).isPresent()) {
+            throw new CustomException("Skill not found");
+        }
+
         return this.skillRepository.findById(id).isPresent() ? this.skillRepository.findById(id).get() : null;
     }
 

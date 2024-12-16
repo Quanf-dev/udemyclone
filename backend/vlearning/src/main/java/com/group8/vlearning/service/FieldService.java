@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.group8.vlearning.domain.Field;
 import com.group8.vlearning.repository.FieldRepository;
+import com.group8.vlearning.util.error.CustomException;
 
 @Service
 public class FieldService {
@@ -18,7 +19,12 @@ public class FieldService {
         return this.fieldRepository.save(field);
     }
 
-    public Field handleFetchField(long id) {
+    public Field handleFetchField(long id) throws CustomException {
+
+        if (!this.fieldRepository.findById(id).isPresent()) {
+            throw new CustomException("Field not found");
+        }
+
         return this.fieldRepository.findById(id).isPresent() ? this.fieldRepository.findById(id).get() : null;
     }
 

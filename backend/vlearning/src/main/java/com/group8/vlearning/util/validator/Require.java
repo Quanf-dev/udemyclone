@@ -14,7 +14,7 @@ import jakarta.validation.Payload;
 @Retention(RetentionPolicy.RUNTIME) // khi chương trình chạy thì nó cũng chạy
 @Documented
 public @interface Require {
-    String message();
+    String message() default "Require";
 
     Class<?>[] groups() default {};
 

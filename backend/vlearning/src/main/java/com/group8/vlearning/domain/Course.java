@@ -7,6 +7,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group8.vlearning.util.constant.CourseApproveEnum;
+import com.group8.vlearning.util.validator.Require;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -46,13 +47,14 @@ public class Course {
     private String title;
 
     @Column(columnDefinition = "MEDIUMTEXT")
+    @NotBlank(message = "Miêu tả không được để trống")
     private String description;
 
     private String image;
 
     @ManyToOne()
     @JoinColumn(name = "own_by")
-    @JsonIgnoreProperties(value = { "password", "role", "fields", "skills", "ownCourses",
+    @JsonIgnoreProperties(value = { "profile", "password", "role", "fields", "skills", "ownCourses",
             "purchasedCourses", "favoriteCourses", "voucherProgresses", "achievementProgresses", "comments",
             "reactions", "userNotifications", "followings", "followers", "active", "protect", "createdAt",
             "updatedAt" })
@@ -62,14 +64,19 @@ public class Course {
     private CourseApproveEnum status;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Chapter> chapters;
 
     @ManyToOne
     @JoinColumn(name = "field_id")
+    @JsonIgnoreProperties(value = { "skills", "active" })
+    @Require(message = "Field require")
     private Field field;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "courses_skills", joinColumns = @JoinColumn(name = "course_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    @JsonIgnoreProperties(value = { "field", "active" })
+    @Require(message = "Skill require")
     private List<Skill> skills;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
@@ -105,22 +112,23 @@ public class Course {
         this.updatedAt = Instant.now();
     }
 
-    // Hàm tính số lượng bài giảng trong khóa học
-    public int getLectureCount() {
-        return chapters.stream()
-                .mapToInt(chapter -> chapter.getLectures() == null ? 0 : chapter.getLectures().size())
-                .sum();
-    }
+    // // Hàm tính số lượng bài giảng trong khóa học
+    // public int getLectureCount() {
+    // return chapters.stream()
+    // .mapToInt(chapter -> chapter.getLectures() == null ? 0 :
+    // chapter.getLectures().size())
+    // .sum();
+    // }
 
-    // Hàm kiểm tra xem một người dùng đã mua khóa học hay chưa
-    public boolean isPurchasedByUser(User user) {
-        return purchasedUser != null && purchasedUser.contains(user);
-    }
+    // // Hàm kiểm tra xem một người dùng đã mua khóa học hay chưa
+    // public boolean isPurchasedByUser(User user) {
+    // return purchasedUser != null && purchasedUser.contains(user);
+    // }
 
-    // Hàm kiểm tra xem khóa học có khớp với từ khóa tìm kiếm hay không
-    public boolean matchesKeyword(String keyword) {
-        String lowerKeyword = keyword.toLowerCase();
-        return (title != null && title.toLowerCase().contains(lowerKeyword)) ||
-                (description != null && description.toLowerCase().contains(lowerKeyword));
-    }
+    // // Hàm kiểm tra xem khóa học có khớp với từ khóa tìm kiếm hay không
+    // public boolean matchesKeyword(String keyword) {
+    // String lowerKeyword = keyword.toLowerCase();
+    // return (title != null && title.toLowerCase().contains(lowerKeyword)) ||
+    // (description != null && description.toLowerCase().contains(lowerKeyword));
+    // }
 }

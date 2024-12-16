@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { Input as BaseInput } from "@mui/base/Input";
+import { Input as BaseInput } from "@mui/material";
 import { Box, styled } from "@mui/material";
 import React, { useRef } from "react";
 
@@ -195,9 +195,8 @@ const InputElement = styled("input")(
   color: ${theme.palette.mode === "dark" ? grey[300] : grey[900]};
   background: ${theme.palette.mode === "dark" ? grey[900] : "#fff"};
   border: 1px solid ${theme.palette.mode === "dark" ? grey[700] : grey[200]};
-  box-shadow: 0 2px 4px ${
-    theme.palette.mode === "dark" ? "rgba(0,0,0, 0.5)" : "rgba(0,0,0, 0.05)"
-  };
+  box-shadow: 0 2px 4px ${theme.palette.mode === "dark" ? "rgba(0,0,0, 0.5)" : "rgba(0,0,0, 0.05)"
+    };
 
   &:hover {
     border-color: ${blue[400]};
@@ -205,8 +204,7 @@ const InputElement = styled("input")(
 
   &:focus {
     border-color: ${blue[400]};
-    box-shadow: 0 0 0 3px ${
-      theme.palette.mode === "dark" ? blue[600] : blue[200]
+    box-shadow: 0 0 0 3px ${theme.palette.mode === "dark" ? blue[600] : blue[200]
     };
   }
 
