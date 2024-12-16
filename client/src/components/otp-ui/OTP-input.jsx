@@ -3,7 +3,7 @@ import { Input as BaseInput } from "@mui/material";
 import { Box, styled } from "@mui/material";
 import React, { useRef } from "react";
 
-export default function OTP({ separator, length, value, onChange }) {
+export default function OTPInput({ separator, length, value, onChange }) {
   const inputRefs = useRef(new Array(length).fill(null));
 
   const focusInput = (targetIndex) => {
@@ -153,7 +153,7 @@ export default function OTP({ separator, length, value, onChange }) {
   );
 }
 
-OTP.propTypes = {
+OTPInput.propTypes = {
   length: PropTypes.number.isRequired,
   onChange: PropTypes.func.isRequired,
   separator: PropTypes.node,

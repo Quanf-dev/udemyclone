@@ -4,8 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomePage from "./pages/home-page/HomePage";
 import SingleCoursePage from "./pages/single-course-page/SingleCoursePage";
 import PageNotFound from "./components/page-not-found/PageNotFound";
-import SignupPage from "./pages/auth-page/SignupPage";
 import PersonalizeFieldPage from "./pages/personalize-field-page/PersonalizeFieldPage";
+import SignupPage from "./pages/auth-page/signup-page/SignupPage";
 
 export const Data = createContext();
 export const FetchState = createContext();

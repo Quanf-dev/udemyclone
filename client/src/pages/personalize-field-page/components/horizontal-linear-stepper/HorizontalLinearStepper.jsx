@@ -8,7 +8,6 @@ import { Box, Container } from "@mui/material";
 import styles from "./HorizontalLinearStepper.module.css";
 import SurveyForm from "../survey-form/SurveyForm";
 import Occupations from "../occupations-form/Occupations";
-import EmailVerification from "../email-verification-form/EmailVerification";
 
 export default function HorizontalLinearStepper() {
   const maxSteps = 6;
@@ -22,9 +21,6 @@ export default function HorizontalLinearStepper() {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   const steps = [
-    {
-      content: <EmailVerification />,
-    },
     {
       content: <SurveyForm />,
     },

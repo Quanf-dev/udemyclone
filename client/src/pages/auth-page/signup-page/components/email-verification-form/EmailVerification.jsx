@@ -1,0 +1,61 @@
+import React, { useState } from "react";
+import { Box, Typography, Button, Container, Link } from "@mui/material";
+import OTPInput from "../../../../../components/otp-ui/OTP-input";
+
+const EmailVerification = ({ email }) => {
+  const [otp, setOtp] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Handle OTP verification logic here
+    console.log("Submitted OTP:", otp);
+  };
+
+  const handleResendCode = () => {
+    // Logic to resend the OTP
+    console.log("Resend code clicked");
+  };
+
+  return (
+    <Container>
+      <Box sx={{ textAlign: "center", mt: 4 }}>
+        <Typography variant="h5">Udemy.com</Typography>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Help us protect your account
+        </Typography>
+        <Typography sx={{ mt: 1 }}>
+          You are signed in as {email}. For added security, you'll need to
+          verify your identity. We've sent a verification code to {email}.
+        </Typography>
+        <Box component="form" sx={{ mt: 4 }} onSubmit={handleSubmit}>
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            Verification code
+          </Typography>
+          <OTPInput
+            separator={<span>-</span>}
+            value={otp}
+            onChange={setOtp}
+            length={5}
+          />
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 3 }}>
+            <Button type="submit" variant="contained" color="primary">
+              Verify code
+            </Button>
+          </Box>
+          <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
+            <Link href="#" onClick={handleResendCode}>
+              Resend code
+            </Link>
+          </Box>
+        </Box>
+        <Typography variant="body2" sx={{ mt: 3 }}>
+          If you don't have access to the primary email address, you can send a
+          code to another address associated with this account, or you can try
+          to verify another way.
+        </Typography>
+      </Box>
+    </Container>
+  );
+};
+
+export default EmailVerification;
