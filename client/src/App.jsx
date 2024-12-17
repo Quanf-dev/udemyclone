@@ -9,6 +9,7 @@ import SignupPage from "./pages/auth-page/signup-page/SignupPage";
 import { fetchSeveralCourses } from "./service/api.service";
 import LoginPage from "./pages/auth-page/login-page/LoginPage";
 import EditProfilePage from "./pages/edit-profile-page/EditProfilePage";
+import ProtectedRouteProfile from "./protectedRouter/ProtectedRouteProfile";
 
 export const Data = createContext();
 export const FetchState = createContext();
@@ -30,16 +31,16 @@ function App() {
     // };
     // getData();
 
-    loadData()
+    loadData();
   }, []);
 
   const loadData = async () => {
-    const res = await fetchSeveralCourses()
+    const res = await fetchSeveralCourses();
     setCoursesData(res.data);
     setAsFetched(true);
 
-    console.log(res.data)
-  }
+    console.log(res.data);
+  };
 
   return (
     <Data.Provider value={coursesData}>
@@ -55,7 +56,14 @@ function App() {
             ></Route>
             <Route path="*" element={<PageNotFound />}></Route>
             <Route path="field" element={<PersonalizeFieldPage />}></Route>
-            <Route path="edit-profile" element={<EditProfilePage />}></Route>
+            <Route
+              path="edit-profile"
+              element={
+                <ProtectedRouteProfile>
+                  <EditProfilePage />
+                </ProtectedRouteProfile>
+              }
+            />{" "}
             <Route path="signup" element={<SignupPage />}></Route>
             <Route path="login" element={<LoginPage />}></Route>
           </Routes>{" "}

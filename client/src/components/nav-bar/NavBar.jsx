@@ -5,23 +5,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
 
 function NavBar() {
-
   // dùng để chuyển trang
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
 
   const logout = () => {
     localStorage.removeItem("id");
-    localStorage.removeItem("email")
-    localStorage.removeItem("fullName")
-    localStorage.removeItem("avatar")
-    localStorage.removeItem("role")
-    localStorage.removeItem("active")
-    localStorage.removeItem("token")
+    localStorage.removeItem("email");
+    localStorage.removeItem("fullName");
+    localStorage.removeItem("avatar");
+    localStorage.removeItem("role");
+    localStorage.removeItem("active");
+    localStorage.removeItem("token");
 
-    message.success("Đăng xuất thành công")
+    message.success("Đăng xuất thành công");
     // redirect
-    navigate("/login")
-  }
+    navigate("/login");
+  };
 
   return (
     <>
@@ -66,24 +66,31 @@ function NavBar() {
               <i className="fa-solid fa-cart-shopping"></i>
             </button>
           </li>
-          <li className={styles.loginButton}>
-            <button type="button" name="login-button">
-              <Link to="/login">Login</Link>
-            </button>
-          </li>
-          <li className={styles.signupButton}>
-            <button type="button" name="singup-button">
-              <Link to="/signup">Sign up</Link>
-            </button>
-          </li>
-          <li className={styles.signupButton}>
-            <button type="button" name="singup-button" onClick={() => logout()}>
-              Logout
-            </button>
-          </li>
+          {!token ? (
+            <>
+              <li className={styles.loginButton}>
+                <button type="button" name="login-button">
+                  <Link to="/login">Login</Link>
+                </button>
+              </li>
+              <li className={styles.signupButton}>
+                <button type="button" name="signup-button">
+                  <Link to="/signup">Sign up</Link>
+                </button>
+              </li>
+            </>
+          ) : (
+            <li className={styles.signupButton}>
+              <button type="button" name="signup-button" onClick={logout}>
+                Logout
+              </button>
+            </li>
+          )}
           <li className={styles.langButton}>
             <button type="button" name="language-button">
-              <Link to={'edit-profile'}><i className="fa-solid fa-globe"></i></Link>
+              <Link to={"edit-profile"}>
+                <i className="fa-solid fa-user"></i>
+              </Link>
             </button>
           </li>
         </ul>
