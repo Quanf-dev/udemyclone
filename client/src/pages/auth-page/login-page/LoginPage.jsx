@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from "react";
 import {
   Container,
@@ -8,15 +9,18 @@ import {
   Typography,
   FormControlLabel,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { login, sendEmailVerification } from "../../../service/api.service";
+import { message, notification } from "antd";
 
 const LoginPage = () => {
-  const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
-    fullname: "",
     email: "",
     password: "",
   });
+
+  // dùng để chuyển trang
+  const navigate = useNavigate()
 
   const handleChange = (e) => {
     const { id, value } = e.target;
@@ -27,10 +31,32 @@ const LoginPage = () => {
     e.preventDefault();
     console.log("Sign-up data:", formData);
 
-    // call api
-    await sendEmailVerification(formData.email);
-    // redirect
-    setStep(2);
+    const data = {
+      loginName: formData.email,
+      password: formData.password
+    }
+
+    const res = await login(data)
+    if (res.data) {
+      message.success("Đăng nhập thành công")
+
+      // luu vao local storage
+      localStorage.setItem("id", res.data.id)
+      localStorage.setItem("email", res.data.email)
+      localStorage.setItem("fullName", res.data.fullName)
+      localStorage.setItem("avatar", res.data.avatar)
+      localStorage.setItem("role", res.data.role)
+      localStorage.setItem("active", res.data.active)
+      localStorage.setItem("token", res.data.accessToken)
+
+      // redirect
+      navigate("/")
+    } else {
+      notification.error({
+        message: "Login failed",
+        description: JSON.stringify(res.message)
+      })
+    }
   };
 
   return (
