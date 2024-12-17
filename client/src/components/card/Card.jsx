@@ -6,10 +6,11 @@ import StarsRating from "../stars-rating/StarsRating";
 import { useNavigate } from "react-router-dom";
 
 const Card = ({ course }) => {
-  const { title, visible_instructors, image_304x171: image, rating } = course;
-  const instructors = visible_instructors
-    .map((instructor) => instructor.title)
-    .join(", ");
+  // const { title, visible_instructors, image_304x171: image, rating } = course;
+  const { title, image } = course
+  // const instructors = visible_instructors
+  //   .map((instructor) => instructor.title)
+  //   .join(", ");
 
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -27,7 +28,6 @@ const Card = ({ course }) => {
     navigate(`/courses/${course.id}`);
   };
 
-  console.log(instructors);
 
   return (
     <>
@@ -41,13 +41,13 @@ const Card = ({ course }) => {
       >
         <article className={styles.card}>
           <figure className={styles.wrapper}>
-            <img src={image} alt="" />
+            <img src="https://picsum.photos/200/300" alt="" />
           </figure>
           <section className={styles.body}>
             <p className={styles.title}>{title}</p>
-            <p className={styles.instructors}>{instructors}</p>
-            <p className={styles.rating}>{rating.toPrecision(2)}</p>
-            <StarsRating rating={rating} />
+            {/* <p className={styles.instructors}>{instructors}</p> */}
+            {/* <p className={styles.rating}>{rating.toPrecision(2)}</p> */}
+            {/* <StarsRating rating={rating} /> */}
             <p className={styles.price}>$15</p>
           </section>
         </article>
