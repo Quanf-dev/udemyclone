@@ -1,8 +1,22 @@
-import { Avatar, notification, Popconfirm, Rate, Space, Spin, Table, Typography } from "antd";
+import {
+  Avatar,
+  notification,
+  Popconfirm,
+  Rate,
+  Space,
+  Spin,
+  Table,
+  Typography,
+} from "antd";
 import { useEffect, useState } from "react";
 import { getUser } from "../../api";
-import { DeleteOutlined, EditOutlined, LoadingOutlined } from "@ant-design/icons";
+import {
+  DeleteOutlined,
+  EditOutlined,
+  LoadingOutlined,
+} from "@ant-design/icons";
 import { deleteCourse, fetchSeveralCourses } from "../../service/api.service";
+import CourseModal from "./Components/CourseModal";
 
 export default function CoursePage() {
   const [loading, setLoading] = useState(false);
@@ -10,19 +24,19 @@ export default function CoursePage() {
 
   useEffect(() => {
     setLoading(true);
-    loadData()
+    loadData();
     setLoading(false);
   }, []);
 
   const loadData = async () => {
-    const res = await fetchSeveralCourses()
+    const res = await fetchSeveralCourses();
     if (res.data && res.data.result) {
-      setDataSource(res.data.result)
+      setDataSource(res.data.result);
     }
-  }
+  };
 
   const handleDeleteCourse = async (id) => {
-    const res = await deleteCourse(id)
+    const res = await deleteCourse(id);
 
     if (res.status === 200) {
       notification.success({
@@ -37,79 +51,85 @@ export default function CoursePage() {
         description: "Xóa course thất bại",
       });
     }
-  }
+  };
 
   return (
     <>
       {loading ? (
         <Spin indicator={<LoadingOutlined spin />} />
       ) : (
-        <Space size={20} direction="vertical">
-          <Table
-            loading={loading}
-            columns={[
-              {
-                title: "ID",
-                dataIndex: "id",
-              },
-              {
-                title: "Title",
-                dataIndex: "title",
-              },
-              {
-                title: "Owner",
-                render: (value) => <span>{value.ownBy.email}</span>,
-              },
-              {
-                title: "Created At",
-                dataIndex: "createdAt",
-              },
-              {
-                title: "Status",
-                render: (value) => {
-                  return (
-                    <>
-                      {value.status === "PENDING" ?
-                        <p style={{ color: "red", fontWeight: "bold" }}>{value.status}</p >
-                        :
-                        <p style={{ color: "green", fontWeight: "bold" }}>{value.status}</p >
-                      }
-                    </>
-                  )
-                }
-              },
-              {
-                title: "Action",
-                key: "action",
-                render: (_, record) => (
-                  <div style={{ display: "flex", gap: "20px" }}>
-                    <EditOutlined
-                      style={{ cursor: "pointer", color: "orange" }}
-                    />
-                    <Popconfirm
-                      title="Delete course"
-                      description="Xóa khóa học này?"
-                      okText="Delete"
-                      cancelText="No"
-                      placement="rightBottom"
-                      onConfirm={() => handleDeleteCourse(record.id)}
-                    >
-                      <DeleteOutlined
-                        style={{ cursor: "pointer", color: "red" }}
+        <>
+          <CourseModal />
+          <Space size={20} direction="vertical">
+            <Table
+              loading={loading}
+              columns={[
+                {
+                  title: "ID",
+                  dataIndex: "id",
+                },
+                {
+                  title: "Title",
+                  dataIndex: "title",
+                },
+                {
+                  title: "Owner",
+                  render: (value) => <span>{value.ownBy.email}</span>,
+                },
+                {
+                  title: "Created At",
+                  dataIndex: "createdAt",
+                },
+                {
+                  title: "Status",
+                  render: (value) => {
+                    return (
+                      <>
+                        {value.status === "PENDING" ? (
+                          <p style={{ color: "red", fontWeight: "bold" }}>
+                            {value.status}
+                          </p>
+                        ) : (
+                          <p style={{ color: "green", fontWeight: "bold" }}>
+                            {value.status}
+                          </p>
+                        )}
+                      </>
+                    );
+                  },
+                },
+                {
+                  title: "Action",
+                  key: "action",
+                  render: (_, record) => (
+                    <div style={{ display: "flex", gap: "20px" }}>
+                      <EditOutlined
+                        style={{ cursor: "pointer", color: "orange" }}
                       />
-                    </Popconfirm>
-                  </div>
-                ),
-              },
-            ]}
-            dataSource={dataSource}
-            pagination={{
-              pageSize: 6,
-            }}
-          ></Table >
-        </Space >
-      )
-      }
+                      <Popconfirm
+                        title="Delete course"
+                        description="Xóa khóa học này?"
+                        okText="Delete"
+                        cancelText="No"
+                        placement="rightBottom"
+                        onConfirm={() => handleDeleteCourse(record.id)}
+                      >
+                        <DeleteOutlined
+                          style={{ cursor: "pointer", color: "red" }}
+                        />
+                      </Popconfirm>
+                    </div>
+                  ),
+                },
+              ]}
+              dataSource={dataSource}
+              pagination={{
+                pageSize: 6,
+              }}
+            ></Table>
+          </Space>
+        </>
+      )}
     </>
   );
 }
