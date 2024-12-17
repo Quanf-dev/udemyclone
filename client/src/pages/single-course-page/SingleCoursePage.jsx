@@ -7,6 +7,7 @@ import CourseDetailsPage from "../../components/course-details-page/CourseDetail
 import styles from "./SingleCoursePage.module.css";
 import NavBar from "../../components/nav-bar/NavBar";
 import Footer from "../../components/footer/Footer";
+import { fetchCourse } from "../../service/api.service";
 
 function SingleCoursePage() {
   const coursesData = useContext(Data);
@@ -14,21 +15,39 @@ function SingleCoursePage() {
   const { courseId } = useParams();
   const [courseDetails, setCourseDetails] = useState({});
   const [notFound, setNotFound] = useState(true);
+  // useEffect(() => {
+  //   if (fetched) {
+  //     htmlValues.forEach((value) => {
+  //       const section = coursesData[`${value}_res`];
+  //       section["items"].forEach((course) => {
+  //         if (course.id.toString() === courseId) {
+  //           setCourseDetails(course);
+  //           setNotFound(false);
+  //         }
+  //       });
+  //     });
+  //   }
+  // }, [fetched, notFound, courseDetails, coursesData, courseId]);
 
   useEffect(() => {
-    if (fetched) {
-      htmlValues.forEach((value) => {
-        const section = coursesData[`${value}_res`];
-        section["items"].forEach((course) => {
-          if (course.id.toString() === courseId) {
-            setCourseDetails(course);
-            setNotFound(false);
-          }
-        });
-      });
-    }
+
+
+    const course = getCourse(courseId);
+    console.log(course)
+
   }, [fetched, notFound, courseDetails, coursesData, courseId]);
 
+
+
+
+  const getCourse = async (id) => {
+    const res = await fetchCourse(id)
+    const course = res.data;
+    if (course.id.toString() === courseId) {
+      setCourseDetails(course);
+      setNotFound(false);
+    }
+  }
   return fetched ? (
     notFound ? (
       <main className={styles.main}>

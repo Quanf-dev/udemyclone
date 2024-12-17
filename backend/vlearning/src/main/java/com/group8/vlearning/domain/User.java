@@ -60,14 +60,17 @@ public class User {
     // những lĩnh vực người dùng quan tâm
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_fields", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "field_id"))
+    @JsonIgnore
     private List<Field> fields;
 
     // những kĩ năng người dùng quan tâm
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "users_skills", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "skill_id"))
+    @JsonIgnore
     private List<Skill> skills;
 
     @OneToMany(mappedBy = "ownBy", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Course> ownCourses;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

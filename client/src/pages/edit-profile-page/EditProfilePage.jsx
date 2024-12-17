@@ -8,9 +8,15 @@ import { Container, TextField, Button } from "@mui/material";
 import styles from "./EditProfilePage.module.css";
 import UploadAvatar from "./Components/UploadAvatar";
 import NavBar from "../../components/nav-bar/NavBar";
-import Footer from "../../components/footer/Footer";
 import PurchasedCourse from "./Components/PurchasedCourse";
+<<<<<<< HEAD
 import AccountSecurity from "./Components/AccountSecurity";
+=======
+import { useState } from "react";
+import { fetchUser, updateUser } from "../../service/api.service";
+import { message, notification } from "antd";
+import { useEffect } from "react";
+>>>>>>> f826b9d0e08687cc2f103b3d4e0d7f56a9cde35a
 
 // TabPanel component
 function TabPanel(props) {
@@ -48,8 +54,60 @@ function a11yProps(index) {
 }
 
 const EditProfilePage = () => {
-  const [value, setValue] = React.useState(0);
-  const [nestedValue, setNestedValue] = React.useState(0); // State for nested tabs
+  const [value, setValue] = useState(0);
+  const [nestedValue, setNestedValue] = useState(0); // State for nested tabs
+
+  const [email, setEmail] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [bio, setBio] = useState("");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
+
+  const id = localStorage.getItem("id")
+
+  useEffect(() => {
+    loadUser()
+  }, [])
+
+  const loadUser = async () => {
+    const res = await fetchUser(id)
+
+    if (res.data && res.data.profile) {
+      setEmail(res.data.email)
+      setFullName(res.data.profile.fullName)
+      setBio(res.data.profile.bio)
+      setPhone(res.data.profile.phone)
+      setAddress(res.data.profile.address)
+    }
+  }
+
+  const handleUpdate = async () => {
+    const data = {
+      id,
+      profile: {
+        fullName,
+        bio,
+        address,
+        phone
+      }
+    }
+
+
+    const res = await updateUser(data)
+    if (res.data) {
+      notification.success({
+        message: "Cập nhật thành công",
+        description: JSON.stringify(res.message)
+      })
+
+      await loadUser()
+    } else {
+      notification.error({
+        message: "Login failed",
+        description: JSON.stringify(res.message)
+      })
+    }
+  }
 
   // side menu
   const handleChange = (event, newValue) => {
@@ -95,12 +153,16 @@ const EditProfilePage = () => {
                 label="Email"
                 variant="outlined"
                 disabled={true}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 sx={{ mb: 2 }}
               />
               <TextField
                 fullWidth
                 label="Full Name"
                 variant="outlined"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
                 sx={{ mb: 2 }}
               />
               <TextField
@@ -109,21 +171,27 @@ const EditProfilePage = () => {
                 multiline
                 rows={4}
                 variant="outlined"
+                value={bio}
+                onChange={(e) => setBio(e.target.value)}
                 sx={{ mb: 2 }}
               />
               <TextField
                 fullWidth
                 label="Phone"
                 variant="outlined"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
                 sx={{ mb: 2 }}
               />
               <TextField
                 fullWidth
                 label="Address"
                 variant="outlined"
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
                 sx={{ mb: 2 }}
               />
-              <Button variant="contained" fullWidth>
+              <Button variant="contained" fullWidth onClick={() => handleUpdate()}>
                 Update
               </Button>
             </TabPanel>
@@ -155,7 +223,6 @@ const EditProfilePage = () => {
                 <Tab label="PurchasedCourse" {...a11yProps(0)} />
                 <Tab label="Tab Empty" {...a11yProps(1)} />
               </Tabs>
-
               <TabPanel value={nestedValue} index={0}>
                 <PurchasedCourse />
               </TabPanel>
