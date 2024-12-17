@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal, Select, Button } from "antd";
+import { Modal, Input, Button } from "antd";
 
 function ModalField() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [selectedField, setSelectedField] = useState("");
+  const [fieldName, setFieldName] = useState("");
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -11,7 +11,7 @@ function ModalField() {
 
   const handleOk = () => {
     // Xử lý khi nhấn OK
-    console.log("Selected Field:", selectedField);
+    console.log("Field Name:", fieldName);
     setIsModalVisible(false);
   };
 
@@ -19,8 +19,8 @@ function ModalField() {
     setIsModalVisible(false);
   };
 
-  const handleSelectChange = (value) => {
-    setSelectedField(value);
+  const handleInputChange = (e) => {
+    setFieldName(e.target.value);
   };
 
   return (
@@ -35,17 +35,13 @@ function ModalField() {
         onCancel={handleCancel}
       >
         <div>
-          <label htmlFor="fieldSelect">Field</label>
-          <Select
-            id="fieldSelect"
-            value={selectedField}
-            onChange={handleSelectChange}
-            style={{ width: "100%" }}
-          >
-            <Select.Option value="frontend">Frontend</Select.Option>
-            <Select.Option value="backend">Backend</Select.Option>
-            <Select.Option value="fullstack">Fullstack</Select.Option>
-          </Select>
+          <label htmlFor="fieldName">Field Name</label>
+          <Input
+            id="fieldName"
+            value={fieldName}
+            onChange={handleInputChange}
+            placeholder="Enter field name"
+          />
         </div>
       </Modal>
     </>

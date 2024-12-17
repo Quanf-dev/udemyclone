@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Modal, Input, Button } from "antd";
+import { Modal, Select, Button } from "antd";
 
 function ModalSkill() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [skillName, setSkillName] = useState("");
+  const [selectedSkill, setSelectedSkill] = useState("");
 
   const showModal = () => {
     setIsModalVisible(true);
@@ -11,7 +11,7 @@ function ModalSkill() {
 
   const handleOk = () => {
     // Xử lý khi nhấn OK
-    console.log("Skill Name:", skillName);
+    console.log("Selected Skill:", selectedSkill);
     setIsModalVisible(false);
   };
 
@@ -19,8 +19,8 @@ function ModalSkill() {
     setIsModalVisible(false);
   };
 
-  const handleInputChange = (e) => {
-    setSkillName(e.target.value);
+  const handleSelectChange = (value) => {
+    setSelectedSkill(value);
   };
 
   return (
@@ -35,13 +35,17 @@ function ModalSkill() {
         onCancel={handleCancel}
       >
         <div>
-          <label htmlFor="skillName">Skill Name</label>
-          <Input
-            id="skillName"
-            value={skillName}
-            onChange={handleInputChange}
-            placeholder="Enter skill name"
-          />
+          <label htmlFor="skillSelect">Skill</label>
+          <Select
+            id="skillSelect"
+            value={selectedSkill}
+            onChange={handleSelectChange}
+            style={{ width: "100%" }}
+          >
+            <Select.Option value="frontend">Frontend</Select.Option>
+            <Select.Option value="backend">Backend</Select.Option>
+            <Select.Option value="fullstack">Fullstack</Select.Option>
+          </Select>
         </div>
       </Modal>
     </>
