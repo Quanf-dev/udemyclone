@@ -35,7 +35,7 @@ function ModalField() {
         onCancel={handleCancel}
       >
         <div>
-          <label htmlFor="fieldSelect">Field</label>
+          <label htmlFor="fieldSelect">Name</label>
           <Select
             id="fieldSelect"
             value={selectedField}
