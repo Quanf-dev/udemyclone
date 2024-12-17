@@ -60,6 +60,8 @@ public class Course {
             "updatedAt" })
     private User ownBy;
 
+    private Long price;
+
     @Enumerated(EnumType.STRING)
     private CourseApproveEnum status;
 
@@ -111,24 +113,4 @@ public class Course {
     public void handleBeforeUpdate() {
         this.updatedAt = Instant.now();
     }
-
-    // // Hàm tính số lượng bài giảng trong khóa học
-    // public int getLectureCount() {
-    // return chapters.stream()
-    // .mapToInt(chapter -> chapter.getLectures() == null ? 0 :
-    // chapter.getLectures().size())
-    // .sum();
-    // }
-
-    // // Hàm kiểm tra xem một người dùng đã mua khóa học hay chưa
-    // public boolean isPurchasedByUser(User user) {
-    // return purchasedUser != null && purchasedUser.contains(user);
-    // }
-
-    // // Hàm kiểm tra xem khóa học có khớp với từ khóa tìm kiếm hay không
-    // public boolean matchesKeyword(String keyword) {
-    // String lowerKeyword = keyword.toLowerCase();
-    // return (title != null && title.toLowerCase().contains(lowerKeyword)) ||
-    // (description != null && description.toLowerCase().contains(lowerKeyword));
-    // }
 }

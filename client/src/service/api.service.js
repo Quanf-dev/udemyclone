@@ -110,11 +110,19 @@ const sendEmailVerification = (email) => {
     return axios.post(URL_BACKEND, data, config);
 }
 
+// course
+const fetchSeveralCourses = () => {
+    const URL_BACKEND = "/v1/courses"
+
+    return axios.get(URL_BACKEND);
+}
+
 export {
     createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser,
     fetchSeveralFields,
     fetchSeveralSkills,
     fetchSeveralAchievements,
     uploadFile,
-    login, sendEmailVerification
+    login, sendEmailVerification,
+    fetchSeveralCourses
 }

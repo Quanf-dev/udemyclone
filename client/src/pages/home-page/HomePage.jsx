@@ -27,6 +27,7 @@ function HomePage() {
     }
   });
 
+
   return (
     <>
       <NavBar />

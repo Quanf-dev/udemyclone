@@ -6,7 +6,7 @@ import { Data, FetchState } from "../../App";
 import styles from "./CoursesSection.module.css";
 
 function CoursesSection() {
-  const [currentTab, setCurrentTab] = useState("python_res");
+  // const [currentTab, setCurrentTab] = useState("python_res");
   const fetched = useContext(FetchState);
   const coursesData = useContext(Data);
 
@@ -19,9 +19,11 @@ function CoursesSection() {
         Choose from 185,000 online video courses with new additions published
         every month
       </p>
-      <Tabs setCurrentTab={setCurrentTab} />
+      {/* <Tabs setCurrentTab={setCurrentTab} /> */}
       {fetched ? (
-        <CoursesBox sectionData={coursesData[currentTab]} />
+        // <CoursesBox sectionData={coursesData[currentTab]} />
+        <CoursesBox sectionData={coursesData} />
+
       ) : (
         <LoadingSpinner />
       )}
