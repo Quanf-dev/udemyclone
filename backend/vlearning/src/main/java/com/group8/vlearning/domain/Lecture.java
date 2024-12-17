@@ -34,11 +34,11 @@ public class Lecture {
     @Column(columnDefinition = "MEDIUMTEXT")
     @NotBlank(message = "Tài liệu không được để trống")
     private String file;
-    
+
     private boolean active;
 
-    @Column(nullable = false)
-    private int duration; // Thời lượng bài giảng (phút)
+    // @Column(nullable = false)
+    // private int duration; // Thời lượng bài giảng (phút)
 
     @Column(nullable = false, updatable = false)
     private Instant createdAt; // Thời gian tạo bài giảng
@@ -59,11 +59,6 @@ public class Lecture {
         return active;
     }
 
-    // Hàm hiển thị thông tin cơ bản của bài giảng
-    public String getSummary() {
-        return "Lecture: " + title + ", Duration: " + duration + " minutes, Active: " + (active ? "Yes" : "No");
-    }
-
     // Hàm kiểm tra xem bài giảng có khớp từ khóa tìm kiếm không
     public boolean matchesKeyword(String keyword) {
         if (keyword == null || keyword.isEmpty()) {
@@ -71,14 +66,14 @@ public class Lecture {
         }
         String lowerKeyword = keyword.toLowerCase();
         return (title != null && title.toLowerCase().contains(lowerKeyword)) ||
-               (file != null && file.toLowerCase().contains(lowerKeyword));
+                (file != null && file.toLowerCase().contains(lowerKeyword));
     }
 
     // Hàm xử lý trước khi tạo
     @jakarta.persistence.PrePersist
     public void handleBeforeCreate() {
         this.createdAt = Instant.now();
-        this.active = true; 
+        this.active = true;
     }
 
     // Hàm xử lý trước khi cập nhật

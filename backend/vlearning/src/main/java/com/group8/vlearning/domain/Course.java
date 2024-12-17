@@ -60,6 +60,8 @@ public class Course {
             "updatedAt" })
     private User ownBy;
 
+    private Long price;
+
     @Enumerated(EnumType.STRING)
     private CourseApproveEnum status;
 
