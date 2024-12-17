@@ -41,7 +41,7 @@ function CourseDetailsPage({ courseDetails }) {
           additionalDetails={additionalDetails}
         />
         <div className={styles.body}>
-          <CourseObjectives courseDetails={courseDetails} />
+          {/* <CourseObjectives courseDetails={courseDetails} /> */}
           <div className={styles.includesSection}>
             <ThisCourseIncludes details={additionalDetails} />
           </div>

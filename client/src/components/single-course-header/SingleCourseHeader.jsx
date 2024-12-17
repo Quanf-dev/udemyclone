@@ -5,19 +5,26 @@ import { Link } from "react-router-dom";
 import StarsRating from "../stars-rating/StarsRating";
 
 function SingleCourseHeader({ courseDetails, additionalDetails }) {
+  // const {
+  //   title,
+  //   image_750x422: image,
+  //   headline,
+  //   rating,
+  //   num_subscribers: subscribers,
+  //   visible_instructors: instructors,
+  //   last_update_date: lastUpdate,
+  //   caption_languages: languages,
+  // } = courseDetails;
+
   const {
     title,
-    image_750x422: image,
-    headline,
-    rating,
-    num_subscribers: subscribers,
-    visible_instructors: instructors,
-    last_update_date: lastUpdate,
-    caption_languages: languages,
+    image,
+    ownBy,
+    price
   } = courseDetails;
 
-  const [year, month] = lastUpdate.split("-");
-  const date = new Date(year, month - 1);
+  // const [year, month] = lastUpdate.split("-");
+  // const date = new Date(year, month - 1);
 
   return (
     <>
@@ -38,34 +45,40 @@ function SingleCourseHeader({ courseDetails, additionalDetails }) {
             </figure>
             <section className={styles.mainDetails}>
               <h1 className={styles.title}>{title}</h1>
-              <p>{headline}</p>
-              <p className={styles.rating}>{rating.toPrecision(2)}</p>
+              <p>{title}</p>
+              {/* <p className={styles.rating}>{rating.toPrecision(2)}</p> */}
 
-              <StarsRating rating={rating} />
+              {/* <StarsRating rating={rating} /> */}
               <p className={styles.linkLikeText}>(2,305 ratings)</p>
-              <p
+              {/* <p
                 style={{
                   display: "inline-block",
                   marginLeft: "7px",
                 }}
               >
                 {subscribers} students
-              </p>
-              <p>
+              </p> */}
+              {/* <p>
                 Created by{" "}
                 <span className={styles.linkLikeText}>
                   {instructors.map((instructor) => instructor.name).join(", ")}
+                </span>
+              </p> */}
+              <p>
+                Created by{" "}
+                <span className={styles.linkLikeText}>
+                  {ownBy.email}
                 </span>
               </p>
               <div className={styles.lastUpdateLangWrapper}>
                 <p>
                   <i className="fa-solid fa-circle-exclamation"></i>
-                  <span className={styles.lastUpdate}>
+                  {/* <span className={styles.lastUpdate}>
                     Last updated
                     <span className={styles.lastUpdateDate}>
                       {date.getMonth() + 1}/{date.getFullYear()}
                     </span>
-                  </span>
+                  </span> */}
                 </p>
                 <p>
                   <i className="fa-solid fa-globe"></i> English
@@ -73,7 +86,7 @@ function SingleCourseHeader({ courseDetails, additionalDetails }) {
                 <p>
                   <i className="fa-solid fa-closed-captioning"></i>
                   <span className={styles.languages}>
-                    {languages.join(", ")}
+                    English
                   </span>
                 </p>
               </div>

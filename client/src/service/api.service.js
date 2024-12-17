@@ -117,6 +117,12 @@ const fetchSeveralCourses = () => {
     return axios.get(URL_BACKEND);
 }
 
+const fetchCourse = (id) => {
+    const URL_BACKEND = `/v1/course/${id}`
+
+    return axios.get(URL_BACKEND);
+}
+
 export {
     createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser,
     fetchSeveralFields,
@@ -124,5 +130,5 @@ export {
     fetchSeveralAchievements,
     uploadFile,
     login, sendEmailVerification,
-    fetchSeveralCourses
+    fetchSeveralCourses, fetchCourse
 }

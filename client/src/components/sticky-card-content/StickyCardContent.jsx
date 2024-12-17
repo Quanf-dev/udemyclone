@@ -1,9 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './StickyCardContent.module.css';
 import ThisCourseIncludes from '../this-course-includes/ThisCourseIncludes';
 
-function StickyCardContent({details, additionalDetails}) {
-    const {image_750x422: image} = details;
+function StickyCardContent({ details, additionalDetails }) {
+    // const {image_750x422: image} = details;
+
+    // get image from data
+    const { image } = details;
 
     const [hidden, toggleHidden] = useState(false);
 
@@ -14,6 +17,8 @@ function StickyCardContent({details, additionalDetails}) {
             toggleHidden(false);
         }
     };
+
+
 
     useEffect(() => {
         window.addEventListener('scroll', handleStyles);
@@ -50,7 +55,7 @@ function StickyCardContent({details, additionalDetails}) {
                     Buy now
                 </button>
                 <p className='text-center'>30 Day Money Back Guarantee</p>
-                <ThisCourseIncludes details={additionalDetails}/>
+                <ThisCourseIncludes details={additionalDetails} />
                 <section className={styles.buttonsWrapper}>
                     <button className={styles.footerButton}>Share</button>
                     <button className={styles.footerButton}>

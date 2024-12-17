@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from "./Card.module.css";
-import { Popover } from "@mui/material";
+import { Link, Popover } from "@mui/material";
 import PopoverCard from "../popover-card/PopoverCard";
 import StarsRating from "../stars-rating/StarsRating";
 import { useNavigate } from "react-router-dom";
@@ -43,7 +43,9 @@ const Card = ({ course }) => {
             <img src="https://picsum.photos/200/300" alt="" />
           </figure>
           <section className={styles.body}>
-            <p className={styles.title}>{title}</p>
+            <Link to={`/courses/${course.id}`} className={styles.courseTitle}>
+              <p>{title}</p>
+            </Link>
             {/* <p className={styles.instructors}>{instructors}</p> */}
             {/* <p className={styles.rating}>{rating.toPrecision(2)}</p> */}
             {/* <StarsRating rating={rating} /> */}

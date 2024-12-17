@@ -1,8 +1,9 @@
+/* eslint-disable react/no-unescaped-entities */
 import React from 'react';
 import styles from './CourseObjectives.module.css';
 
-function CourseObjectives({courseDetails}) {
-    const {objectives_summary: objectives} = courseDetails;
+function CourseObjectives({ courseDetails }) {
+    const { objectives_summary: objectives } = courseDetails;
 
     return (
         <div className={styles.objectivesContainer}>
@@ -15,7 +16,7 @@ function CourseObjectives({courseDetails}) {
                             className={styles.objective}
                         >
                             <i
-                                style={{marginRight: '10px', color: 'grey'}}
+                                style={{ marginRight: '10px', color: 'grey' }}
                                 className='fa-solid fa-check'
                             ></i>{' '}
                             {objective}
