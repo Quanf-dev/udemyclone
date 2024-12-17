@@ -91,11 +91,26 @@ const login = (data) => {
 
     return axios.post(URL_BACKEND, data)
 }
+
+//course
+const fetchSeveralCourses = () => {
+    const URL_BACKEND = "/v1/courses"
+
+    return axios.get(URL_BACKEND)
+}
+
+const deleteCourse = (id) => {
+    const URL_BACKEND = `/v1/course/${id}`
+
+    return axios.delete(URL_BACKEND)
+}
 export {
     createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser,
     fetchSeveralFields,
     fetchSeveralSkills,
     fetchSeveralAchievements,
     uploadFile,
-    login
+    login,
+    fetchSeveralCourses, deleteCourse
+
 }

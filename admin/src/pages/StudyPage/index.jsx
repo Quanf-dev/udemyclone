@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Tabs, Avatar, Rate, Space, Spin, Table, Switch, Popconfirm } from "antd";
 import { DeleteOutlined, EditOutlined, LoadingOutlined } from "@ant-design/icons";
-import { getUser } from "../../api";
-import { fetchSeveralAchievements, fetchSeveralFields, fetchSeveralSkills } from "../../service/api.service";
+import { fetchSeveralFields, fetchSeveralSkills } from "../../service/api.service";
 
 const onChange = (key) => {
   console.log(key);
@@ -20,11 +19,12 @@ const TableContent = ({ object, loading, dataSource }) => (
         title: "Name",
         dataIndex: "name",
       },
-      ...(dataSource.some(record => record.object === "skill") ? [{
+      ...(dataSource.some(record => object === "skill") ? [{
         title: "Field name",
         render: (_, record) => {
           return (
             <>
+              {console.log(record.object)}
               {record.field && record.field.name && (
                 <>{record.field.name}</>
               )}
@@ -81,8 +81,6 @@ const TabContent = (props) => {
 
   const loadData = async () => {
     let res = null
-
-    console.log(object)
 
     if (object == "skill") {
       res = await fetchSeveralSkills()

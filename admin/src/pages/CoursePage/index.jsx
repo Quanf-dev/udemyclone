@@ -1,7 +1,8 @@
-import { Avatar, Rate, Space, Spin, Table, Typography } from "antd";
+import { Avatar, notification, Popconfirm, Rate, Space, Spin, Table, Typography } from "antd";
 import { useEffect, useState } from "react";
 import { getUser } from "../../api";
-import { LoadingOutlined } from "@ant-design/icons";
+import { DeleteOutlined, EditOutlined, LoadingOutlined } from "@ant-design/icons";
+import { deleteCourse, fetchSeveralCourses } from "../../service/api.service";
 
 export default function CoursePage() {
   const [loading, setLoading] = useState(false);
@@ -9,11 +10,34 @@ export default function CoursePage() {
 
   useEffect(() => {
     setLoading(true);
-    getUser().then((res) => {
-      setDataSource(res.products);
-      setLoading(false);
-    });
+    loadData()
+    setLoading(false);
   }, []);
+
+  const loadData = async () => {
+    const res = await fetchSeveralCourses()
+    if (res.data && res.data.result) {
+      setDataSource(res.data.result)
+    }
+  }
+
+  const handleDeleteCourse = async (id) => {
+    const res = await deleteCourse(id)
+
+    if (res.status === 200) {
+      notification.success({
+        message: "Delete course",
+        description: "Xóa course thành công",
+      });
+
+      await loadData();
+    } else {
+      notification.error({
+        message: "Delete course",
+        description: "Xóa course thất bại",
+      });
+    }
+  }
 
   return (
     <>
@@ -25,49 +49,67 @@ export default function CoursePage() {
             loading={loading}
             columns={[
               {
-                title: "Thumbnail",
-                dataIndex: "thumbnail",
-                render: (link) => {
-                  return <Avatar src={link} />;
-                },
+                title: "ID",
+                dataIndex: "id",
               },
               {
                 title: "Title",
                 dataIndex: "title",
               },
               {
-                title: "Price",
-                dataIndex: "price",
-                render: (value) => <span>${value}</span>,
+                title: "Owner",
+                render: (value) => <span>{value.ownBy.email}</span>,
               },
               {
-                title: "Rating",
-                dataIndex: "rating",
-                render: (rating) => {
-                  return <Rate value={rating} allowHalf disabled />;
-                },
+                title: "Created At",
+                dataIndex: "createdAt",
               },
               {
-                title: "Stock",
-                dataIndex: "stock",
+                title: "Status",
+                render: (value) => {
+                  return (
+                    <>
+                      {value.status === "PENDING" ?
+                        <p style={{ color: "red", fontWeight: "bold" }}>{value.status}</p >
+                        :
+                        <p style={{ color: "green", fontWeight: "bold" }}>{value.status}</p >
+                      }
+                    </>
+                  )
+                }
               },
-
               {
-                title: "Brand",
-                dataIndex: "brand",
-              },
-              {
-                title: "Category",
-                dataIndex: "category",
+                title: "Action",
+                key: "action",
+                render: (_, record) => (
+                  <div style={{ display: "flex", gap: "20px" }}>
+                    <EditOutlined
+                      style={{ cursor: "pointer", color: "orange" }}
+                    />
+                    <Popconfirm
+                      title="Delete course"
+                      description="Xóa khóa học này?"
+                      okText="Delete"
+                      cancelText="No"
+                      placement="rightBottom"
+                      onConfirm={() => handleDeleteCourse(record.id)}
+                    >
+                      <DeleteOutlined
+                        style={{ cursor: "pointer", color: "red" }}
+                      />
+                    </Popconfirm>
+                  </div>
+                ),
               },
             ]}
             dataSource={dataSource}
             pagination={{
               pageSize: 6,
             }}
-          ></Table>
-        </Space>
-      )}
+          ></Table >
+        </Space >
+      )
+      }
     </>
   );
 }
