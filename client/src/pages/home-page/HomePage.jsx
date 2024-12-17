@@ -27,12 +27,11 @@ function HomePage() {
     }
   });
 
-
   return (
     <>
       <NavBar />
       <Header />
-      <CoursesSection />
+      {/* <CoursesSection /> */}
       <PartnerBanner />
       <Footer />
 

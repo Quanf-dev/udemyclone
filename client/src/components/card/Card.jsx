@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Card = ({ course }) => {
   // const { title, visible_instructors, image_304x171: image, rating } = course;
-  const { title, image } = course
+  const { title, image } = course;
   // const instructors = visible_instructors
   //   .map((instructor) => instructor.title)
   //   .join(", ");
@@ -28,10 +28,6 @@ const Card = ({ course }) => {
     navigate(`/courses/${course.id}`);
   };
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 532b2aa0bc8206e8f35cfc4c9d2a6cfc81c89e48
   return (
     <>
       <div

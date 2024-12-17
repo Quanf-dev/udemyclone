@@ -6,12 +6,9 @@ import SingleCoursePage from "./pages/single-course-page/SingleCoursePage";
 import PageNotFound from "./components/page-not-found/PageNotFound";
 import PersonalizeFieldPage from "./pages/personalize-field-page/PersonalizeFieldPage";
 import SignupPage from "./pages/auth-page/signup-page/SignupPage";
-<<<<<<< HEAD
-import LoginPage from "./pages/auth-page/login-page/LoginPage";
-import EditProfilePage from "./pages/edit-profile-page/EditProfilePage";
-=======
 import { fetchSeveralCourses } from "./service/api.service";
->>>>>>> 532b2aa0bc8206e8f35cfc4c9d2a6cfc81c89e48
+import EditProfilePage from "./pages/edit-profile-page/EditProfilePage";
+import LoginPage from "../../admin/src/pages/LoginPage";
 
 export const Data = createContext();
 export const FetchState = createContext();
@@ -33,16 +30,16 @@ function App() {
     // };
     // getData();
 
-    loadData()
+    loadData();
   }, []);
 
   const loadData = async () => {
-    const res = await fetchSeveralCourses()
+    const res = await fetchSeveralCourses();
     setCoursesData(res.data);
     setAsFetched(true);
 
-    console.log(res.data)
-  }
+    console.log(res.data);
+  };
 
   return (
     <Data.Provider value={coursesData}>
