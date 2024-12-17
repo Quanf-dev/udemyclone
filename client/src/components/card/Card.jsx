@@ -27,8 +27,6 @@ const Card = ({ course }) => {
     navigate(`/courses/${course.id}`);
   };
 
-  console.log(instructors);
-
   return (
     <>
       <div

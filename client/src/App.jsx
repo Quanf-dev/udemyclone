@@ -6,6 +6,8 @@ import SingleCoursePage from "./pages/single-course-page/SingleCoursePage";
 import PageNotFound from "./components/page-not-found/PageNotFound";
 import PersonalizeFieldPage from "./pages/personalize-field-page/PersonalizeFieldPage";
 import SignupPage from "./pages/auth-page/signup-page/SignupPage";
+import LoginPage from "./pages/auth-page/login-page/LoginPage";
+import EditProfilePage from "./pages/edit-profile-page/EditProfilePage";
 
 export const Data = createContext();
 export const FetchState = createContext();
@@ -42,7 +44,9 @@ function App() {
             ></Route>
             <Route path="*" element={<PageNotFound />}></Route>
             <Route path="field" element={<PersonalizeFieldPage />}></Route>
+            <Route path="edit-profile" element={<EditProfilePage />}></Route>
             <Route path="signup" element={<SignupPage />}></Route>
+            <Route path="login" element={<LoginPage />}></Route>
           </Routes>{" "}
         </Router>
       </FetchState.Provider>

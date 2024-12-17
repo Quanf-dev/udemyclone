@@ -3,6 +3,7 @@ import Header from "../../components/header/Header";
 import NavBar from "../../components/nav-bar/NavBar";
 import Footer from "../../components/footer/Footer";
 import CoursesSection from "../../components/courses-section/CoursesSection";
+import PartnerBanner from "../../components/partner-banner/PartnerBanner";
 
 function HomePage() {
   useEffect(() => {
@@ -31,6 +32,7 @@ function HomePage() {
       <NavBar />
       <Header />
       <CoursesSection />
+      <PartnerBanner />
       <Footer />
 
       {/* <CoursesSection /> */}
