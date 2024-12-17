@@ -15,14 +15,7 @@ export default function AppRoutes() {
     <BrowserRouter>
       <Routes>
         <Route path="login" element={<LoginPage />} />
-        <Route
-          path="/"
-          element={
-            <PrivateRoute>
-              <MainLayout />
-            </PrivateRoute>
-          }
-        >
+        <Route path="/" element={<MainLayout />}>
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="user" element={<UserPage />} />
           <Route path="voucher" element={<VoucherPage />} />
