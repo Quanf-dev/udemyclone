@@ -1,9 +1,28 @@
 import React from "react";
 import styles from "./NavBar.module.css";
 import SearchBar from "../search-bar/SearchBar";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 function NavBar() {
+  // dùng để chuyển trang
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+
+  const logout = () => {
+    localStorage.removeItem("id");
+    localStorage.removeItem("email");
+    localStorage.removeItem("fullName");
+    localStorage.removeItem("avatar");
+    localStorage.removeItem("role");
+    localStorage.removeItem("active");
+    localStorage.removeItem("token");
+
+    message.success("Đăng xuất thành công");
+    // redirect
+    navigate("/login");
+  };
+
   return (
     <>
       <nav className={styles.nav}>
@@ -47,19 +66,31 @@ function NavBar() {
               <i className="fa-solid fa-cart-shopping"></i>
             </button>
           </li>
-          <li className={styles.loginButton}>
-            <button type="button" name="login-button">
-              Log in
-            </button>
-          </li>
-          <li className={styles.signupButton}>
-            <button type="button" name="singup-button">
-              <Link to="/signup">Sign up</Link>
-            </button>
-          </li>
+          {!token ? (
+            <>
+              <li className={styles.loginButton}>
+                <button type="button" name="login-button">
+                  <Link to="/login">Login</Link>
+                </button>
+              </li>
+              <li className={styles.signupButton}>
+                <button type="button" name="signup-button">
+                  <Link to="/signup">Sign up</Link>
+                </button>
+              </li>
+            </>
+          ) : (
+            <li className={styles.signupButton}>
+              <button type="button" name="signup-button" onClick={logout}>
+                Logout
+              </button>
+            </li>
+          )}
           <li className={styles.langButton}>
             <button type="button" name="language-button">
-              <i className="fa-solid fa-globe"></i>
+              <Link to={"edit-profile"}>
+                <i className="fa-solid fa-user"></i>
+              </Link>
             </button>
           </li>
         </ul>

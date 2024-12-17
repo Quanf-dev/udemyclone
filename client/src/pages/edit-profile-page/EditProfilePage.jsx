@@ -50,10 +50,12 @@ const EditProfilePage = () => {
   const [value, setValue] = React.useState(0);
   const [nestedValue, setNestedValue] = React.useState(0); // State for nested tabs
 
+  // side menu
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  // tab
   const handleNestedChange = (event, newValue) => {
     setNestedValue(newValue);
   };
@@ -89,32 +91,39 @@ const EditProfilePage = () => {
               </Typography>
               <TextField
                 fullWidth
-                label="First Name"
+                label="Email"
+                variant="outlined"
+                disabled={true}
+                sx={{ mb: 2 }}
+              />
+              <TextField
+                fullWidth
+                label="Full Name"
                 variant="outlined"
                 sx={{ mb: 2 }}
               />
               <TextField
                 fullWidth
-                label="Last Name"
-                variant="outlined"
-                sx={{ mb: 2 }}
-              />
-              <TextField
-                fullWidth
-                label="Headline"
-                variant="outlined"
-                sx={{ mb: 2 }}
-              />
-              <TextField
-                fullWidth
-                label="Description"
+                label="Bio"
                 multiline
                 rows={4}
                 variant="outlined"
                 sx={{ mb: 2 }}
               />
+              <TextField
+                fullWidth
+                label="Phone"
+                variant="outlined"
+                sx={{ mb: 2 }}
+              />
+              <TextField
+                fullWidth
+                label="Address"
+                variant="outlined"
+                sx={{ mb: 2 }}
+              />
               <Button variant="contained" fullWidth>
-                Save
+                Update
               </Button>
             </TabPanel>
 
