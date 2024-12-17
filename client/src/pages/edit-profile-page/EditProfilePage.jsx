@@ -10,6 +10,7 @@ import UploadAvatar from "./Components/UploadAvatar";
 import NavBar from "../../components/nav-bar/NavBar";
 import Footer from "../../components/footer/Footer";
 import PurchasedCourse from "./Components/PurchasedCourse";
+import AccountSecurity from "./Components/AccountSecurity";
 
 // TabPanel component
 function TabPanel(props) {
@@ -137,13 +138,7 @@ const EditProfilePage = () => {
 
             {/* Account Security Tab */}
             <TabPanel value={value} index={2}>
-              <Typography variant="h4" gutterBottom>
-                Account Security
-              </Typography>
-              <Typography>
-                Secure your account with two-factor authentication, password
-                updates, and more.
-              </Typography>
+              <AccountSecurity />
             </TabPanel>
 
             {/* My Course Tab */}

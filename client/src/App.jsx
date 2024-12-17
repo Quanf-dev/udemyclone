@@ -50,10 +50,10 @@ function App() {
           <Routes>
             {" "}
             <Route path="/" element={<HomePage />} />{" "}
-            {/* <Route
+            <Route
               path="/courses/:courseId"
               element={<SingleCoursePage />}
-            ></Route> */}
+            ></Route>
             <Route path="*" element={<PageNotFound />}></Route>
             <Route path="field" element={<PersonalizeFieldPage />}></Route>
             <Route
