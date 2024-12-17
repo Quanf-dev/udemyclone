@@ -5,6 +5,8 @@ import htmlValues from "../../components/tabs/htmlValues";
 import LoadingSpinner from "../../components/loading-spinner/LoadingSpinner";
 import CourseDetailsPage from "../../components/course-details-page/CourseDetailsPage";
 import styles from "./SingleCoursePage.module.css";
+import NavBar from "../../components/nav-bar/NavBar";
+import Footer from "../../components/footer/Footer";
 
 function SingleCoursePage() {
   const coursesData = useContext(Data);
@@ -33,7 +35,11 @@ function SingleCoursePage() {
         <h1 className={styles.message}>Course Not Found</h1>
       </main>
     ) : (
-      <CourseDetailsPage courseDetails={courseDetails} />
+      <>
+        <NavBar />
+        <CourseDetailsPage courseDetails={courseDetails} />
+        <Footer />
+      </>
     )
   ) : (
     <LoadingSpinner />

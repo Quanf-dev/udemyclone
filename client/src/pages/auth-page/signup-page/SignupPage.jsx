@@ -6,11 +6,11 @@ import {
   Checkbox,
   Button,
   Typography,
-  Link,
   FormControlLabel,
 } from "@mui/material";
 import EmailVerification from "./components/email-verification-form/EmailVerification";
 import { sendEmailVerification } from "../../../service/api.service";
+import { Link } from "react-router-dom";
 
 const SignupPage = () => {
   const [step, setStep] = useState(1);
@@ -30,7 +30,7 @@ const SignupPage = () => {
     console.log("Sign-up data:", formData);
 
     // call api
-    await sendEmailVerification(formData.email)
+    await sendEmailVerification(formData.email);
     // redirect
     setStep(2);
   };
@@ -117,7 +117,7 @@ const SignupPage = () => {
                 </Grid>
                 <Grid item xs={12}>
                   <Typography variant="body2" align="center">
-                    Already have an account? <Link href="#">Log In</Link>
+                    Already have an account? <Link to="/login">Log In</Link>
                   </Typography>
                 </Grid>
               </Grid>
@@ -125,7 +125,11 @@ const SignupPage = () => {
           </Grid>
         </Grid>
       ) : (
-        <EmailVerification email={formData.email} fullName={formData.fullname} password={formData.password} />
+        <EmailVerification
+          email={formData.email}
+          fullName={formData.fullname}
+          password={formData.password}
+        />
       )}
     </Container>
   );

@@ -28,7 +28,10 @@ const Card = ({ course }) => {
     navigate(`/courses/${course.id}`);
   };
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 532b2aa0bc8206e8f35cfc4c9d2a6cfc81c89e48
   return (
     <>
       <div
