@@ -59,9 +59,10 @@ function App() {
             <Route
               path="edit-profile"
               element={
-                <ProtectedRouteProfile>
-                  <EditProfilePage />
-                </ProtectedRouteProfile>
+                // <ProtectedRouteProfile>
+                //   <EditProfilePage />
+                // </ProtectedRouteProfile>
+                <EditProfilePage />
               }
             />{" "}
             <Route path="signup" element={<SignupPage />}></Route>

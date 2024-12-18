@@ -1,0 +1,57 @@
+.card {
+  margin: 8px;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%; /* Sử dụng trong lưới */
+}
+
+.image {
+  width: 100%;
+  max-width: 150px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.title {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.desc {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.price {
+  font-size: 16px;
+  color: #ff5722;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.field {
+  font-size: 12px;
+  color: #1976d2;
+  margin-bottom: 6px;
+}
+
+.skills {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.skill {
+  background: #e0f7fa;
+  color: #00796b;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+}
