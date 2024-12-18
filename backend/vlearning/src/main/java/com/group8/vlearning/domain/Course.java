@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.group8.vlearning.util.constant.CourseApproveEnum;
 import com.group8.vlearning.util.validator.Require;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -87,7 +88,7 @@ public class Course {
 
     private boolean active;
 
-    @ManyToMany(mappedBy = "purchasedCourses", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "purchasedCourses", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     // @JsonIgnoreProperties(value = { "skills", "purchasedUser" })
     @JsonIgnore
     private List<User> purchasedUser;

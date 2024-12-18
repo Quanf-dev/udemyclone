@@ -15,6 +15,7 @@ import com.group8.vlearning.domain.Skill;
 import com.group8.vlearning.domain.User;
 import com.group8.vlearning.domain.dto.response.ResultPagination;
 import com.group8.vlearning.repository.SkillRepository;
+import com.group8.vlearning.repository.UserRepository;
 import com.group8.vlearning.repository.course.CourseRepository;
 import com.group8.vlearning.util.error.CustomException;
 
@@ -26,6 +27,9 @@ public class CourseService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Autowired
     private FieldService fieldService;
@@ -85,6 +89,14 @@ public class CourseService {
             throw new CustomException("Course not found");
         }
         this.courseRepository.deleteById(id);
+    }
+
+    public void handlePurchaseCourse(Long userId, Long courseId) throws CustomException {
+        User user = this.userService.handleFetchUser(userId);
+        Course course = this.handleFetchCourse(courseId);
+
+        user.getPurchasedCourses().add(course);
+        this.userRepository.save(user);
     }
 
 }
