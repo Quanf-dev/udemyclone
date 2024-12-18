@@ -1,0 +1,48 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  text-align: center;
+  padding: 16px;
+}
+
+.icon {
+  font-size: 120px !important;
+  color: #4caf50;
+  margin-bottom: 16px;
+  animation: scaleUp 1s ease-out;
+}
+
+@keyframes scaleUp {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 12px;
+}
+
+.message {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.button {
+  padding: 8px 16px;
+  font-size: 16px;
+}

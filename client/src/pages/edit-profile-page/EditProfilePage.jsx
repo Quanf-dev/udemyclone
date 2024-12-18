@@ -13,6 +13,8 @@ import { useState } from "react";
 import { fetchUser, updateUser } from "../../service/api.service";
 import { message, notification } from "antd";
 import { useEffect } from "react";
+import AccountSecurity from "./Components/Account-security-tab/AccountSecurity";
+import AddCourse from "./Components/add-course-tab/AddCourse";
 
 // TabPanel component
 function TabPanel(props) {
@@ -59,23 +61,23 @@ const EditProfilePage = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
 
-  const id = localStorage.getItem("id")
+  const id = localStorage.getItem("id");
 
   useEffect(() => {
-    loadUser()
-  }, [])
+    loadUser();
+  }, []);
 
   const loadUser = async () => {
-    const res = await fetchUser(id)
+    const res = await fetchUser(id);
 
     if (res.data && res.data.profile) {
-      setEmail(res.data.email)
-      setFullName(res.data.profile.fullName)
-      setBio(res.data.profile.bio)
-      setPhone(res.data.profile.phone)
-      setAddress(res.data.profile.address)
+      setEmail(res.data.email);
+      setFullName(res.data.profile.fullName);
+      setBio(res.data.profile.bio);
+      setPhone(res.data.profile.phone);
+      setAddress(res.data.profile.address);
     }
-  }
+  };
 
   const handleUpdate = async () => {
     const data = {
@@ -84,26 +86,25 @@ const EditProfilePage = () => {
         fullName,
         bio,
         address,
-        phone
-      }
-    }
+        phone,
+      },
+    };
 
-
-    const res = await updateUser(data)
+    const res = await updateUser(data);
     if (res.data) {
       notification.success({
         message: "Cập nhật thành công",
-        description: JSON.stringify(res.message)
-      })
+        description: JSON.stringify(res.message),
+      });
 
-      await loadUser()
+      await loadUser();
     } else {
       notification.error({
         message: "Login failed",
-        description: JSON.stringify(res.message)
-      })
+        description: JSON.stringify(res.message),
+      });
     }
-  }
+  };
 
   // side menu
   const handleChange = (event, newValue) => {
@@ -187,7 +188,11 @@ const EditProfilePage = () => {
                 onChange={(e) => setAddress(e.target.value)}
                 sx={{ mb: 2 }}
               />
-              <Button variant="contained" fullWidth onClick={() => handleUpdate()}>
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={() => handleUpdate()}
+              >
                 Update
               </Button>
             </TabPanel>
@@ -202,13 +207,7 @@ const EditProfilePage = () => {
 
             {/* Account Security Tab */}
             <TabPanel value={value} index={2}>
-              <Typography variant="h4" gutterBottom>
-                Account Security
-              </Typography>
-              <Typography>
-                Secure your account with two-factor authentication, password
-                updates, and more.
-              </Typography>
+              <AccountSecurity />
             </TabPanel>
 
             {/* My Course Tab */}
@@ -222,13 +221,15 @@ const EditProfilePage = () => {
                 aria-label="My Course Tabs"
                 sx={{ borderBottom: 1, borderColor: "divider", mb: 2 }}
               >
-                <Tab label="PurchasedCourse" {...a11yProps(0)} />
-                <Tab label="Tab Empty" {...a11yProps(1)} />
+                <Tab label="Purchased Course" {...a11yProps(0)} />
+                <Tab label="Add Course" {...a11yProps(1)} />
               </Tabs>
               <TabPanel value={nestedValue} index={0}>
                 <PurchasedCourse />
               </TabPanel>
-              <TabPanel value={nestedValue} index={1}></TabPanel>
+              <TabPanel value={nestedValue} index={1}>
+                <AddCourse />
+              </TabPanel>
             </TabPanel>
           </Box>
         </Box>

@@ -10,6 +10,8 @@ import { fetchSeveralCourses } from "./service/api.service";
 import LoginPage from "./pages/auth-page/login-page/LoginPage";
 import EditProfilePage from "./pages/edit-profile-page/EditProfilePage";
 import ProtectedRouteProfile from "./protectedRouter/ProtectedRouteProfile";
+import SuccessPayment from "./pages/success-payment-page/SuccessPayment";
+import FavoriteCourses from "./pages/favorite-courses-page/FavoriteCourses";
 
 export const Data = createContext();
 export const FetchState = createContext();
@@ -59,12 +61,15 @@ function App() {
             <Route
               path="edit-profile"
               element={
-                <ProtectedRouteProfile>
-                  <EditProfilePage />
-                </ProtectedRouteProfile>
+                // <ProtectedRouteProfile>
+                //   <EditProfilePage />
+                // </ProtectedRouteProfile>
+                <EditProfilePage />
               }
             />{" "}
             <Route path="signup" element={<SignupPage />}></Route>
+            <Route path="payment" element={<SuccessPayment />}></Route>
+            <Route path="favorite" element={<FavoriteCourses />}></Route>
             <Route path="login" element={<LoginPage />}></Route>
           </Routes>{" "}
         </Router>
