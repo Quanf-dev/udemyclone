@@ -1,5 +1,7 @@
 package com.group8.vlearning.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
@@ -8,6 +10,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.group8.vlearning.domain.Course;
 import com.group8.vlearning.domain.User;
 import com.group8.vlearning.domain.UserProfile;
 import com.group8.vlearning.domain.dto.response.ResultPagination;
@@ -127,6 +130,18 @@ public class UserService {
         User user = this.handleFetchUser(id);
         user.setActive(isActive);
         this.userRepository.save(user);
+    }
+
+    public List<Course> handleFetchPurchasedCoursesByUserId(Long id) throws CustomException {
+        User user = this.handleFetchUser(id);
+
+        return user.getPurchasedCourses();
+    }
+
+    public List<Course> handleFetchOwnCoursesByUserId(Long id) throws CustomException {
+        User user = this.handleFetchUser(id);
+
+        return user.getOwnCourses();
     }
 
 }

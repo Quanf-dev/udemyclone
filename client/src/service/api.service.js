@@ -123,6 +123,13 @@ const fetchCourse = (id) => {
     return axios.get(URL_BACKEND);
 }
 
+//payment
+const checkout = (data) => {
+    const URL_BACKEND = `/v1/checkout`
+
+    return axios.post(URL_BACKEND, data);
+}
+
 export {
     createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser,
     fetchSeveralFields,
@@ -130,5 +137,5 @@ export {
     fetchSeveralAchievements,
     uploadFile,
     login, sendEmailVerification,
-    fetchSeveralCourses, fetchCourse
+    fetchSeveralCourses, fetchCourse, checkout
 }

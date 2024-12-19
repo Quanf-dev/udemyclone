@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import styles from './StickyCardContent.module.css';
 import ThisCourseIncludes from '../this-course-includes/ThisCourseIncludes';
+import { checkout } from '../../service/api.service';
+import { useNavigate } from 'react-router-dom';
+
 
 function StickyCardContent({ details, additionalDetails }) {
+    const navigate = useNavigate();
     // const {image_750x422: image} = details;
 
     // get image from data
-    const { image } = details;
+    const { image, price, id, title } = details;
+    console.log(details)
 
     const [hidden, toggleHidden] = useState(false);
 
@@ -19,10 +24,26 @@ function StickyCardContent({ details, additionalDetails }) {
     };
 
 
-
     useEffect(() => {
         window.addEventListener('scroll', handleStyles);
     }, []);
+
+    const handleBuy = async () => {
+        console.log(price, 1, id, title, +localStorage.getItem("id"))
+
+        const data = {
+            amount: price,
+            quantity: 1,
+            productId: id,
+            name: title,
+            userId: +localStorage.getItem("id")
+        }
+
+        const res = await checkout(data)
+        if (res.data.sessionUrl) {
+            window.open(res.data.sessionUrl, "_blank")
+        }
+    }
 
     return (
         <main
@@ -42,14 +63,15 @@ function StickyCardContent({ details, additionalDetails }) {
             </figure>
             <div className={styles.cardBody}>
                 <p className={styles.price}>E£679.99</p>
-                <button
+                {/* <button
                     className={[styles.addToCartButton, styles.button].join(
                         ' '
                     )}
                 >
                     Add to cart
-                </button>
+                </button> */}
                 <button
+                    onClick={handleBuy}
                     className={[styles.buyNowButton, styles.button].join(' ')}
                 >
                     Buy now

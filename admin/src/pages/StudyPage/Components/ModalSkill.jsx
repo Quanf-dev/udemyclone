@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, Select, Button } from "antd";
+import { Modal, Select, Button, Input } from "antd";
 
 function ModalSkill() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -35,7 +35,15 @@ function ModalSkill() {
         onCancel={handleCancel}
       >
         <div>
-          <label htmlFor="skillSelect">Skill</label>
+
+          <label htmlFor="fieldName">Skill Name</label>
+          <Input
+            id="skillName"
+
+            placeholder="Enter field name"
+          />
+
+          <label htmlFor="skillSelect">Select field</label>
           <Select
             id="skillSelect"
             value={selectedSkill}
@@ -47,7 +55,7 @@ function ModalSkill() {
             <Select.Option value="fullstack">Fullstack</Select.Option>
           </Select>
         </div>
-      </Modal>
+      </Modal >
     </>
   );
 }

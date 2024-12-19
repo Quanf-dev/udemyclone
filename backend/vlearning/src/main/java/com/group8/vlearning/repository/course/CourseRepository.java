@@ -8,5 +8,4 @@ import com.group8.vlearning.domain.Course;
 
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Long>, JpaSpecificationExecutor<Course> {
-
 }

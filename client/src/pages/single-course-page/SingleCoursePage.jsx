@@ -35,7 +35,7 @@ function SingleCoursePage() {
     const course = getCourse(courseId);
     console.log(course)
 
-  }, [fetched, notFound, courseDetails, coursesData, courseId]);
+  }, [courseId]);
 
 
 

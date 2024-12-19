@@ -68,7 +68,7 @@ function App() {
               }
             />{" "}
             <Route path="signup" element={<SignupPage />}></Route>
-            <Route path="payment" element={<SuccessPayment />}></Route>
+            <Route path="success" element={<SuccessPayment />}></Route>
             <Route path="favorite" element={<FavoriteCourses />}></Route>
             <Route path="login" element={<LoginPage />}></Route>
           </Routes>{" "}

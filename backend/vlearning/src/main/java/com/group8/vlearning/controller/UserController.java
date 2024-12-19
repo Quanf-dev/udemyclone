@@ -1,5 +1,7 @@
 package com.group8.vlearning.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -8,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group8.vlearning.domain.Course;
 import com.group8.vlearning.domain.User;
 import com.group8.vlearning.domain.dto.request.UpdateActiveUserReq;
 import com.group8.vlearning.domain.dto.response.ResponseDTO;
@@ -25,6 +28,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @RequestMapping("/v1")
@@ -109,6 +113,29 @@ public class UserController {
         res.setMessage("Update user success!");
 
         this.userService.handleActiveUser(id, active.isActive());
+
+        return ResponseEntity.ok().body(res);
+    }
+
+    @GetMapping("/user/{id}/purchased-courses")
+    public ResponseEntity<ResponseDTO<List<Course>>> fetchPurchasedCourses(@PathVariable Long id)
+            throws CustomException {
+        ResponseDTO<List<Course>> res = new ResponseDTO<>();
+
+        res.setStatus(HttpStatus.OK.value());
+        res.setMessage("Fetch purchased courses success!");
+        res.setData(this.userService.handleFetchPurchasedCoursesByUserId(id));
+
+        return ResponseEntity.ok().body(res);
+    }
+
+    @GetMapping("/user/{id}/own-courses")
+    public ResponseEntity<ResponseDTO<List<Course>>> fetchOwnCourses(@PathVariable Long id) throws CustomException {
+        ResponseDTO<List<Course>> res = new ResponseDTO<>();
+
+        res.setStatus(HttpStatus.OK.value());
+        res.setMessage("Fetch own courses success!");
+        res.setData(this.userService.handleFetchOwnCoursesByUserId(id));
 
         return ResponseEntity.ok().body(res);
     }

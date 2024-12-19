@@ -55,7 +55,7 @@ public class Course {
 
     @ManyToOne()
     @JoinColumn(name = "own_by")
-    @JsonIgnoreProperties(value = { "profile", "password", "role", "fields", "skills", "ownCourses",
+    @JsonIgnoreProperties(value = { "password", "role", "fields", "skills", "ownCourses",
             "purchasedCourses", "favoriteCourses", "voucherProgresses", "achievementProgresses", "comments",
             "reactions", "userNotifications", "followings", "followers", "active", "protect", "createdAt",
             "updatedAt" })
