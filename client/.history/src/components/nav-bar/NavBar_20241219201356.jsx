@@ -68,11 +68,7 @@ function NavBar() {
             </button>
           </li>
           <li className={styles.cartButton}>
-            <button
-              onClick={() => navigate("/favorite")}
-              type="button"
-              name="cart-button"
-            >
+            <button onClick={() => navigate()} type="button" name="cart-button">
               <i className="fa-regular fa-heart"></i>
             </button>
           </li>

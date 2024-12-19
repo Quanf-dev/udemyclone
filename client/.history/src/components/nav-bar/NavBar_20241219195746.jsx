@@ -3,7 +3,6 @@ import styles from "./NavBar.module.css";
 import SearchBar from "../search-bar/SearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
-import ConfirmTeachModal from "../teach-on-udemy-modal/ConfirmTeachModal";
 
 function NavBar() {
   // dùng để chuyển trang
@@ -68,12 +67,8 @@ function NavBar() {
             </button>
           </li>
           <li className={styles.cartButton}>
-            <button
-              onClick={() => navigate("/favorite")}
-              type="button"
-              name="cart-button"
-            >
-              <i className="fa-regular fa-heart"></i>
+            <button type="button" name="cart-button">
+              <i className="fa-solid fa-cart-shopping"></i>
             </button>
           </li>
           {!token ? (
@@ -105,10 +100,6 @@ function NavBar() {
           </li>
         </ul>
       </nav>
-      <ConfirmTeachModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
     </>
   );
 }

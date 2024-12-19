@@ -2,26 +2,22 @@
 import React, { useState } from "react";
 import { Box, Typography, Button, Container, Link } from "@mui/material";
 import OTPInput from "../../../../../components/otp-ui/OTP-input";
-import Cookies from "js-cookie";
-import bcrypt from "bcryptjs";
-import {
-  createUser,
-  sendEmailVerification,
-} from "../../../../../service/api.service";
+import Cookies from 'js-cookie';
+import bcrypt from 'bcryptjs';
+import { createUser, sendEmailVerification } from "../../../../../service/api.service";
 import { useNavigate } from "react-router-dom";
 
 const EmailVerification = ({ email, fullName, password }) => {
   const [otp, setOtp] = useState("");
 
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault(); // chặn hành vi mặc định
     // Handle OTP verification logic here
-    const code = Cookies.get("code");
-    console.log(code);
-    if (code) {
-      // Cookie không tồn tại hoặc đã hết hạn
+    const code = Cookies.get('code');
+    console.log(code)
+    if (code) { // Cookie không tồn tại hoặc đã hết hạn
       const isMatch = await bcrypt.compare(otp, code);
       if (isMatch === true) {
         const data = {
@@ -30,27 +26,27 @@ const EmailVerification = ({ email, fullName, password }) => {
           role: "STUDENT",
           profile: {
             fullName,
-            avatar: "default-ava.jpg",
+            avatar: "default-ava.jpg"
           },
           active: true,
-          protect: false,
-        };
-        const res = await createUser(data);
+          protect: false
+        }
+        const res = await createUser(data)
         // neu dang ky thanh cong
         if (res.data) {
-          Cookies.remove("code");
-          navigate("/field");
+          Cookies.remove('code');
+          navigate("/")
         } else {
-          alert("dang ky that bai");
+          alert("dang ky that bai")
         }
       } else {
-        alert("Ma sai hoac het han");
+        alert("Ma sai hoac het han")
       }
     }
   };
 
   const handleResendCode = () => {
-    sendEmailVerification(email);
+    sendEmailVerification(email)
   };
 
   return (

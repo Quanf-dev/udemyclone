@@ -8,34 +8,31 @@ import { Box, Container } from "@mui/material";
 import styles from "./HorizontalLinearStepper.module.css";
 import SurveyForm from "../survey-form/SurveyForm";
 import Occupations from "../occupations-form/Occupations";
-import { useNavigate } from "react-router-dom";
 
 export default function HorizontalLinearStepper() {
-  const maxSteps = 2;
+  const maxSteps = 6;
   const [activeStep, setActiveStep] = React.useState(0);
-  const navigate = useNavigate();
 
   const handleNext = () => {
-    // If we're at the last step, submit and navigate to "/"
-    if (activeStep === maxSteps - 1) {
-      // Perform the submit action (e.g., saving form data)
-      console.log("Form Submitted");
-      navigate("/"); // Navigate to the home page or desired route
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1); // Go to the next step
-    }
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
   const steps = [
     {
       content: <SurveyForm />,
     },
     {
       content: <Occupations />,
+    },
+    {
+      label: "Create an ad",
+      description: `Try out different ad text to see what brings in the most customers,
+                and learn how to enhance your ads using features like ad extensions.
+                If you run into any problems with your ads, find out how to tell if
+                they're running and how to resolve approval issues.`,
     },
   ];
 
@@ -102,9 +99,9 @@ const BottomNavigation = ({ handleBack, handleNext, activeStep, maxSteps }) => {
       <Button
         size="small"
         onClick={handleNext}
-        disabled={activeStep === maxSteps - 1 && false} // Don't disable submit button
+        disabled={activeStep === maxSteps - 1}
       >
-        {activeStep === maxSteps - 1 ? "Submit" : "Next"}
+        Next
         {theme.direction === "rtl" ? (
           <KeyboardArrowLeft />
         ) : (

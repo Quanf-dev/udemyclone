@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from "./NavBar.module.css";
 import SearchBar from "../search-bar/SearchBar";
 import { Link, useNavigate } from "react-router-dom";
 import { message } from "antd";
-import ConfirmTeachModal from "../teach-on-udemy-modal/ConfirmTeachModal";
 
 function NavBar() {
   // dùng để chuyển trang
@@ -23,7 +22,6 @@ function NavBar() {
     // redirect
     navigate("/login");
   };
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
@@ -59,21 +57,13 @@ function NavBar() {
             </button>
           </li>
           <li className={styles.teachOnUdemyButton}>
-            <button
-              onClick={() => setIsModalOpen(true)}
-              type="button"
-              name="teach-on-udemy-button"
-            >
+            <button type="button" name="teach-on-udemy-button">
               Teach on Udemy
             </button>
           </li>
           <li className={styles.cartButton}>
-            <button
-              onClick={() => navigate("/favorite")}
-              type="button"
-              name="cart-button"
-            >
-              <i className="fa-regular fa-heart"></i>
+            <button type="button" name="cart-button">
+              <i className="fa-solid fa-cart-shopping"></i>
             </button>
           </li>
           {!token ? (
@@ -105,10 +95,6 @@ function NavBar() {
           </li>
         </ul>
       </nav>
-      <ConfirmTeachModal
-        isModalOpen={isModalOpen}
-        setIsModalOpen={setIsModalOpen}
-      />
     </>
   );
 }

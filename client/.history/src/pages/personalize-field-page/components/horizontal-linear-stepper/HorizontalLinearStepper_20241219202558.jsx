@@ -102,7 +102,7 @@ const BottomNavigation = ({ handleBack, handleNext, activeStep, maxSteps }) => {
       <Button
         size="small"
         onClick={handleNext}
-        disabled={activeStep === maxSteps - 1 && false} // Don't disable submit button
+        disabled={activeStep === maxSteps - 1}
       >
         {activeStep === maxSteps - 1 ? "Submit" : "Next"}
         {theme.direction === "rtl" ? (
