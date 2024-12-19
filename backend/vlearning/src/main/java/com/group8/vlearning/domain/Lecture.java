@@ -16,6 +16,8 @@ import lombok.Setter;
 
 import java.time.Instant;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 @Table(name = "lectures")
 @Getter
@@ -35,45 +37,21 @@ public class Lecture {
     @NotBlank(message = "Tài liệu không được để trống")
     private String file;
 
+    @ManyToOne
+    @JoinColumn(name = "chapter_id")
+    @JsonIgnoreProperties(value = { "title", "course", "course", "active", "lectures" })
+    private Chapter chapter;
+
     private boolean active;
 
-    // @Column(nullable = false)
-    // private int duration; // Thời lượng bài giảng (phút)
-
-    @Column(nullable = false, updatable = false)
     private Instant createdAt; // Thời gian tạo bài giảng
 
     private Instant updatedAt; // Thời gian cập nhật bài giảng
-
-    @ManyToOne
-    @JoinColumn(name = "chapter_id")
-    private Chapter chapter;
-
-    // Hàm kích hoạt hoặc vô hiệu hóa bài giảng
-    public void toggleActive() {
-        this.active = !this.active;
-    }
-
-    // Hàm kiểm tra trạng thái của bài giảng
-    public boolean isActive() {
-        return active;
-    }
-
-    // Hàm kiểm tra xem bài giảng có khớp từ khóa tìm kiếm không
-    public boolean matchesKeyword(String keyword) {
-        if (keyword == null || keyword.isEmpty()) {
-            return false;
-        }
-        String lowerKeyword = keyword.toLowerCase();
-        return (title != null && title.toLowerCase().contains(lowerKeyword)) ||
-                (file != null && file.toLowerCase().contains(lowerKeyword));
-    }
 
     // Hàm xử lý trước khi tạo
     @jakarta.persistence.PrePersist
     public void handleBeforeCreate() {
         this.createdAt = Instant.now();
-        this.active = true;
     }
 
     // Hàm xử lý trước khi cập nhật

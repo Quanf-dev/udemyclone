@@ -48,7 +48,10 @@ public class ChapterService {
 
     public Chapter handleUpdateChapter(Chapter chapter) throws CustomException {
         Chapter chapterDB = this.handleFetchChapter(chapter.getId());
-        chapterDB.setTitle(chapter.getTitle());
+
+        if (chapter.getTitle() != null && !chapter.getTitle().equals("")) {
+            chapterDB.setTitle(chapter.getTitle());
+        }
 
         return this.chapterRepository.save(chapterDB);
     }
