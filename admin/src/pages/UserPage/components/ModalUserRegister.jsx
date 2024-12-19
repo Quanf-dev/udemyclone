@@ -7,7 +7,7 @@ import {
   LockOutlined,
 } from "@ant-design/icons";
 import AvatarUpload from "../../../components/AvatarUpload/AvatarUpload";
-import { createUser, uploadFile } from "../../../service/api.service";
+import { createUser, updateUser, uploadFile } from "../../../service/api.service";
 
 const ModalUserRegister = ({ loadData }) => {
   const [fileList, setFileList] = useState([]);
@@ -38,8 +38,7 @@ const ModalUserRegister = ({ loadData }) => {
     const values = form.getFieldsValue();
     const profile = {
       fullName: values.fullName,
-      avatar:
-        fileList.length > 0 ? `${fileList[0].name}` : "default-ava.jpg",
+      avatar: "default-ava.jpg",
       address: values.address,
       phone: values.phone,
     };
@@ -56,10 +55,22 @@ const ModalUserRegister = ({ loadData }) => {
     if (res.data) {
       notification.success({ message: "Success", description: res.message });
       if (fileList.length > 0) {
-        await uploadFile(fileList[0].originFileObj, "user", res.data.id);
+        const resUpload = await uploadFile(fileList[0].originFileObj, "user", res.data.id);
+
+        if (resUpload.data) {
+          const userAva = {
+            id: res.data.id,
+            profile: {
+              avatar: resUpload.data
+            }
+          }
+          await updateUser(userAva)
+        }
       }
+
       await loadData();
       handleCancel();
+
     } else {
       notification.error({
         message: "Failed",

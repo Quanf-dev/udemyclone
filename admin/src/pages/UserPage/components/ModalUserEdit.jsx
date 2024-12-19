@@ -55,7 +55,7 @@ const ModalUserEdit = (props) => {
 
     const profile = {
       fullName: fullName,
-      avatar: fileList.length > 0 ? `${fileList[0].name}` : "default-ava.jpg",
+      avatar: "default-ava.jpg",
       address: address,
       phone: phone
     }
@@ -78,7 +78,16 @@ const ModalUserEdit = (props) => {
       });
 
       if (fileList.length > 0) {
-        await uploadFile(fileList[0].originFileObj, "user", res.data.id, "ava-")
+        const resUpload = await uploadFile(fileList[0].originFileObj, "user", res.data.id)
+        if (resUpload.data) {
+          const userAva = {
+            id: res.data.id,
+            profile: {
+              avatar: resUpload.data
+            }
+          }
+          await updateUser(userAva)
+        }
       }
 
       await loadData()

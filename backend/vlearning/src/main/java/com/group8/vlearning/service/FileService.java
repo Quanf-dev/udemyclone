@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.Instant;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -37,18 +38,17 @@ public class FileService {
         } catch (Exception e) {
             throw new CustomException("Create folder failed");
         }
-
     }
 
     public String storeFile(MultipartFile file, String storePath) throws CustomException {
         try {
-            String newFilePath = storePath + "/" + file.getOriginalFilename();
+            long milliseconds = Instant.now().toEpochMilli();
+            String newFilePath = storePath + "/" + milliseconds + "-" + file.getOriginalFilename();
 
             Path path = Paths.get(newFilePath);
 
             InputStream inputStream = file.getInputStream();
-            // this.deleteFiles(storePath, purposeOfFile); // xóa các file cùng mục đích sử
-            // dụng
+            // this.deleteFiles(storePath, purposeOfFile);
             Files.copy(inputStream, path, StandardCopyOption.REPLACE_EXISTING);
 
             return path.getFileName().toString();
