@@ -68,12 +68,8 @@ function NavBar() {
             </button>
           </li>
           <li className={styles.cartButton}>
-            <button
-              onClick={() => navigate("/favorite")}
-              type="button"
-              name="cart-button"
-            >
-              <i className="fa-regular fa-heart"></i>
+            <button type="button" name="cart-button">
+              <i className="fa-solid fa-cart-shopping"></i>
             </button>
           </li>
           {!token ? (

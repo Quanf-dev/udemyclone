@@ -11,25 +11,17 @@ import Occupations from "../occupations-form/Occupations";
 import { useNavigate } from "react-router-dom";
 
 export default function HorizontalLinearStepper() {
-  const maxSteps = 2;
+  const maxSteps = 1;
   const [activeStep, setActiveStep] = React.useState(0);
   const navigate = useNavigate();
-
   const handleNext = () => {
-    // If we're at the last step, submit and navigate to "/"
-    if (activeStep === maxSteps - 1) {
-      // Perform the submit action (e.g., saving form data)
-      console.log("Form Submitted");
-      navigate("/"); // Navigate to the home page or desired route
-    } else {
-      setActiveStep((prevActiveStep) => prevActiveStep + 1); // Go to the next step
-    }
+    if (activeStep === maxSteps) navigate("/");
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
 
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
   const steps = [
     {
       content: <SurveyForm />,
@@ -102,9 +94,9 @@ const BottomNavigation = ({ handleBack, handleNext, activeStep, maxSteps }) => {
       <Button
         size="small"
         onClick={handleNext}
-        disabled={activeStep === maxSteps - 1 && false} // Don't disable submit button
+        disabled={activeStep === maxSteps - 1}
       >
-        {activeStep === maxSteps - 1 ? "Submit" : "Next"}
+        Next
         {theme.direction === "rtl" ? (
           <KeyboardArrowLeft />
         ) : (

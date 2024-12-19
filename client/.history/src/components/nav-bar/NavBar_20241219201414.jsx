@@ -69,7 +69,7 @@ function NavBar() {
           </li>
           <li className={styles.cartButton}>
             <button
-              onClick={() => navigate("/favorite")}
+              onClick={() => navigate("/  favorite")}
               type="button"
               name="cart-button"
             >

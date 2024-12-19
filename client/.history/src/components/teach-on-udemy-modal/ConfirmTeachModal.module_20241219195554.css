@@ -1,0 +1,54 @@
+/* Modal.module.css */
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.modalBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inputField {
+  margin-bottom: 10px;
+}
+
+.inputField input {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.button {
+  display: flex;
+  justify-content: space-between;
+}
+
+.button button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.button button.cancel {
+  background-color: #f44336;
+  color: white;
+}
+
+.button button.submit {
+  background-color: #4caf50;
+  color: white;
+}
