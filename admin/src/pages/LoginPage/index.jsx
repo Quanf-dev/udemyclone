@@ -56,7 +56,7 @@ export default function LoginPage() {
         }}
       >
         <Space>
-          <Typography.Title level={2}>Udemy Admin</Typography.Title>
+          <Typography.Title level={2}>VLearning Admin</Typography.Title>
         </Space>
         <Form.Item
           name="username"

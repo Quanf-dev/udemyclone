@@ -65,7 +65,7 @@ const SideMenu = () => {
             marginLeft: "-20px",
           }}
         >
-          Udemy Admin
+          VLearning Admin
         </Typography.Text>
       </Space>
       <Menu
