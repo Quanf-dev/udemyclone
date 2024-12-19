@@ -66,7 +66,7 @@ public class Course {
     @Enumerated(EnumType.STRING)
     private CourseApproveEnum status;
 
-    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Chapter> chapters;
 
