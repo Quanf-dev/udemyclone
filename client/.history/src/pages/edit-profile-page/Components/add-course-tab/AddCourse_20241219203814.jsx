@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Grid,
-  Modal,
-  TextField,
-  Typography,
-  MenuItem,
-  Select,
-  InputLabel,
-  FormControl,
-} from "@mui/material";
+import { Box, Button, Grid, Modal, TextField, Typography } from "@mui/material";
 import CourseCard from "../course-card/CourseCard";
 
 const AddCourse = () => {
@@ -22,7 +11,7 @@ const AddCourse = () => {
     image: "",
     price: "",
     field: "",
-    skills: [],
+    skills: "",
   });
   const [editCourse, setEditCourse] = useState(null);
 
@@ -54,36 +43,6 @@ const AddCourse = () => {
     setEditOpen(false);
   };
 
-  const handleFieldChange = (e) => {
-    const { value } = e.target;
-    setNewCourse((prev) => ({
-      ...prev,
-      field: value,
-      skills: [], // Reset skills when field changes
-    }));
-  };
-
-  const handleSkillsChange = (e) => {
-    const { value } = e.target;
-    setNewCourse((prev) => ({
-      ...prev,
-      skills: value,
-    }));
-  };
-
-  // Fields and corresponding skills
-  const fields = [
-    { label: "Web Development", value: "webDev" },
-    { label: "Programming", value: "programming" },
-    { label: "Design", value: "design" },
-  ];
-
-  const skillsByField = {
-    webDev: ["JavaScript", "React", "HTML", "CSS"],
-    programming: ["JavaScript", "Python", "C++", "Algorithms"],
-    design: ["Figma", "Sketch", "UI/UX Design", "Prototyping"],
-  };
-
   const courses = [
     {
       title: "React for Beginners",
@@ -107,7 +66,7 @@ const AddCourse = () => {
       image: "https://via.placeholder.com/300x200",
       price: "39.99",
       field: "Design",
-      skills: ["Figma", "Prototyping", "Design Principles"],
+      skills: ["Figma", "Prototyping", "Design Pri"],
     },
   ];
 
@@ -123,10 +82,15 @@ const AddCourse = () => {
       <Grid container spacing={2}>
         {courses.map((course, index) => (
           <Grid item xs={12} sm={6} md={4} key={index}>
-            <CourseCard
-              {...course}
-              onEdit={() => handleEditOpen(course)} // Edit button functionality
-            />
+            <CourseCard {...course} />
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => handleEditOpen(course)}
+              style={{ marginTop: "8px" }}
+            >
+              Edit
+            </Button>
           </Grid>
         ))}
       </Grid>
@@ -191,44 +155,25 @@ const AddCourse = () => {
             margin="normal"
             onChange={handleInputChange}
           />
-
-          {/* Field Dropdown */}
-          <FormControl fullWidth margin="normal">
-            <InputLabel>Field</InputLabel>
-            <Select
-              value={newCourse.field}
-              name="field"
-              onChange={handleFieldChange}
-              label="Field"
-            >
-              {fields.map((field) => (
-                <MenuItem key={field.value} value={field.value}>
-                  {field.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          {/* Skills Dropdown */}
-          {newCourse.field && (
-            <FormControl fullWidth margin="normal">
-              <InputLabel>Skills</InputLabel>
-              <Select
-                multiple
-                value={newCourse.skills}
-                name="skills"
-                onChange={handleSkillsChange}
-                label="Skills"
-              >
-                {skillsByField[newCourse.field].map((skill, index) => (
-                  <MenuItem key={index} value={skill}>
-                    {skill}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-
+          <TextField
+            label="Field"
+            name="field"
+            fullWidth
+            margin="normal"
+            onChange={handleInputChange}
+          />
+          <TextField
+            label="Skills (comma-separated)"
+            name="skills"
+            fullWidth
+            margin="normal"
+            onChange={(e) =>
+              setNewCourse((prev) => ({
+                ...prev,
+                skills: e.target.value.split(","),
+              }))
+            }
+          />
           <Button
             variant="contained"
             color="primary"
@@ -294,49 +239,27 @@ const AddCourse = () => {
             value={editCourse?.price || ""}
             onChange={handleEditInputChange}
           />
-
-          {/* Edit Field Dropdown */}
-          <FormControl fullWidth margin="normal">
-            <InputLabel>Field</InputLabel>
-            <Select
-              value={editCourse?.field || ""}
-              name="field"
-              onChange={handleEditInputChange}
-              label="Field"
-            >
-              {fields.map((field) => (
-                <MenuItem key={field.value} value={field.value}>
-                  {field.label}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-
-          {/* Edit Skills Dropdown */}
-          {editCourse?.field && (
-            <FormControl fullWidth margin="normal">
-              <InputLabel>Skills</InputLabel>
-              <Select
-                multiple
-                value={editCourse?.skills || []}
-                name="skills"
-                onChange={(e) =>
-                  setEditCourse((prev) => ({
-                    ...prev,
-                    skills: e.target.value,
-                  }))
-                }
-                label="Skills"
-              >
-                {skillsByField[editCourse.field].map((skill, index) => (
-                  <MenuItem key={index} value={skill}>
-                    {skill}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
-
+          <TextField
+            label="Field"
+            name="field"
+            fullWidth
+            margin="normal"
+            value={editCourse?.field || ""}
+            onChange={handleEditInputChange}
+          />
+          <TextField
+            label="Skills (comma-separated)"
+            name="skills"
+            fullWidth
+            margin="normal"
+            value={editCourse?.skills?.join(",") || ""}
+            onChange={(e) =>
+              setEditCourse((prev) => ({
+                ...prev,
+                skills: e.target.value.split(","),
+              }))
+            }
+          />
           <Button
             variant="contained"
             color="primary"

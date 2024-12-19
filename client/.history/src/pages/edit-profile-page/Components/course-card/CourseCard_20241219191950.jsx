@@ -1,7 +1,7 @@
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import styles from "./CourseCard.module.css";
 
-const CourseCard = ({ title, desc, image, price, field, skills, onEdit }) => {
+const CourseCard = ({ title, desc, image, price, field, skills }) => {
   return (
     <Card className={styles.card}>
       <img src={image} alt={title} className={styles.image} />
@@ -17,14 +17,6 @@ const CourseCard = ({ title, desc, image, price, field, skills, onEdit }) => {
             </span>
           ))}
         </div>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={onEdit}
-          style={{ marginTop: "8px" }}
-        >
-          Edit
-        </Button>
       </CardContent>
     </Card>
   );

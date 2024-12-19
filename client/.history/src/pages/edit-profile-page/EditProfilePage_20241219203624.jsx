@@ -119,7 +119,7 @@ const EditProfilePage = () => {
   return (
     <>
       <NavBar />
-      <Container className={styles.container}>
+      <div className={styles.container}>
         <Box sx={{ display: "flex" }}>
           {/* Sidebar with tabs */}
           <Box className={styles.sidebar} sx={{ flexShrink: 0, width: 200 }}>
@@ -233,7 +233,7 @@ const EditProfilePage = () => {
             </TabPanel>
           </Box>
         </Box>
-      </Container>
+      </div>
     </>
   );
 };
