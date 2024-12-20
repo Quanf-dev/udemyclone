@@ -43,6 +43,18 @@ const activeUser = (id, isActive) => {
     return axios.patch(URL_BACKEND, { active: isActive })
 }
 
+const fetchPurchasedCourse = (id) => {
+    const URL_BACKEND = `/v1/user/${id}/purchased-courses`
+
+    return axios.get(URL_BACKEND)
+}
+
+const fetchOwnCourse = (id) => {
+    const URL_BACKEND = `/v1/user/${id}/own-courses`
+
+    return axios.get(URL_BACKEND)
+}
+
 // field
 const fetchSeveralFields = () => {
     const URL_BACKEND = `/v1/fields`
@@ -111,6 +123,12 @@ const sendEmailVerification = (email) => {
 }
 
 // course
+const createCourse = (data) => {
+    const URL_BACKEND = "/v1/course"
+
+    return axios.post(URL_BACKEND, data);
+}
+
 const fetchSeveralCourses = () => {
     const URL_BACKEND = "/v1/courses"
 
@@ -125,17 +143,19 @@ const fetchCourse = (id) => {
 
 //payment
 const checkout = (data) => {
-    const URL_BACKEND = `/v1/checkout`
+    const URL_BACKEND = `/ v1 / checkout`
 
     return axios.post(URL_BACKEND, data);
 }
 
+
 export {
-    createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser,
+    createUser, fetchUser, fetchSeveralUsersForRoot, fetchSeveralUsersForAdmin, deleteUser, updateUser, activeUser, fetchPurchasedCourse, fetchOwnCourse,
     fetchSeveralFields,
     fetchSeveralSkills,
     fetchSeveralAchievements,
     uploadFile,
     login, sendEmailVerification,
-    fetchSeveralCourses, fetchCourse, checkout
+    createCourse, fetchSeveralCourses, fetchCourse,
+    checkout
 }

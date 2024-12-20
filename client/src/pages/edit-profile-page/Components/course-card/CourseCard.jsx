@@ -20,8 +20,7 @@ const CourseCard = ({ title, desc, image, price, field, skills, onEdit }) => {
         <Button
           variant="outlined"
           color="primary"
-          onClick={onEdit}
-          style={{ marginTop: "8px" }}
+          style={{ marginTop: "8px", display: onEdit ? "" : "none" }}
         >
           Edit
         </Button>

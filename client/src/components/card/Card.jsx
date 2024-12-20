@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const Card = ({ course }) => {
   // const { title, visible_instructors, image_304x171: image, rating } = course;
-  const { title, image } = course;
+  const { title, ownBy: { email } } = course;
   // const instructors = visible_instructors
   //   .map((instructor) => instructor.title)
   //   .join(", ");
@@ -40,15 +40,15 @@ const Card = ({ course }) => {
       >
         <article className={styles.card}>
           <figure className={styles.wrapper}>
-            <img src="https://picsum.photos/200/300" alt="" />
+            <img src="https://img-c.udemycdn.com/course/125_H/8324_fa84_13.jpg" alt="" />
           </figure>
           <section className={styles.body}>
             <Link to={`/courses/${course.id}`} className={styles.courseTitle}>
               <p>{title}</p>
             </Link>
-            {/* <p className={styles.instructors}>{instructors}</p> */}
-            {/* <p className={styles.rating}>{rating.toPrecision(2)}</p> */}
-            {/* <StarsRating rating={rating} /> */}
+            <p className={styles.instructors}>{email}</p>
+            <p className={styles.rating}>{4.5123.toPrecision(2)}</p>
+            <StarsRating rating={4.5123} />
             <p className={styles.price}>$15</p>
           </section>
         </article>

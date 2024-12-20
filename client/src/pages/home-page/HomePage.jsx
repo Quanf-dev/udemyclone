@@ -31,11 +31,10 @@ function HomePage() {
     <>
       <NavBar />
       <Header />
-      {/* <CoursesSection /> */}
+      <CoursesSection />
       <PartnerBanner />
       <Footer />
 
-      {/* <CoursesSection /> */}
     </>
   );
 }
