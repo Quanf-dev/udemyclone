@@ -143,7 +143,7 @@ const fetchCourse = (id) => {
 
 //payment
 const checkout = (data) => {
-    const URL_BACKEND = `/ v1 / checkout`
+    const URL_BACKEND = `/v1/checkout`
 
     return axios.post(URL_BACKEND, data);
 }

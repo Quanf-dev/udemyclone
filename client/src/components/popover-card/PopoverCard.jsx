@@ -33,7 +33,7 @@ function PopoverCard({ course }) {
       {/* <p>{course.headline}</p> */}
       {/* {objectives} */}
       <div className={styles.buttonsSection}>
-        <button className={styles.addToCart}>Add to cart</button>
+        {/* <button className={styles.addToCart}>Add to cart</button> */}
         <button className={styles.heartButton}>
           <i className="fa-regular fa-heart"></i>
         </button>
