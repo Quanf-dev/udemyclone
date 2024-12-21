@@ -25,23 +25,23 @@ public class AchievementService {
     @Autowired
     private UserRepository userRepository;
 
-    public Achievement handleCreateAchievement(Achievement achievement) {
-        this.achievementRepository.save(achievement);
+    // public Achievement handleCreateAchievement(Achievement achievement) {
+    // this.achievementRepository.save(achievement);
 
-        List<User> users = this.userRepository.findAll();
-        for (User user : users) {
-            UserAchievementProgress pro = new UserAchievementProgress();
+    // List<User> users = this.userRepository.findAll();
+    // for (User user : users) {
+    // UserAchievementProgress pro = new UserAchievementProgress();
 
-            pro.setUser(user);
-            pro.setAchievement(achievement);
-            pro.setProgress(0);
-            pro.setStatus(ProgressEnum.INCOMPLETE);
+    // pro.setUser(user);
+    // pro.setAchievement(achievement);
+    // pro.setProgress(0);
+    // pro.setStatus(ProgressEnum.INCOMPLETE);
 
-            this.achievementProgressRepository.save(pro);
-        }
+    // this.achievementProgressRepository.save(pro);
+    // }
 
-        return achievement;
-    }
+    // return achievement;
+    // }
 
     public Achievement handleFetchAchievement(Long id) {
         return this.achievementRepository.findById(id).isPresent() ? this.achievementRepository.findById(id).get()

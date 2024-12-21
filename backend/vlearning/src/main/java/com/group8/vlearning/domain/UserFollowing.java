@@ -28,13 +28,13 @@ public class UserFollowing {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private User user;
+    // @ManyToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "user_id")
+    // private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_following_id")
-    private User userFollowing;
+    // @ManyToOne(cascade = CascadeType.ALL)
+    // @JoinColumn(name = "user_following_id")
+    // private User userFollowing;
 
     private boolean notification;
 }

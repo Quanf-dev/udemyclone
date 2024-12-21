@@ -26,17 +26,18 @@ public class VoucherController {
     @Autowired
     private VoucherService voucherService;
 
-    @PostMapping("/voucher")
-    public ResponseEntity<ResponseDTO<Voucher>> createVoucher(@RequestBody Voucher voucher) {
+    // @PostMapping("/voucher")
+    // public ResponseEntity<ResponseDTO<Voucher>> createVoucher(@RequestBody
+    // Voucher voucher) {
 
-        ResponseDTO<Voucher> res = new ResponseDTO<>();
+    // ResponseDTO<Voucher> res = new ResponseDTO<>();
 
-        res.setStatus(HttpStatus.CREATED.value());
-        res.setMessage("Create voucher success!");
-        res.setData(this.voucherService.handleCreateVoucher(voucher));
+    // res.setStatus(HttpStatus.CREATED.value());
+    // res.setMessage("Create voucher success!");
+    // res.setData(this.voucherService.handleCreateVoucher(voucher));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(res);
-    }
+    // return ResponseEntity.status(HttpStatus.CREATED).body(res);
+    // }
 
     @GetMapping("/voucher/{id}")
     public ResponseEntity<ResponseDTO<Voucher>> fetchVoucher(@PathVariable Long id) throws CustomException {

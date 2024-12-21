@@ -26,17 +26,18 @@ public class AchievementController {
     @Autowired
     private AchievementService achievementService;
 
-    @PostMapping("/achievement")
-    public ResponseEntity<ResponseDTO<Achievement>> createAchievement(@RequestBody Achievement achievement) {
+    // @PostMapping("/achievement")
+    // public ResponseEntity<ResponseDTO<Achievement>>
+    // createAchievement(@RequestBody Achievement achievement) {
 
-        ResponseDTO<Achievement> res = new ResponseDTO<>();
+    // ResponseDTO<Achievement> res = new ResponseDTO<>();
 
-        res.setStatus(HttpStatus.CREATED.value());
-        res.setMessage("Create achievement success!");
-        res.setData(this.achievementService.handleCreateAchievement(achievement));
+    // res.setStatus(HttpStatus.CREATED.value());
+    // res.setMessage("Create achievement success!");
+    // res.setData(this.achievementService.handleCreateAchievement(achievement));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(res);
-    }
+    // return ResponseEntity.status(HttpStatus.CREATED).body(res);
+    // }
 
     @GetMapping("/achievement/{id}")
     public ResponseEntity<ResponseDTO<Achievement>> fetchAchievement(@PathVariable Long id) throws CustomException {

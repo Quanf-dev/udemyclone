@@ -52,9 +52,10 @@ public class Notification {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss a", timezone = "GMT+7")
     private Instant createdAt;
 
-    @ManyToMany(mappedBy = "userNotifications", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<User> users;
+    // @ManyToMany(mappedBy = "userNotifications", fetch = FetchType.LAZY, cascade =
+    // CascadeType.ALL)
+    // @JsonIgnore
+    // private List<User> users;
 
     @PrePersist
     public void handleBeforeCreate() {

@@ -22,35 +22,36 @@ public class NotificationService {
     @Autowired
     private UserRepository userRepository;
 
-    public Notification handleCreateNotification(CreateNotificationReq reqNotification) {
+    // public Notification handleCreateNotification(CreateNotificationReq
+    // reqNotification) {
 
-        Notification notification = reqNotification.getNotification();
-        this.notificationRepository.save(notification);
+    // Notification notification = reqNotification.getNotification();
+    // this.notificationRepository.save(notification);
 
-        for (User user : reqNotification.getUsers()) {
-            // nếu người dùng tồn tại
-            if (this.userRepository.findById(user.getId()).isPresent()) {
-                User userInDB = this.userRepository.findById(user.getId()).get();
-                List<Notification> newList;
+    // for (User user : reqNotification.getUsers()) {
+    // // nếu người dùng tồn tại
+    // if (this.userRepository.findById(user.getId()).isPresent()) {
+    // User userInDB = this.userRepository.findById(user.getId()).get();
+    // List<Notification> newList;
 
-                // nếu người dùng chưa có thông báo trước đó
-                if (userInDB.getUserNotifications().isEmpty()) {
-                    newList = new ArrayList();
-                }
-                // nếu đã có thông báo khác trước đó
-                else {
-                    newList = userInDB.getUserNotifications();
-                }
+    // // nếu người dùng chưa có thông báo trước đó
+    // if (userInDB.getUserNotifications().isEmpty()) {
+    // newList = new ArrayList();
+    // }
+    // // nếu đã có thông báo khác trước đó
+    // else {
+    // newList = userInDB.getUserNotifications();
+    // }
 
-                newList.add(notification);
-                userInDB.setUserNotifications(newList);
+    // newList.add(notification);
+    // userInDB.setUserNotifications(newList);
 
-                this.userRepository.save(userInDB);
-            }
-        }
+    // this.userRepository.save(userInDB);
+    // }
+    // }
 
-        return notification;
-    }
+    // return notification;
+    // }
 
     public Notification handleFetchNotification(Long id) throws CustomException {
         if (!this.notificationRepository.findById(id).isPresent()) {

@@ -27,17 +27,18 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @PostMapping("/notification")
-    public ResponseEntity<ResponseDTO<Notification>> createNotification(@RequestBody CreateNotificationReq req) {
+    // @PostMapping("/notification")
+    // public ResponseEntity<ResponseDTO<Notification>>
+    // createNotification(@RequestBody CreateNotificationReq req) {
 
-        ResponseDTO<Notification> res = new ResponseDTO<>();
+    // ResponseDTO<Notification> res = new ResponseDTO<>();
 
-        res.setStatus(HttpStatus.CREATED.value());
-        res.setMessage("Create notification success!");
-        res.setData(this.notificationService.handleCreateNotification(req));
+    // res.setStatus(HttpStatus.CREATED.value());
+    // res.setMessage("Create notification success!");
+    // res.setData(this.notificationService.handleCreateNotification(req));
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(res);
-    }
+    // return ResponseEntity.status(HttpStatus.CREATED).body(res);
+    // }
 
     @GetMapping("/notification/{id}")
     public ResponseEntity<ResponseDTO<Notification>> fetchNotification(@PathVariable Long id) throws CustomException {

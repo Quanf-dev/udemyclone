@@ -25,23 +25,23 @@ public class VoucherService {
     @Autowired
     private UserRepository userRepository;
 
-    public Voucher handleCreateVoucher(Voucher voucher) {
+    // public Voucher handleCreateVoucher(Voucher voucher) {
 
-        this.voucherRepository.save(voucher);
+    // this.voucherRepository.save(voucher);
 
-        List<User> users = this.userRepository.findAll();
-        for (User user : users) {
-            UserVoucherProgress pro = new UserVoucherProgress();
-            pro.setUser(user);
-            pro.setVoucher(voucher);
-            pro.setProgress(0);
-            pro.setStatus(ProgressEnum.INCOMPLETE);
+    // List<User> users = this.userRepository.findAll();
+    // for (User user : users) {
+    // UserVoucherProgress pro = new UserVoucherProgress();
+    // pro.setUser(user);
+    // pro.setVoucher(voucher);
+    // pro.setProgress(0);
+    // pro.setStatus(ProgressEnum.INCOMPLETE);
 
-            this.voucherProgressRepository.save(pro);
-        }
+    // this.voucherProgressRepository.save(pro);
+    // }
 
-        return voucher;
-    }
+    // return voucher;
+    // }
 
     public Voucher handleFetchVoucher(Long id) {
         return this.voucherRepository.findById(id).isPresent() ? this.voucherRepository.findById(id).get() : null;

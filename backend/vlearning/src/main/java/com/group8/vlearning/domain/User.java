@@ -83,13 +83,15 @@ public class User {
     @JsonIgnore
     private List<Course> favoriteCourses;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<UserVoucherProgress> voucherProgresses;
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch =
+    // FetchType.LAZY)
+    // @JsonIgnore
+    // private List<UserVoucherProgress> voucherProgresses;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<UserAchievementProgress> achievementProgresses;
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch =
+    // FetchType.LAZY)
+    // @JsonIgnore
+    // private List<UserAchievementProgress> achievementProgresses;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
@@ -99,20 +101,23 @@ public class User {
     @JsonIgnore
     private List<CommentReaction> reactions;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinTable(name = "notification_user", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "notification_id"))
-    @JsonIgnore
-    private List<Notification> userNotifications;
+    // @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    // @JoinTable(name = "notification_user", joinColumns = @JoinColumn(name =
+    // "user_id"), inverseJoinColumns = @JoinColumn(name = "notification_id"))
+    // @JsonIgnore
+    // private List<Notification> userNotifications;
 
-    // danh sách những người user đang theo dõi
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<UserFollowing> followings;
+    // // danh sách những người user đang theo dõi
+    // @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch =
+    // FetchType.LAZY)
+    // @JsonIgnore
+    // private List<UserFollowing> followings;
 
-    // danh sách những followers của user
-    @OneToMany(mappedBy = "userFollowing", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<UserFollowing> followers;
+    // // danh sách những followers của user
+    // @OneToMany(mappedBy = "userFollowing", cascade = CascadeType.ALL, fetch =
+    // FetchType.LAZY)
+    // @JsonIgnore
+    // private List<UserFollowing> followers;
 
     private boolean active;
 

@@ -28,9 +28,9 @@ public class UserAchievementProgress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    // @ManyToOne
+    // @JoinColumn(name = "user_id")
+    // private User user;
 
     @ManyToOne
     @JoinColumn(name = "achievement_id")
